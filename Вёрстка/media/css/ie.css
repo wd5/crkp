@@ -1,0 +1,32 @@
+@charset "utf-8";
+/*6-7*/
+.col,
+.menu li,
+.service_teaser,
+.connect_menu li,
+.status_menu li,
+.calc_add,
+.faq_head, .vacancy_head,
+.license,
+.footer_menu li,
+.btn, .btn_in {
+	*display:inline;
+	*zoom:1;
+}
+.faq_head span,
+.vacancy_head span,
+.status_menu a {
+	*position: relative;
+}
+.status_menu a {
+	*line-height: 22px;
+}
+.calc_add {
+	*line-height: 21px;
+}
+.calc_submit input {
+	*width: 240px;
+}
+/*6-7*/
+
+
