@@ -32,17 +32,14 @@ register = template.Library()
 #                        site_menu[i].is_active = False
 #    return site_menu
 #
-#@register.inclusion_tag("siteblocks/block_menu.html")
-#def block_menu(url):
-#    url = url.split('/')
-#
-#    if url[1]:
-#        current = u'/%s/' % url[1]
-#    else:
-#        current = u'/'
-#    menu = SiteMenu.objects.all()
-#    menu = get_active_menu(url, menu)
-#    return {'menu': menu, 'current': current}
+@register.inclusion_tag("siteblocks/block_menu.html")
+def block_menu(url):
+    url = url.split('/')
+    if url[1]:
+        current = u'/%s/' % url[1]
+    else:
+        current = u'/'
+    return {'current': current}
 
 @register.inclusion_tag("siteblocks/block_setting.html")
 def block_static(name):
