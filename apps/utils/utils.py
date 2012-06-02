@@ -3,11 +3,16 @@ import os
 from django.core.mail import EmailMultiAlternatives
 from django.contrib.sites.models import Site
 from django.http import HttpResponse
+from django.db import models
 from apps.siteblocks.models import Settings
 from django.template.loader import get_template
 from django.template import Context
-import xhtml2pdf.pisa as pisa
+from sorl.thumbnail import ImageField as sorl_ImageField
 import settings
+#import xhtml2pdf.pisa as pisa
+
+class ImageField(models.ImageField, sorl_ImageField):
+    pass
 
 def random_key(length=6, allowed_chars='abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789'):
     from random import choice
@@ -76,3 +81,5 @@ def send_emails(m, file):
            (m.id, m.name, m.email, m.phone)
 
     send_order_email(subject, html_content, email_list, file)
+
+

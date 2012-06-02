@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-16 16:21+1000\n"
+"POT-Creation-Date: 2012-06-02 18:22+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #: dashboard.py:17
 msgid "Quick links"
@@ -76,127 +76,110 @@ msgstr ""
 msgid "Dashboard"
 msgstr ""
 
-#: apps/faq/
-msgid "Faq"
-msgstr "Вопрос/Ответ"
-
+#: apps/faq/__init__.py:2
 msgid "faq"
 msgstr "вопрос/Ответ"
 
-msgid "questions"
-msgstr "вопросы"
+#: apps/faq/__init__.py:3
+msgid "Faq"
+msgstr "Вопрос/Ответ"
 
+#: apps/faq/models.py:44
 msgid "question"
 msgstr "вопрос"
 
-msgid "question_category"
-msgstr "категория"
+#: apps/faq/models.py:45
+msgid "questions"
+msgstr "вопросы"
 
-msgid "question_categories"
-msgstr "категории вопросов"
-
-
-
-#: apps/newsboard/
-msgid "Newsboard"
-msgstr "Новости"
-
-msgid "newsboard"
-msgstr "новости"
-
-msgid "news_items"
-msgstr "новости"
-
-msgid "news_item"
-msgstr "новость"
-
-msgid "news_categories"
-msgstr "категории новостей"
-
-msgid "news_category"
-msgstr "категория"
-
-
-#: apps/pages/
-msgid "Pages"
-msgstr "Структура сайта"
-
+#: apps/pages/__init__.py:2
 msgid "pages"
 msgstr "структура сайта"
 
-msgid "page_items"
-msgstr "страницы"
+#: apps/pages/__init__.py:3
+msgid "Pages"
+msgstr "Структура сайта"
 
+#: apps/pages/models.py:29
 msgid "page_item"
 msgstr "страница"
 
+#: apps/pages/models.py:30
+msgid "page_items"
+msgstr "страницы"
 
+#: apps/services/__init__.py:2
+msgid "services"
+msgstr "раздел услуг"
 
-#: apps/products/
-msgid "Products"
-msgstr "Товары"
+#: apps/services/__init__.py:3
+msgid "Services"
+msgstr "Раздел услуг"
 
-msgid "products"
-msgstr "товары"
+#: apps/services/models.py:21
+msgid "service_item"
+msgstr "услуга"
 
-msgid "categories"
-msgstr "категории"
+#: apps/services/models.py:22
+msgid "service_items"
+msgstr "услуги"
 
-msgid "category"
-msgstr "категория"
+#: apps/services/models.py:41
+msgid "document"
+msgstr "документ"
 
-msgid "product_items"
-msgstr "товары"
+#: apps/services/models.py:42
+msgid "documents"
+msgstr "список документов"
 
-msgid "product_item"
-msgstr "товар"
+#: apps/services/models.py:54
+msgid "bl_subject"
+msgstr "человек"
 
-msgid "phrases"
-msgstr "фразы для поиска"
+#: apps/services/models.py:55
+msgid "bl_subjects"
+msgstr "черный список"
 
-msgid "phrase"
-msgstr "фраза"
-
-msgid "product_photos"
-msgstr "фотографии товара"
-
-msgid "product_photo"
-msgstr "фотография"
-
-
-
-#: apps/siteblocks/
-msgid "Siteblocks"
-msgstr "Блоки сайта"
-
+#: apps/siteblocks/__init__.py:2
 msgid "siteblocks"
 msgstr "блоки сайта"
 
-msgid "menu_item"
-msgstr "элемент"
+#: apps/siteblocks/__init__.py:3
+msgid "Siteblocks"
+msgstr "Блоки сайта"
 
-msgid "menu_items"
-msgstr "элементы меню"
-
+#: apps/siteblocks/models.py:35
 msgid "site_setting"
 msgstr "параметр"
 
+#: apps/siteblocks/models.py:36
 msgid "site_settings"
 msgstr "настройки сайта"
 
+#: apps/techconnection/__init__.py:2
+msgid "Techconnection"
+msgstr "Раздел Технологическое присоединение"
 
-#: apps/slider/__init__.py:2
-msgid "Slider"
-msgstr "Слайдер"
+msgid "techconnection"
+msgstr "раздел технологическое присоединение"
 
-msgid "slider"
-msgstr "Слайдер"
+msgid "electroloaders"
+msgstr "электропотребители"
 
-msgid "slider_photo"
-msgstr "фотография"
+msgid "electroload"
+msgstr "электропотребитель"
 
-msgid "slider_photos"
-msgstr "фотографии"
+msgid "polygon"
+msgstr "полигон"
+
+msgid "polygons"
+msgstr "секции карты"
+
+msgid "parameter"
+msgstr "параметр"
+
+msgid "parameters"
+msgstr "параметры"
 
 #: templates/admin/actions.html:4
 msgid "Run the selected action"
@@ -327,3 +310,72 @@ msgstr ""
 #: templates/admin_tools/dashboard/modules/app_list.html:14
 msgid "Change"
 msgstr ""
+
+#~ msgid "question_category"
+#~ msgstr "категория"
+
+#~ msgid "question_categories"
+#~ msgstr "категории вопросов"
+
+#~ msgid "Newsboard"
+#~ msgstr "Новости"
+
+#~ msgid "newsboard"
+#~ msgstr "новости"
+
+#~ msgid "news_items"
+#~ msgstr "новости"
+
+#~ msgid "news_item"
+#~ msgstr "новость"
+
+#~ msgid "news_categories"
+#~ msgstr "категории новостей"
+
+#~ msgid "news_category"
+#~ msgstr "категория"
+
+#~ msgid "Products"
+#~ msgstr "Товары"
+
+#~ msgid "products"
+#~ msgstr "товары"
+
+#~ msgid "categories"
+#~ msgstr "категории"
+
+#~ msgid "category"
+#~ msgstr "категория"
+
+#~ msgid "product_item"
+#~ msgstr "товар"
+
+#~ msgid "phrases"
+#~ msgstr "фразы для поиска"
+
+#~ msgid "phrase"
+#~ msgstr "фраза"
+
+#~ msgid "product_photos"
+#~ msgstr "фотографии товара"
+
+#~ msgid "product_photo"
+#~ msgstr "фотография"
+
+#~ msgid "menu_item"
+#~ msgstr "элемент"
+
+#~ msgid "menu_items"
+#~ msgstr "элементы меню"
+
+#~ msgid "Slider"
+#~ msgstr "Слайдер"
+
+#~ msgid "slider"
+#~ msgstr "Слайдер"
+
+#~ msgid "slider_photo"
+#~ msgstr "фотография"
+
+#~ msgid "slider_photos"
+#~ msgstr "фотографии"

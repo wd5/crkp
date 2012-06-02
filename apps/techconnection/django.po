@@ -1,0 +1,23 @@
+msgid "Techconnection"
+msgstr "Раздел Технологическое присоединение"
+
+msgid "techconnection"
+msgstr "раздел технологическое присоединение"
+
+msgid "electroloaders"
+msgstr "электропотребители"
+
+msgid "electroload"
+msgstr "электропотребитель"
+
+msgid "polygon"
+msgstr "полигон"
+
+msgid "polygons"
+msgstr "секции карты"
+
+msgid "parameter"
+msgstr "параметр"
+
+msgid "parameters"
+msgstr "параметры"

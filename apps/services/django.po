@@ -1,0 +1,23 @@
+msgid "Services"
+msgstr "Раздел услуг"
+
+msgid "services"
+msgstr "раздел услуг"
+
+msgid "service_items"
+msgstr "услуги"
+
+msgid "service_item"
+msgstr "услуга"
+
+msgid "document"
+msgstr "документ"
+
+msgid "documents"
+msgstr "список документов"
+
+msgid "bl_subject"
+msgstr "человек"
+
+msgid "bl_subjects"
+msgstr "черный список"

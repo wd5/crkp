@@ -17,6 +17,8 @@ INSTALLED_APPS += (
     'apps.siteblocks',
     'apps.pages',
     'apps.faq',
+    'apps.services',
+    'apps.techconnection',
 
 
     'sorl.thumbnail',
