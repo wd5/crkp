@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponse, Http404, HttpRespons
 from django.shortcuts import render_to_response
 from django.template.loader import render_to_string
 from django.template import RequestContext
+from apps.pages.models import Page
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView,FormView,DetailView, ListView
 
@@ -15,6 +16,11 @@ class QuestionListView(ListView):
     template_name = 'faq/faq.html'
     context_object_name = 'questions'
     queryset = model.objects.published()
+
+    def get_context_data(self, **kwargs):
+        context = super(QuestionListView,self).get_context_data(**kwargs)
+        context['page'] = Page.objects.get(pk=9)
+        return context
 
 questions_list = QuestionListView.as_view()
 

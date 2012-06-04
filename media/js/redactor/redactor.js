@@ -47,12 +47,21 @@ var RTOOLBAR = {};
 			resize: true,
 			autoresize: false,
 			fixed: false,
-	
+
+            ///
+            removeTags:false,
+            cleanUp: false,
+            convertDivs: false,
+            removeClasses: false,
+            removeStyles: false,
+            pasteCleanUp: false,
+            ///
+
 			autoformat: true,
-			cleanUp: true,
-			convertDivs: true,
-			removeClasses: true,
-			removeStyles: false,
+			//cleanUp: true,
+			//convertDivs: true,
+			//removeClasses: true,
+			//removeStyles: false,
 			convertLinks: true,
 			
 			handler: false, // false or url

@@ -29,7 +29,7 @@ class PageAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(PageAdminForm, self).__init__(*args, **kwargs)
         self.fields['parent'].queryset = Page.objects\
-            .exclude(id__exact=self.instance.pk)
+            .exclude(id__exact=self.instance.pk).filter(parent = None)
     class Meta:
         model = Page
 
@@ -44,8 +44,8 @@ class PageAdmin(AdminImageMixin, MPTTModelAdmin):
     list_select_related = True
     form = PageAdminForm
     inlines = [
-        PageDocInline,
-        PagePicInline,
+        #PageDocInline,
+        #PagePicInline,
     ]
 
 class MetaDataAdmin(admin.ModelAdmin):

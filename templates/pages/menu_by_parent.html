@@ -1,0 +1,7 @@
+{% for children_page in children_pages %}
+    <li {% if current_path != 'unselected' %}
+            {% if children_page.get_absolute_url == page_url or children_page.get_absolute_url == current_path %}class="curr"{% endif %}
+        {% endif %}>
+        <a href="{{ children_page.get_absolute_url }}">{{ children_page.title }}</a>
+    </li>
+{% endfor %}

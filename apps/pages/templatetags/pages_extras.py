@@ -11,3 +11,7 @@ def block_page_summary(alias):
         return {'page': page}
     except Page.DoesNotExist:
         return {}
+
+@register.inclusion_tag("pages/menu_by_parent.html")
+def get_menu_by_parent(page,current_path):
+    return {'children_pages': page.parent.get_children(), 'current_path':current_path,'page_url':page.get_absolute_url() }

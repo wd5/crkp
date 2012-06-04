@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load thumbnail %}
+{% load thumbnail faq_extras %}
 
 {% if page.title %}
     {% block title %}
@@ -8,16 +8,51 @@
     {% endblock %}
 {% endif %}
 
-{% block center %}
-    <div class="text text_page">
-        {% if page.image %}
-            <p>
-                {% thumbnail page.image "374x252" as  small %}
-                    <img src="{{ small.url }}" width="{{ small.x }}" height="{{ small.y }}" alt="" />
-                {% endthumbnail %}
-            </p>
-        {% endif %}
-        {{ page.content|safe }}
+{% block paper_content %}
+    <h1>Мы — официальный клиентский центр Ленэнерго</h1>
+    <div class="index_lead text">
+        <p>Наши ключевые особенности: комфортное и быстрое обслуживание, прозрачная система работы и бесплатное консультирование.</p>
+        <p>С нами процесс технологического присоединения стал проще и доступнее.</p>
+    </div>
+
+    <div class="index_img"><img src="/media/img/index_img.png" alt="" /></div>
+
+    <div class="connect_lnk">
+        <a href="#"><span>Подключение к электрическим сетям</span></a>
+    </div>
+
+    <div class="index_text text">
+        <h3>Теперь всё можно решить без посредников и переплат</h3>
+        <p>Мы бесплатно оказываем те услуги, которые по закону должны оставаться бесплатными, например:</p>
+        <ul>
+            <li><strong>Оформление заявки</strong> на присоединение к электрическим сетям</li>
+            <li><strong>Получение договора</strong> на подключение к электрическим сетям</li>
+            <li><strong>Технические условия</strong> на подключение к электрическим сетям</li>
+            <li><strong>Получение Справки</strong> о выполнение ТУ Получение Актов границ балансовой и эксплуатационной ответственности от сетей ОАО «Ленэнерго»</li>
+            <li><strong>Получение Акта технологического присоединения</strong></li>
+        </ul>
+        <p><a href="#">Порядок технологического присоединения</a></p>
+
+        {% faq_teaser 'index_faq_teaser' %}
+    </div>
+
+    <div class="service_teasers">
+        <div class="service_teaser">
+            <div class="service_teaser_img"><img src="/media/img/service_teaser_1.png" alt="Расчет характеристик подключения" /></div>
+            <h3><a href="#">Расчет характеристик подключения</a></h3>
+            <p>Посчитать нагрузку и сформировать документ сразу на сайте</p>
+        </div>
+        <div class="service_teaser">
+            <div class="service_teaser_img"><img src="/media/img/service_teaser_2.png" alt="Тарифы на технологическое подключение" /></div>
+            <h3><a href="#">Тарифы на технологическое подключение</a></h3>
+            <p>Определить район и стоимость подключения на карте</p>
+        </div>
+
+        <div class="service_teaser">
+            <div class="service_teaser_img"><img src="/media/img/service_teaser_3.png" alt="Договор на подключение и технические условия" /></div>
+            <h3><a href="#">Договор на подключение и технические условия</a></h3>
+            <p>Оформление заявки онлайн</p>
+        </div>
     </div>
 {% endblock %}
 
