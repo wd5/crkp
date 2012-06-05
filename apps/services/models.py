@@ -21,8 +21,17 @@ class Service(models.Model):
         verbose_name = _(u'service_item')
         verbose_name_plural = _(u'service_items')
 
-    def get_works(self):
+    def get_published_docs(self):
         return self.document_set.published()
+
+    def get_docs_zl(self):
+        return self.document_set.published().filter(is_link=True)
+
+    def get_docs_zs(self):
+        return self.document_set.published().exclude(is_link=True)
+
+    def get_absolute_url(self):
+        return u'/services/%s/' % self.id
 
 class Document(models.Model):
     service = models.ForeignKey(Service,verbose_name = u'услуга')
@@ -34,12 +43,17 @@ class Document(models.Model):
     objects = PublishedManager()
 
     def __unicode__(self):
-        return self.description
+        return u'документ для услуги "%s..."' % self.service.title[:50]
 
     class Meta:
         ordering = ['-order']
         verbose_name = _(u'document')
         verbose_name_plural = _(u'documents')
+
+    def doc_title(self):
+        return u'лицензия для категории %s' % self.category.title
+    doc_title.allow_tags = True
+    doc_title.short_description = 'Название'
 
 class BlackList(models.Model):
     full_name = models.CharField(max_length=255, verbose_name=u'Ф.И.О.')

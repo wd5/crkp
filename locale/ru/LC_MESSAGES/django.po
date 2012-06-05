@@ -108,6 +108,24 @@ msgstr "страница"
 msgid "page_items"
 msgstr "страницы"
 
+msgid "vacancy"
+msgstr "вакансия"
+
+msgid "vacancies"
+msgstr "вакансии"
+
+msgid "lic_category"
+msgstr "категория"
+
+msgid "lic_categories"
+msgstr "категории лицензий"
+
+msgid "license"
+msgstr "лицензия"
+
+msgid "licenses"
+msgstr "лицензии"
+
 #: apps/services/__init__.py:2
 msgid "services"
 msgstr "раздел услуг"

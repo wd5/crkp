@@ -1,0 +1,8 @@
+<div class="modal">
+<div class="modal_in">
+	<h2 class="modal_text_h">СТАВКИ ПЛАТЫ ЗА ТЕХНОЛОГИЧЕСКОЕ ПРИСОЕДИНЕНИЕ К ЭЛЕКТРИЧЕСКИМ СЕТЯМ ОАО «ЛЕНЭНЕРГО» В ТЕРРИТОРИАЛЬНОЙ ЗОНЕ № {{ polygon.number }} «{{ polygon.title }}» НА ТЕРРИТОРИИ САНКТ-ПЕТЕРБУРГА НА {% now "Y" %} ГОД</h2>
+	<div class="text text_modal">
+        {{ polygon.table_rates|safe }}
+	</div>
+</div>
+</div>

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 from django import forms
-from apps.pages.models import Page, MetaData, PageDoc, PagePic
+from apps.pages.models import Page, MetaData, PageDoc, PagePic, Vacancy, License, LicensesCategory
 from apps.utils.widgets import Redactor, AdminImageWidget
 from sorl.thumbnail.admin import AdminImageMixin
 from mptt.admin import MPTTModelAdmin
@@ -52,8 +52,39 @@ class MetaDataAdmin(admin.ModelAdmin):
     list_display=('url', 'title',)
     search_fields=('url','title',)
 
+
+class VacancyAdminForm(forms.ModelForm):
+    description = forms.CharField(
+        widget=Redactor(attrs={'cols': 170, 'rows': 20}),
+        label = u'Текст',
+    )
+    class Meta:
+        model = Vacancy
+
+class LicenseCategoryAdmin(AdminImageMixin,admin.ModelAdmin):
+    list_display = ('id','title','order','is_published',)
+    list_display_links = ('id','title',)
+    list_editable = ('order','is_published',)
+    list_filter = ('is_published',)
+
+class LicenseAdmin(AdminImageMixin,admin.ModelAdmin):
+    list_display = ('id','lic_title','order','is_published',)
+    list_display_links = ('id','lic_title',)
+    list_editable = ('order','is_published',)
+    list_filter = ('is_published',)
+
+class VacancyAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'order', 'is_published',)
+    list_display_links = ('id', 'title',)
+    list_editable = ('is_published', 'order',)
+    search_fields = ('title', 'description',)
+
+    form = VacancyAdminForm
+
+admin.site.register(LicensesCategory, LicenseCategoryAdmin)
+admin.site.register(License, LicenseAdmin)
+admin.site.register(Vacancy, VacancyAdmin)
 admin.site.register(MetaData, MetaDataAdmin)
 admin.site.register(Page, PageAdmin)
 
 
-  

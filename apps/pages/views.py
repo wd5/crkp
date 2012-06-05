@@ -4,7 +4,8 @@ from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.simple import direct_to_template
-from apps.pages.models import Page
+from apps.pages.models import Page, Vacancy, LicensesCategory
+from apps.siteblocks.models import Settings
 from django.views.generic import ListView,DetailView,TemplateView
 
 def page(request, url):
@@ -22,8 +23,18 @@ def static_page(request, template):
 class ShowCompItemView(DetailView):
     slug_field = 'url'
     model = Page
-    template_name = 'pages/default.html'
+    template_name = 'pages/company_blocks.html'
     context_object_name = 'page'
+
+    def get_context_data(self, **kwargs):
+        context = super(ShowCompItemView,self).get_context_data(**kwargs)
+        if context['page'].url == '/contacts/':
+            context['contacts_page_block'] = Settings.objects.get(name="contacts_page_block")
+        if context['page'].url == '/vacancies/':
+            context['vacancies'] = Vacancy.objects.published()
+        if context['page'].url == '/license/':
+            context['licCategories'] = LicensesCategory.objects.published()
+        return context
 
     def get_object(self, queryset=None):
         if queryset is None:
@@ -55,13 +66,3 @@ class ShowCompItemView(DetailView):
         return obj
 
 show_company_item = ShowCompItemView.as_view()
-show_tech_item = ShowCompItemView.as_view()
-
-class ShowRatesMapView(TemplateView):
-    template_name = 'pages/map_rates.html'
-    def get_context_data(self, **kwargs):
-        context = super(ShowRatesMapView,self).get_context_data(**kwargs)
-        context['page'] = Page.objects.get(pk=11)
-        return context
-
-show_rates_map = ShowRatesMapView.as_view()

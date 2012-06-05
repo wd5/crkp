@@ -13,10 +13,7 @@
     {{ page.content|safe }}
 {% endblock %}
 
-{% block submenu_r_pl %}
-    {% if page.parent %}
-        {% get_menu_by_parent page request.path %}
-    {% endif %}
+{% block submenu_r_pl_first %}
 {% endblock %}
 
 {% block submenu_r_pl_second %}
@@ -25,3 +22,4 @@
 {% block post_sbmns %}
     {% faq_teaser '' %}
 {% endblock %}
+

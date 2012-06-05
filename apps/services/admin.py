@@ -13,16 +13,24 @@ class DocumentsAdminForm(forms.ModelForm):
     class Meta:
         model = Document
 
-    class Media:
-        js = (
-            '/media/js/jquery.js',
-            '/media/js/set_doc_height.js'
-            )
+#    class Media:
+#        js = (
+#            '/media/js/jquery.js',
+#            '/media/js/set_doc_height.js'
+#            )
 
-class DocumentsAdminInline(admin.TabularInline):
-    model = Document
-    #form = DocumentsAdminForm
-    extra = 0
+#class DocumentsAdminInline(admin.TabularInline):
+#    model = Document
+#    #form = DocumentsAdminForm
+#    extra = 0
+
+
+class DocumentsAdmin(admin.ModelAdmin):
+    list_display = ('id', 'is_link', 'order', 'is_published',)
+    list_display_links = ('id', 'title',)
+    list_editable = ('is_published', 'order','is_link')
+    search_fields = ('description',)
+    form = DocumentsAdminForm
 
 class ServiceAdminForm(forms.ModelForm):
     result = forms.CharField(
@@ -38,9 +46,9 @@ class ServiceAdmin(admin.ModelAdmin):
     list_editable = ('is_published', 'order',)
     form = ServiceAdminForm
     search_fields = ('title', 'description','result',)
-    inlines = [
-        DocumentsAdminInline,
-    ]
+#    inlines = [
+#        DocumentsAdminInline,
+#    ]
 
 class BlackListAdmin(admin.ModelAdmin):
     list_display = ('id', 'full_name', 'email', 'phonenumber',)

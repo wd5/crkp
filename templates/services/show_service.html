@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% load thumbnail services_extras %}
+
+{% block title %}
+    {{ service.title }} &mdash;
+{% endblock %}
+
+{% block content_l %}
+    <h1>{{ service.title }}</h1>
+    <div class="text">
+        <p>{{ service.description }}</p>
+    </div>
+
+    {% if service.get_docs_zl %}
+        <div class="docs_zl">
+            <h2>Вам потребуется:</h2>
+            {% for doc in service.get_docs_zl %}
+                <div class="doc_zl">
+                    {{ doc.description|safe }}
+                </div>
+            {% endfor %}
+        </div><!--/docs_zl-->
+    {% endif %}
+
+    {% if service.get_docs_zs %}
+        <div class="docs_zs">
+            {% for doc in get_docs_zs %}
+                <div class="doc_zs">
+                    {{ doc.description|safe }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="pl">
+        <div class="text">
+            {{ service.result|safe }}
+        </div>
+    </div>
+
+    <div class="btn"><div class="btn_in"><a href="#">Оставить заявку</a></div></div>
+
+{% endblock %}
+
+{% block submenu_r_pl %}
+    {% get_serv_menu service %}
+{% endblock %}
+
+{% block second_submenu_list %}
+    <li><a href="#">Весь комплекс услуг «под ключ»</a></li>
+{% endblock %}
+
+

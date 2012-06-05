@@ -9,3 +9,21 @@ msgstr "страницы"
 
 msgid "page_item"
 msgstr "страница"
+
+msgid "vacancy"
+msgstr "вакансия"
+
+msgid "vacancies"
+msgstr "вакансии"
+
+msgid "lic_category"
+msgstr "категория"
+
+msgid "lic_categories"
+msgstr "категории лицензий"
+
+msgid "license"
+msgstr "лицензия"
+
+msgid "licenses"
+msgstr "лицензии"

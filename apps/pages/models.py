@@ -2,8 +2,8 @@
 from django.utils.translation import ugettext_lazy as _
 import os
 from django.db import models
-from sorl.thumbnail.fields import ImageField
-
+from pytils.translit import translify
+from apps.utils.utils import ImageField
 from apps.utils.models import BaseDoc, BasePic
 from apps.utils.managers import PublishedManager
 from mptt.models import MPTTModel, TreeForeignKey, TreeManager
@@ -111,3 +111,67 @@ class MetaData(models.Model):
         self.save_base(using=using, force_insert=force_insert, force_update=force_update)
 
     save.alters_data = True
+
+class Vacancy(models.Model):
+    title = models.CharField(max_length=255, verbose_name=u'название')
+    description =  models.TextField(verbose_name = u'описание')
+    order = models.IntegerField(u'порядок сортировки', help_text=u'Чем больше число, тем выше располагается элемент', default=10)
+    is_published = models.BooleanField(verbose_name=u'опубликовано', default=True)
+
+    objects = PublishedManager()
+
+    def __unicode__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['-order']
+        verbose_name = _(u'vacancy')
+        verbose_name_plural = _(u'vacancies')
+
+class LicensesCategory(models.Model):
+    title = models.CharField(verbose_name=u'название', max_length=255)
+    order = models.IntegerField(u'порядок сортировки', help_text=u'Чем больше число, тем выше располагается элемент', default=10)
+    is_published = models.BooleanField(verbose_name=u'опубликовано', default=True)
+
+    objects = PublishedManager()
+
+    def __unicode__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['-order']
+        verbose_name =_(u'lic_category')
+        verbose_name_plural =_(u'lic_categories')
+
+    def get_src_image(self):
+        return self.image.url
+
+    def get_licenses(self):
+        return self.license_set.published()
+
+def image_path_license(instance, filename):
+    return os.path.join('images','licenses', translify(filename).replace(' ', '_') )
+
+class License(models.Model):
+    category = models.ForeignKey(LicensesCategory, verbose_name=u'категория')
+    image = ImageField(upload_to=image_path_license, verbose_name=u'изображение')
+    order = models.IntegerField(u'порядок сортировки', help_text=u'Чем больше число, тем выше располагается элемент', default=10)
+    is_published = models.BooleanField(verbose_name=u'опубликовано', default=True)
+
+    objects = PublishedManager()
+
+    def __unicode__(self):
+        return u'изображение для лицензии №%s' % self.id
+
+    class Meta:
+        ordering = ['-order']
+        verbose_name =_(u'license')
+        verbose_name_plural =_(u'licenses')
+
+    def get_src_image(self):
+        return self.image.url
+
+    def lic_title(self):
+        return u'лицензия для категории %s' % self.category.title
+    lic_title.allow_tags = True
+    lic_title.short_description = 'Лицензия'

@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% load thumbnail siteblocks_extras faq_extras pages_extras %}
+
+{% if page.title %}
+    {% block title %}
+        {{ page.title }} &mdash;
+    {% endblock %}
+{% endif %}
+
+{% block content_l %}
+    <h1>{{ page.title }}</h1>
+    {% if contacts_page_block %}
+        <div class="contacts_page">
+            {{ contacts_page_block.value|safe }}
+            <div class="yandex_map">
+                <!-- Этот блок кода нужно вставить в ту часть страницы, где вы хотите разместить карту (начало) -->
+                <div id="ymaps-map-id_133887661610545973205" style="width: 450px; height: 350px;"></div>
+                <div style="width: 450px; text-align: right;"></div>
+                <script type="text/javascript">function fid_133887661610545973205(ymaps) {
+                    var map = new ymaps.Map("ymaps-map-id_133887661610545973205",
+                            {
+                                center: [30.358600999999958, 59.92854996361151],
+                                zoom: 16,
+                                type: "yandex#map"
+                            }
+                    );
+
+                    map.controls.add("zoomControl").add("mapTools").add(new ymaps.control.TypeSelector(["yandex#map", "yandex#satellite", "yandex#hybrid", "yandex#publicMap"]));
+
+                    map.geoObjects.add(new ymaps.Placemark([30.358601, 59.927915],
+                            {
+                                balloonContent: "ООО «Центр по работе с клиентами и присоединению»"
+                            },
+                            {
+                                preset: "twirl#lightblueDotIcon"
+                            }
+                    ));};
+                </script>
+                <script type="text/javascript" src="http://api-maps.yandex.ru/2.0/?coordorder=longlat&load=package.full&wizard=constructor&lang=ru-RU&onload=fid_133887661610545973205"></script>
+                <!-- Этот блок кода нужно вставить в ту часть страницы, где вы хотите разместить карту (конец) -->
+            </div>
+        </div>
+    {% endif %}
+
+    {% if licCategories %}
+        <div class="licenses">
+            {% for licCategory in licCategories %}
+                {% if licCategory.get_licenses %}
+                    <h2>{{ licCategory }}</h2>
+                    {% for license in licCategory.get_licenses %}
+                        <div class="license">
+                            {% thumbnail license.image "1000" upscale=0 as big %}
+                                {% thumbnail license.image "145x204" crop="center" as im %}
+                                    <a href="{{ big.url }}" rel="{{ licCategory.id }}" class="fancybox" ><img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="" /></a>
+                                {% endthumbnail %}
+                            {% endthumbnail %}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if vacancies %}
+        <div class="vacancies">
+            {% for vacancy in vacancies %}
+                <div class="vacancy">
+                    <h2 class="vacancy_head"><span>{{ vacancy.title }}</span></h2>
+                    <div class="vacancy_text text">
+                        {{ vacancy.description|safe }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if contacts_page_block == False and vacancies == False and licCategories == False %}
+        {{ page.content|safe }}
+    {% endif %}
+
+{% endblock %}
+
+{% block submenu_r_pl %}
+    {% if page.parent %}
+        {% get_menu_by_parent page request.path %}
+    {% endif %}
+{% endblock %}
+
+{% block submenu_r_pl_second %}
+{% endblock %}
+
+{% block post_sbmns %}
+    {% faq_teaser '' %}
+{% endblock %}
+

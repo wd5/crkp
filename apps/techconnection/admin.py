@@ -35,9 +35,10 @@ class MapPolygonAdminForm(forms.ModelForm):
         model = MapPolygon
 
 class MapPolygonAdmin(admin.ModelAdmin):
-    list_display = ('id', 'number', 'polygon',)
-    list_display_links = ('id', 'number', 'polygon',)
+    list_display = ('number', 'title',)
+    list_display_links = ('number', 'title',)
     search_fields = ('number', 'table_rates',)
+    form = MapPolygonAdminForm
 
 admin.site.register(Electroload, ElectroloadAdmin)
 admin.site.register(MapPolygon, MapPolygonAdmin)

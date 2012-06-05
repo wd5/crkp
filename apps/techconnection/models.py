@@ -55,6 +55,7 @@ class Parameter(models.Model):
 
 class MapPolygon(models.Model):
     polygon = models.CharField(max_length=255, verbose_name=u'координаты полигона')
+    title = models.CharField(max_length=100, verbose_name=u'территориальная зона')
     number = models.PositiveSmallIntegerField(verbose_name = u'номер полигона')
     table_rates = models.TextField(verbose_name = u'таблица ставок')
 
@@ -62,5 +63,6 @@ class MapPolygon(models.Model):
         return u'полигон № %s' % self.number
 
     class Meta:
+        ordering = ['number']
         verbose_name = _(u'polygon')
         verbose_name_plural = _(u'polygons')

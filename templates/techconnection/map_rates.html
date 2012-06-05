@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% load thumbnail siteblocks_extras faq_extras pages_extras %}
+
+{% if page.title %}
+    {% block title %}
+        {{ page.title }} &mdash;
+    {% endblock %}
+{% endif %}
+
+{% block content_l %}
+    <h1>{{ page.title }}</h1>
+    <div class="connect_map_page">
+        <img src="/media/img/connect_map.png" width="463" height="542" alt="" usemap="#connect_map" />
+        <map name="connect_map" class="connect_map">
+            {% for polygon in polygons %}
+                <area shape="poly" alt="{{ polygon.number }}" title="{{ polygon.title }}" coords="{{ polygon.polygon }}" class="fancybox" href="/showratestable/{{ polygon.number }}/" />
+            {% endfor %}
+        </map>
+        <div class="map_labels">
+            {% for polygon in polygons %}
+                <a id="cm_{{ polygon.number }}" href="/showratestable/{{ polygon.number }}/" class="fancybox">{{ polygon.number }}</a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block submenu_r_pl %}
+    {% if page.parent %}
+        {% get_menu_by_parent page request.path %}
+    {% endif %}
+{% endblock %}
+
+{% block submenu_r_pl_second %}
+{% endblock %}
+
+{% block post_sbmns %}
+    {% faq_teaser '' %}
+{% endblock %}
