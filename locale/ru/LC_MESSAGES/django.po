@@ -148,7 +148,7 @@ msgstr "документ"
 
 #: apps/services/models.py:42
 msgid "documents"
-msgstr "список документов"
+msgstr "документы для услуг"
 
 #: apps/services/models.py:54
 msgid "bl_subject"
@@ -161,6 +161,12 @@ msgstr "черный список"
 #: apps/siteblocks/__init__.py:2
 msgid "siteblocks"
 msgstr "блоки сайта"
+
+msgid "typical_request"
+msgstr "заявка"
+
+msgid "typical_requests"
+msgstr "типовые заявки"
 
 #: apps/siteblocks/__init__.py:3
 msgid "Siteblocks"

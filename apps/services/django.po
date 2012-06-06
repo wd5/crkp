@@ -14,10 +14,16 @@ msgid "document"
 msgstr "документ"
 
 msgid "documents"
-msgstr "список документов"
+msgstr "документы для услуг"
 
 msgid "bl_subject"
 msgstr "человек"
 
 msgid "bl_subjects"
 msgstr "черный список"
+
+msgid "typical_request"
+msgstr "заявка"
+
+msgid "typical_requests"
+msgstr "типовые заявки"

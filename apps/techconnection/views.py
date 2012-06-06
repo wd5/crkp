@@ -31,29 +31,4 @@ class ShowRatesTableView(DetailView):
     template_name = 'techconnection/map_modal.html'
     context_object_name = 'polygon'
 
-    def get_object(self, queryset=None):
-        if queryset is None:
-            queryset = self.get_queryset()
-
-        pk = self.kwargs.get('pk', None)
-        slug = self.kwargs.get('slug', None)
-        if pk is not None:
-            queryset = queryset.filter(pk=pk)
-
-        elif slug is not None:
-            slug_field = self.get_slug_field()
-            queryset = queryset.filter(**{slug_field: slug})
-
-        else:
-            raise AttributeError(u"Generic detail view %s must be called with "
-                                 u"either an object pk or a slug."
-                                 % self.__class__.__name__)
-
-        try:
-            obj = queryset.get()
-        except ObjectDoesNotExist:
-            raise Http404(_(u"No %(verbose_name)s found matching the query") %
-                          {'verbose_name': queryset.model._meta.verbose_name})
-        return obj
-
 show_rates_table = ShowRatesTableView.as_view()

@@ -1,0 +1,35 @@
+<div class="doc_serv_block">
+{% if service %}
+    {% if service.get_published_docs %}
+        <div class="docs_zl">
+            <h2>Вам потребуются следующие документы:</h2>
+            {% if service.get_docs_zl %}
+                {% for doc in service.get_docs_zl %}
+                    <div class="doc_zl">
+                        {{ doc.description|safe }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div><!--/docs_zl-->
+
+        {% if service.get_docs_zs %}
+            <div class="docs_zs">
+                {% for doc in service.get_docs_zs %}
+                    <div class="doc_zs">
+                        {{ doc.description|safe }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endif %}
+
+    <div class="pl">
+        <div class="text">
+            {{ service.result|safe }}
+        </div>
+    </div>
+
+    <div class="btn"><div class="btn_in"><a href="/services/requestform/{{ service.id }}/" class="fancybox">Оставить заявку</a></div></div>
+    <script type="text/javascript">SetFancy();</script>
+{% endif %}
+</div>

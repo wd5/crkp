@@ -1,0 +1,29 @@
+{% ifequal case 'typical' %}
+    <div class="modal">
+    <div class="modal_in">
+        <h2 class="modal_h">Заявка на {{ service_title|lower }}</h2>
+        <form action="" class="modal_form" method="post">
+            <div class="modal_simple">
+                <div class="input">
+                    <label>ФИО</label>
+                    {{ form.full_name }}
+                    {{ form.full_name.errors }}
+                </div>
+                <div class="input">
+                    <label>Телефон</label>
+                    {{ form.phonenumber }}
+                    {{ form.phonenumber.errors }}
+                </div>
+                <div class="input">
+                    <label>Электронная почта</label>
+                    {{ form.email }}
+                    {{ form.email.errors }}
+                </div>
+            </div>
+            <div style="display: none;">{{ form.service }}
+            <input type="hidden" value="{{ case }}" id="form_type"></div>
+            <div class="modal_btn"><div class="btn"><div class="btn_in"><input type="button" value="Отправить" id="save_serv_request" /></div></div></div>
+        </form>
+    </div>
+    </div>
+{% endifequal %}
