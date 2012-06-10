@@ -1,0 +1,17 @@
+msgid "Servicerequests"
+msgstr "Заявки на услуги"
+
+msgid "servicerequests"
+msgstr "заявки на услуги"
+
+msgid "bl_subject"
+msgstr "человек"
+
+msgid "bl_subjects"
+msgstr "черный список"
+
+msgid "typical_request"
+msgstr "заявка"
+
+msgid "typical_requests"
+msgstr "типовые заявки"

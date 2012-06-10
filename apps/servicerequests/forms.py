@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from apps.services.models import TypicalRequest
+from apps.servicerequests.models import TypicalRequest
 
 class TypicalRequestForm(forms.ModelForm):
     full_name = forms.CharField(
@@ -17,3 +17,5 @@ class TypicalRequestForm(forms.ModelForm):
     class Meta:
         model = TypicalRequest
         exclude = ('date_create',)
+
+#class FirstServRequestForm(forms.ModelForm):

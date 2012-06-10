@@ -3,7 +3,8 @@ from django.conf.urls.defaults import patterns, include, url
 
 #from apps.app.urls import urlpatterns as app_url
 from django.views.decorators.csrf import csrf_exempt
-from apps.services.views import load_serv,load_request_form,check_request_form
+from apps.services.views import load_serv
+from apps.servicerequests.views import load_request_form,check_request_form
 
 from views import index
 

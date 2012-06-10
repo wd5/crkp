@@ -18,6 +18,7 @@ INSTALLED_APPS += (
     'apps.pages',
     'apps.faq',
     'apps.services',
+    'apps.servicerequests',
     'apps.techconnection',
 
 

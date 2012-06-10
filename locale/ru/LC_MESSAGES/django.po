@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-02 18:22+1000\n"
+"POT-Creation-Date: 2012-06-08 12:24+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -100,31 +100,61 @@ msgstr "структура сайта"
 msgid "Pages"
 msgstr "Структура сайта"
 
-#: apps/pages/models.py:29
+#: apps/pages/models.py:32
 msgid "page_item"
 msgstr "страница"
 
-#: apps/pages/models.py:30
+#: apps/pages/models.py:33
 msgid "page_items"
 msgstr "страницы"
 
+#: apps/pages/models.py:128
 msgid "vacancy"
 msgstr "вакансия"
 
+#: apps/pages/models.py:129
 msgid "vacancies"
 msgstr "вакансии"
 
+#: apps/pages/models.py:143
 msgid "lic_category"
 msgstr "категория"
 
+#: apps/pages/models.py:144
 msgid "lic_categories"
 msgstr "категории лицензий"
 
+#: apps/pages/models.py:168
 msgid "license"
 msgstr "лицензия"
 
+#: apps/pages/models.py:169
 msgid "licenses"
 msgstr "лицензии"
+
+#: apps/pages/views.py:64
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr ""
+
+#: apps/servicerequests/__init__.py:2
+msgid "Servicerequests"
+msgstr "Заявки на услуги"
+
+msgid "servicerequests"
+msgstr "заявки на услуги"
+
+msgid "bl_subject"
+msgstr "человек"
+
+msgid "bl_subjects"
+msgstr "черный список"
+
+msgid "typical_request"
+msgstr "заявка"
+
+msgid "typical_requests"
+msgstr "типовые заявки"
 
 #: apps/services/__init__.py:2
 msgid "services"
@@ -142,31 +172,17 @@ msgstr "услуга"
 msgid "service_items"
 msgstr "услуги"
 
-#: apps/services/models.py:41
+#: apps/services/models.py:50
 msgid "document"
 msgstr "документ"
 
-#: apps/services/models.py:42
+#: apps/services/models.py:51
 msgid "documents"
 msgstr "документы для услуг"
-
-#: apps/services/models.py:54
-msgid "bl_subject"
-msgstr "человек"
-
-#: apps/services/models.py:55
-msgid "bl_subjects"
-msgstr "черный список"
 
 #: apps/siteblocks/__init__.py:2
 msgid "siteblocks"
 msgstr "блоки сайта"
-
-msgid "typical_request"
-msgstr "заявка"
-
-msgid "typical_requests"
-msgstr "типовые заявки"
 
 #: apps/siteblocks/__init__.py:3
 msgid "Siteblocks"
@@ -181,29 +197,36 @@ msgid "site_settings"
 msgstr "настройки сайта"
 
 #: apps/techconnection/__init__.py:2
-msgid "Techconnection"
-msgstr "Раздел Технологическое присоединение"
-
 msgid "techconnection"
 msgstr "раздел технологическое присоединение"
 
-msgid "electroloaders"
-msgstr "электропотребители"
+#: apps/techconnection/__init__.py:3
+msgid "Techconnection"
+msgstr "Раздел Технологическое присоединение"
 
+#: apps/techconnection/models.py:26
 msgid "electroload"
 msgstr "электропотребитель"
 
-msgid "polygon"
-msgstr "полигон"
+#: apps/techconnection/models.py:27
+msgid "electroloaders"
+msgstr "электропотребители"
 
-msgid "polygons"
-msgstr "секции карты"
-
+#: apps/techconnection/models.py:53
 msgid "parameter"
 msgstr "параметр"
 
+#: apps/techconnection/models.py:54
 msgid "parameters"
 msgstr "параметры"
+
+#: apps/techconnection/models.py:67
+msgid "polygon"
+msgstr "полигон"
+
+#: apps/techconnection/models.py:68
+msgid "polygons"
+msgstr "секции карты"
 
 #: templates/admin/actions.html:4
 msgid "Run the selected action"

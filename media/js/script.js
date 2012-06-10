@@ -2,6 +2,16 @@ $(function(){
 
     $('.fancybox').fancybox();
 
+    $('.fancybox-big').fancybox({
+        'centerOnScroll':true,
+        'onComplete': function() {
+            $('#fancybox-overlay').css('height',$(document).height());
+            /*$('#fancybox-wrap').animate({
+                top:"100px"
+            });*/
+        }
+    });
+
     $('div.faq').live('click',function(){
         $(this).toggleClass('faq_curr')
     });
