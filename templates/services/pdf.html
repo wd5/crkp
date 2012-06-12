@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+<head>
+<title>
+{{ title }}
+</title>
+<style type="text/css">
+@page {
+	size: a4;
+	margin: 0.7cm 1.0cm 1.0cm 1.0cm;
+        @frame footer {
+	    -pdf-frame-content: footerContent;
+	    bottom: 0.5cm;
+	    margin-left: 0.6cm;
+	    margin-right: 1cm;
+	    height: 1cm;
+	  }
+}
+
+@font-face {
+	font-family: Arial;
+	src: url("{{ MEDIA_ROOT }}/media/fonts/Arial.Ttf");
+}
+
+@font-face {
+	font-family: Arial;
+	src: url("{{ MEDIA_ROOT }}/media/fonts/Arial_Bold.Ttf");
+	font-weight:bold;
+}
+
+html {
+	font-family: Arial;
+	font-size: 11pt;
+}
+
+
+h1 {
+	margin-bottom: 0;
+	font-size: 24px;
+}
+
+h2 {
+	font-weight:bold;
+	border-bottom:2px solid #f45a00;
+	padding-bottom:6px;
+	margin-bottom:24px;
+}
+
+h3 {
+    margin-bottom: 0;
+    line-height: 0px;
+    font-size: 12px;
+    padding-bottom: 0;
+}
+
+p, li p {
+    font-size: 11px;
+    margin: 0px 0px 0px 0px;
+    line-height: 15px;
+    padding: 0;
+}
+
+li {
+    line-height: 25px;
+    margin: 10;
+    padding: 10;
+}
+
+ol {
+    line-height: 25px;
+    margin: 10;
+    padding: 10;
+}
+
+div.head h3 {line-height: 0px;padding-bottom: 0;margin: 0px 0px 20px 0px;}
+div.head p {
+    font-size: 10px;
+    line-height: 15px;
+    margin: 7px 0px 15px 0px;
+}
+
+hr.headhr {
+    height:1px;
+    background:#000;
+    border:0px;
+    margin: 7px 0px 0px 0px;
+    line-height: 0px;
+    padding: 0;
+}
+</style>
+</head>
+
+
+<body>
+
+<div class="head">
+    <h3 align="center">Физические лица до 15 кВт (включительно) по 3 категории надежности электроснабжения</h3>
+    <hr class="headhr" style="width:90%;">
+</div>
+
+<div align="right" class="head">
+    <p>В ОАО "ЛЕНЭНЕРГО"<br>
+    Заявка на технологическое присоединение<br>
+    к электрическим сетям<br>
+    № {{ saved_object.id }}<br>
+    от {{ saved_object.date_create|date:"d" }} {{ saved_object.date_create|date:"E" }} 20{{ saved_object.date_create|date:"y" }}г.</p>
+</div>
+
+{% ifequal case 'first_serv' %}
+<ol>
+    <li>
+        <p>Фамилия: <span>{{ saved_object.last_name }}</span></p>
+        <p>Имя: <span>{{ saved_object.first_name }}</span></p>
+        <p>Отчество: <span>{{ saved_object.middle_name }}</span></p>
+    </li>
+    <li>
+        <p>Серия: <span>{{ saved_object.passport_series }}</span></p>
+        <p>Номер: <span>{{ saved_object.passport_number }}</span></p>
+        <p>Кем выдан: <span>{{ saved_object.passport_issued }}</span></p>
+        <p>Дата выдачи: <span>{{ saved_object.passport_issued_date }}</span></p>
+    </li>
+    <li>
+        <p>ИНН: <span>{{ saved_object.inn }}</span></p>
+    </li>
+    <li>
+        <p>Фактический адрес заявителя с индексом: <span>{{ saved_object.actual_address_with_index }}</span></p>
+    </li>
+    <li>
+        <p>Наименование объекта: <span>{{ saved_object.object_title }}</span></p>
+    </li>
+    <li>
+        <p>Местонахождение присоединяемого объекта: <span>{{ saved_object.object_location }}</span></p>
+    </li>
+    <li>
+        <p>Категория надежности электроснабжения: <span>III</span></p>
+        <p>Ранее присоединенная мощность (кВА): <span>{{ saved_object.earlier_power_kVA }}</span></p>
+        <p>Ранее присоединенная мощность (кВт): <span>{{ saved_object.earlier_power_kVt }}</span></p>
+        <p>Вновь присоединяемая мощность (дополнительная): <span>{{ saved_object.additional_power }}</span></p>
+        <p>Максимальная мощность (всего с учетом присоединенной мощности): <span>{{ saved_object.max_power }}</span></p>
+    </li>
+    <li>
+        <p>Прочая информация: <span>{{ saved_object.other_inf }}</span></p>
+    </li>
+</ol>
+{% endifequal %}
+
+{% ifequal case 'second_serv' %}
+<ol>
+    <li>
+        <p>Фамилия: <span>{{ saved_object.last_name }}</span></p>
+        <p>Имя: <span>{{ saved_object.first_name }}</span></p>
+        <p>Отчество: <span>{{ saved_object.middle_name }}</span></p>
+    </li>
+    <li>
+        <p>Серия: <span>{{ saved_object.passport_series }}</span></p>
+        <p>Номер: <span>{{ saved_object.passport_number }}</span></p>
+        <p>Кем выдан: <span>{{ saved_object.passport_issued }}</span></p>
+        <p>Дата выдачи: <span>{{ saved_object.passport_issued_date }}</span></p>
+    </li>
+    <li>
+        <p>ИНН: <span>{{ saved_object.inn }}</span></p>
+    </li>
+    <li>
+        <p>Фактический адрес заявителя с индексом: <span>{{ saved_object.actual_address_with_index }}</span></p>
+    </li>
+    <li>
+        <p>Наименование объекта: <span>{{ saved_object.object_title }}</span></p>
+    </li>
+    <li>
+        <p>Местонахождение присоединяемого объекта: <span>{{ saved_object.object_location }}</span></p>
+    </li>
+    <li>
+        <p>Срок временного присоединения: <span>{{ saved_object.temp_period }}</span></p>
+    </li>
+    <li>
+        <p>Категория надежности электроснабжения: <span>I</span></p>
+        <p>Ранее присоединенная мощность (кВА): <span>{{ saved_object.first_earlier_power_kVA }}</span></p>
+        <p>Ранее присоединенная мощность (кВт): <span>{{ saved_object.first_earlier_power_kVt }}</span></p>
+        <p>Вновь присоединяемая мощность (дополнительная): <span>{{ saved_object.first_additional_power }}</span></p>
+        <p>Максимальная мощность (всего с учетом присоединенной мощности): <span>{{ saved_object.first_max_power }}</span></p>
+    </li>
+    <li>
+        <p>Категория надежности электроснабжения: <span>II</span></p>
+        <p>Ранее присоединенная мощность (кВА): <span>{{ saved_object.second_earlier_power_kVA }}</span></p>
+        <p>Ранее присоединенная мощность (кВт): <span>{{ saved_object.second_earlier_power_kVt }}</span></p>
+        <p>Вновь присоединяемая мощность (дополнительная): <span>{{ saved_object.second_additional_power }}</span></p>
+        <p>Максимальная мощность (всего с учетом присоединенной мощности): <span>{{ saved_object.second_max_power }}</span></p>
+    </li>
+    <li>
+        <p>Категория надежности электроснабжения: <span>III</span></p>
+        <p>Ранее присоединенная мощность (кВА): <span>{{ saved_object.third_earlier_power_kVA }}</span></p>
+        <p>Ранее присоединенная мощность (кВт): <span>{{ saved_object.third_earlier_power_kVt }}</span></p>
+        <p>Вновь присоединяемая мощность (дополнительная): <span>{{ saved_object.third_additional_power }}</span></p>
+        <p>Максимальная мощность (всего с учетом присоединенной мощности): <span>{{ saved_object.third_max_power }}</span></p>
+    </li>
+    <li>
+        <p>Характер нагрузки потребителя электрической энергии: <span>{{ saved_object.load_type }}</span></p>
+    </li>
+    <li>
+        <p>Прочая информация: <span>{{ saved_object.other_inf }}</span></p>
+    </li>
+</ol>
+{% endifequal %}
+
+</body>
+</html>

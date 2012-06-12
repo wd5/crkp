@@ -156,6 +156,43 @@ msgstr "заявка"
 msgid "typical_requests"
 msgstr "типовые заявки"
 
+msgid "reception_item"
+msgstr "запись"
+
+msgid "reception_items"
+msgstr "записи на приём"
+
+msgid "first_serv_request"
+msgstr "заявка"
+
+msgid "first_serv_requests"
+msgstr "заявка на подключение к электрическим сетям - Физические лица до 15 кВт (включительно)"
+
+msgid "second_serv_request"
+msgstr "заявка"
+
+msgid "second_serv_requests"
+msgstr "заявка на подключение к электрическим сетям - Физические лица до 100 кВт (включительно)"
+
+msgid "third_serv_request"
+msgstr "заявка"
+
+msgid "third_serv_requests"
+msgstr "заявка на подключение к электрическим сетям - Юридические лица и индивидуальные предприниматели до 100 кВт (включительно)"
+
+msgid "fourth_serv_request"
+msgstr "заявка"
+
+msgid "fourth_serv_requests"
+msgstr "заявка на подключение к электрическим сетям - Юридические лица и индивидуальные предприниматели до 750 кВА (включительно)"
+
+msgid "fifth_serv_request"
+msgstr "заявка"
+
+msgid "fifth_serv_requests"
+msgstr "заявка на подключение к электрическим сетям - Юридические лица и индивидуальные предприниматели свыше 750 кВА"
+
+
 #: apps/services/__init__.py:2
 msgid "services"
 msgstr "раздел услуг"

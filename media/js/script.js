@@ -1,4 +1,5 @@
 $(function(){
+    var init_dh = $(document).height()
 
     $('.fancybox').fancybox();
 
@@ -107,22 +108,110 @@ $(function(){
 
                 form_type:$('#form_type').val()
                 }
-        CheckForm(data);
+        CheckForm(data,1);
         return false;
     });
+
+    $('#save_first_serv_request').live('click',function(){
+        var data = {
+                last_name:$('#id_last_name').val(),
+                first_name:$('#id_first_name').val(),
+                middle_name:$('#id_middle_name').val(),
+                passport_series:$('#id_passport_series').val(),
+                passport_number:$('#id_passport_number').val(),
+                passport_issued:$('#id_passport_issued').val(),
+                passport_issued_date:$('#id_passport_issued_date').val(),
+                inn:$('#id_inn').val(),
+                actual_address_with_index:$('#id_actual_address_with_index').val(),
+                object_title:$('#id_object_title').val(),
+                object_location:$('#id_object_location').val(),
+                earlier_power_kVA:$('#id_earlier_power_kVA').val(),
+                earlier_power_kVt:$('#id_earlier_power_kVt').val(),
+                additional_power:$('#id_additional_power').val(),
+                max_power:$('#id_max_power').val(),
+                other_inf:$('#id_other_inf').val(),
+
+                form_type:$('#form_type').val()
+                }
+        CheckForm(data,2);
+        return false;
+    });
+
+    $('#save_second_serv_request').live('click',function(){
+            var data = {
+                    last_name:$('#id_last_name').val(),
+                    first_name:$('#id_first_name').val(),
+                    middle_name:$('#id_middle_name').val(),
+                    passport_series:$('#id_passport_series').val(),
+                    passport_number:$('#id_passport_number').val(),
+                    passport_issued:$('#id_passport_issued').val(),
+                    passport_issued_date:$('#id_passport_issued_date').val(),
+                    inn:$('#id_inn').val(),
+                    actual_address_with_index:$('#id_actual_address_with_index').val(),
+                    object_title:$('#id_object_title').val(),
+                    object_location:$('#id_object_location').val(),
+
+                    temp_period:$('#id_temp_period').val(),
+
+                    first_earlier_power_kVA:$('#id_first_earlier_power_kVA').val(),
+                    first_earlier_power_kVt:$('#id_first_earlier_power_kVt').val(),
+                    first_additional_power:$('#id_first_additional_power').val(),
+                    first_max_power:$('#id_first_max_power').val(),
+
+                    second_earlier_power_kVA:$('#id_second_earlier_power_kVA').val(),
+                    second_earlier_power_kVt:$('#id_second_earlier_power_kVt').val(),
+                    second_additional_power:$('#id_second_additional_power').val(),
+                    second_max_power:$('#id_second_max_power').val(),
+
+                    third_earlier_power_kVA:$('#id_third_earlier_power_kVA').val(),
+                    third_earlier_power_kVt:$('#id_third_earlier_power_kVt').val(),
+                    third_additional_power:$('#id_third_additional_power').val(),
+                    third_max_power:$('#id_third_max_power').val(),
+
+                    load_type:$('#id_load_type').val(),
+
+                    other_inf:$('#id_other_inf').val(),
+
+                    form_type:$('#form_type').val()
+                    }
+            CheckForm(data,2);
+            return false;
+        });
+
+    $('#save_reception').live('click',function(){
+        var data = {
+            last_name:$('#id_last_name').val(),
+            first_name:$('#id_first_name').val(),
+            middle_name:$('#id_middle_name').val(),
+            phonenumber:$('#id_phonenumber').val(),
+            reception_date:$('#id_reception_date').val(),
+            reception_time:$('#id_reception_time').val(),
+
+            form_type:$('#form_type').val(),
+            id_serv:$('#id_serv').val(),
+            pdf_path:$('#pdf_path').val(),
+            serv_type:$('#serv_type').val()
+            }
+        CheckForm(data,1);
+        return false;
+    });
+
 });
 
-function CheckForm(data_fields){
+function CheckForm(data_fields,type){
     $.ajax({
         url: "/services/checkform/",
         data: data_fields,
         type: "POST",
         success: function(data) {
-            if (data=='success')
-                {$('.modal').replaceWith("<div align='center'>Заявка отправлена. Мы свяжемся с вами в ближайшее время!</div>");}
-            else{
-                $('.modal').replaceWith(data);
-            }
+            if (type==1)
+                {if (data=='success')
+                    {$('.modal').replaceWith("<div align='center'>Заявка отправлена. Мы свяжемся с вами в ближайшее время!</div>");}
+                else
+                    {$('.modal').replaceWith(data);}
+                }
+            else
+                {$('.modal').replaceWith(data);}
         }
     });
 }
@@ -142,4 +231,14 @@ function AjaxLoadSrv(id_srv){
 
 function SetFancy(){
     $('.fancybox').fancybox();
+    $('.fancybox-big').fancybox({
+        'centerOnScroll':true,
+        'onComplete': function() {
+            $('#fancybox-overlay').css('height',$(document).height());
+            /*$('#fancybox-wrap').animate({
+                top:"100px"
+            });*/
+        }
+    });
+
 }

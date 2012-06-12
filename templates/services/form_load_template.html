@@ -27,6 +27,7 @@
     </div>
     </div>
 {% endifequal %}
+
 {% ifequal case 'first_serv' %}
     <div class="modal">
     <div class="modal_in">
@@ -37,15 +38,18 @@
     		<div class="modal_block_num">1</div>
     		<div class="input">
     			<label>Фамилия</label>
-    			<input type="text" />
+                {{ form.last_name }}
+                {{ form.last_name.errors }}
     		</div>
     		<div class="input">
     			<label>Имя</label>
-    			<input type="text" />
+                {{ form.first_name }}
+                {{ form.first_name.errors }}
     		</div>
     		<div class="input">
     			<label>Отчество</label>
-    			<input type="text" />
+                {{ form.middle_name }}
+                {{ form.middle_name.errors }}
     		</div>
     	</div>
 
@@ -54,20 +58,24 @@
     		<div class="input">
     			<span class="modal_block_short_1">
     				<label>Серия</label>
-    				<input type="text" />
+                    {{ form.passport_series }}
+                    {{ form.passport_series.errors }}
     			</span>
     			<span class="modal_block_short_2">
     				<label>Номер</label>
-    				<input type="text" />
+                    {{ form.passport_number }}
+                    {{ form.passport_number.errors }}
     			</span>
     		</div>
     		<div class="input">
     			<label>Кем выдан</label>
-    			<textarea rows="0" cols="0"></textarea>
+                {{ form.passport_issued }}
+                {{ form.passport_issued.errors }}
     		</div>
-    		<div class="input">
+    		<div class="input" title="{{ form.passport_issued_date.help_text }}">
     			<label>Дата выдачи</label>
-    			<input type="text" />
+                {{ form.passport_issued_date }}
+                {{ form.passport_issued_date.errors }}
     		</div>
     	</div>
 
@@ -75,7 +83,8 @@
     		<div class="modal_block_num">3</div>
     		<div class="input">
     			<label>ИНН</label>
-    			<input type="text" />
+                {{ form.inn }}
+                {{ form.inn.errors }}
     		</div>
     	</div>
 
@@ -83,7 +92,8 @@
     		<div class="modal_block_num">4</div>
     		<div class="input">
     			<label>Фактический адрес заявителя с индексом</label>
-    			<textarea rows="0" cols="0"></textarea>
+                {{ form.actual_address_with_index }}
+                {{ form.actual_address_with_index.errors }}
     		</div>
     	</div>
 
@@ -91,7 +101,8 @@
     		<div class="modal_block_num">5</div>
     		<div class="input">
     			<label>Наименование объекта</label>
-    			<input type="text" />
+                {{ form.object_title }}
+                {{ form.object_title.errors }}
     		</div>
     	</div>
 
@@ -99,7 +110,8 @@
     		<div class="modal_block_num">6</div>
     		<div class="input">
     			<label>Местонахождение присоединяемого объекта</label>
-    			<textarea rows="0" cols="0"></textarea>
+                {{ form.object_location }}
+                {{ form.object_location.errors }}
     		</div>
     	</div>
 
@@ -110,16 +122,20 @@
     		</div>
     		<div class="modal_4col modal_4col_2">
     			<label>Ранее <br/>присоединенная мощность</label>
-    			<div class="input"><input type="text" /> кВА</div>
-    			<div class="input"><input type="text" /> кВт</div>
-    		</div>
+                <div class="input">{{ form.earlier_power_kVA }}
+                {{ form.earlier_power_kVA.errors }} кВА</div>
+                <div class="input">{{ form.earlier_power_kVt }}
+                {{ form.earlier_power_kVt.errors }} кВт</div>
+            </div>
     		<div class="modal_4col modal_4col_3">
     			<label>Вновь присоединяемая мощность (дополнительная)</label>
-    			<div class="input"><input type="text" /> кВт</div>
+    			<div class="input">{{ form.additional_power }}
+                {{ form.additional_power.errors }} кВт</div>
     		</div>
     		<div class="modal_4col modal_4col_4">
     			<label>Максимальная <br/>мощность (всего с учетом присоединенной мощности)</label>
-    			<div class="input"><input type="text" /> кВт</div>
+    			<div class="input">{{ form.max_power }}
+                {{ form.max_power.errors }} кВт</div>
     		</div>
     	</div>
 
@@ -127,14 +143,244 @@
     		<div class="modal_block_num">7</div>
     		<div class="input">
     			<label>Прочая информация</label>
-    			<textarea rows="0" cols="0"></textarea>
+                {{ form.other_inf }}
+                {{ form.other_inf.errors }}
+    		</div>
+    	</div>
+        <div style="display: none;"><input type="hidden" value="{{ case }}" id="form_type"></div>
+    	<div class="modal_btn"><div class="btn"><div class="btn_in"><input type="submit" value="Создать заявку" id="save_first_serv_request" /></div></div></div>
+        <script type="text/javascript">$('#fancybox-overlay').css('height',$(document).height());</script>
+    </div>
+    </div>
+{% endifequal %}
+
+{% ifequal case 'second_serv' %}
+    <div class="modal">
+    <div class="modal_in">
+    	<h2 class="modal_h">Заявка на технологическое присоединение к электрическим
+    сетям ОАО «Ленэнерго»</h2>
+
+    	<div class="modal_block">
+    		<div class="modal_block_num">1</div>
+    		<div class="input">
+    			<label>Фамилия</label>
+                {{ form.last_name }}
+                {{ form.last_name.errors }}
+    		</div>
+    		<div class="input">
+    			<label>Имя</label>
+                {{ form.first_name }}
+                {{ form.first_name.errors }}
+    		</div>
+    		<div class="input">
+    			<label>Отчество</label>
+                {{ form.middle_name }}
+                {{ form.middle_name.errors }}
     		</div>
     	</div>
 
+    	<div class="modal_block">
+    		<div class="modal_block_num">2</div>
+    		<div class="input">
+    			<span class="modal_block_short_1">
+    				<label>Серия</label>
+                    {{ form.passport_series }}
+                    {{ form.passport_series.errors }}
+    			</span>
+    			<span class="modal_block_short_2">
+    				<label>Номер</label>
+                    {{ form.passport_number }}
+                    {{ form.passport_number.errors }}
+    			</span>
+    		</div>
+    		<div class="input">
+    			<label>Кем выдан</label>
+                {{ form.passport_issued }}
+                {{ form.passport_issued.errors }}
+    		</div>
+    		<div class="input" title="{{ form.passport_issued_date.help_text }}">
+    			<label>Дата выдачи</label>
+                {{ form.passport_issued_date }}
+                {{ form.passport_issued_date.errors }}
+    		</div>
+    	</div>
 
+    	<div class="modal_block">
+    		<div class="modal_block_num">3</div>
+    		<div class="input">
+    			<label>ИНН</label>
+                {{ form.inn }}
+                {{ form.inn.errors }}
+    		</div>
+    	</div>
 
-    	<div class="modal_btn"><div class="btn"><div class="btn_in"><input type="submit" value="Создать заявку" /></div></div></div>
+    	<div class="modal_block">
+    		<div class="modal_block_num">4</div>
+    		<div class="input">
+    			<label>Фактический адрес заявителя с индексом</label>
+                {{ form.actual_address_with_index }}
+                {{ form.actual_address_with_index.errors }}
+    		</div>
+    	</div>
 
+    	<div class="modal_block">
+    		<div class="modal_block_num">5</div>
+    		<div class="input">
+    			<label>Наименование объекта</label>
+                {{ form.object_title }}
+                {{ form.object_title.errors }}
+    		</div>
+    	</div>
+
+    	<div class="modal_block">
+    		<div class="modal_block_num">6</div>
+    		<div class="input">
+    			<label>Местонахождение присоединяемого объекта</label>
+                {{ form.object_location }}
+                {{ form.object_location.errors }}
+    		</div>
+    	</div>
+
+        <div class="modal_block">
+            <div class="modal_block_num">7</div>
+            <div class="input">
+                <label>Срок временного присоединения</label>
+                {{ form.temp_period }}
+                {{ form.temp_period.errors }}
+            </div>
+        </div>
+
+    	<div class="modal_4cols">
+    		<div class="modal_4col modal_4col_1">
+    			<label>Категория <br/>надежности электроснабжения</label>
+    			<div>I</div>
+    			<div>II</div>
+    			<div>III</div>
+    		</div>
+    		<div class="modal_4col modal_4col_2">
+    			<label>Ранее <br/>присоединенная мощность</label>
+                <div class="input">{{ form.first_earlier_power_kVA }}
+                {{ form.first_earlier_power_kVA.errors }} кВА</div>
+                <div class="input">{{ form.first_earlier_power_kVt }}
+                {{ form.first_earlier_power_kVt.errors }} кВт</div>
+
+                <div class="input">{{ form.second_earlier_power_kVA }}
+                {{ form.second_earlier_power_kVA.errors }} кВА</div>
+                <div class="input">{{ form.second_earlier_power_kVt }}
+                {{ form.second_earlier_power_kVt.errors }} кВт</div>
+
+                <div class="input">{{ form.third_earlier_power_kVA }}
+                {{ form.third_earlier_power_kVA.errors }} кВА</div>
+                <div class="input">{{ form.third_earlier_power_kVt }}
+                {{ form.third_earlier_power_kVt.errors }} кВт</div>
+            </div>
+    		<div class="modal_4col modal_4col_3">
+    			<label>Вновь присоединяемая мощность (дополнительная)</label>
+    			<div class="input">{{ form.first_additional_power }}
+                {{ form.first_additional_power.errors }} кВт</div>
+
+                <div class="input">{{ form.second_additional_power }}
+                {{ form.second_additional_power.errors }} кВт</div>
+
+                <div class="input">{{ form.third_additional_power }}
+                {{ form.third_additional_power.errors }} кВт</div>
+    		</div>
+    		<div class="modal_4col modal_4col_4">
+    			<label>Максимальная <br/>мощность (всего с учетом присоединенной мощности)</label>
+    			<div class="input">{{ form.first_max_power }}
+                {{ form.first_max_power.errors }} кВт</div>
+
+                <div class="input">{{ form.second_max_power }}
+                {{ form.second_max_power.errors }} кВт</div>
+
+                <div class="input">{{ form.third_max_power }}
+                {{ form.third_max_power.errors }} кВт</div>
+    		</div>
+    	</div>
+
+        <div class="modal_block">
+       		<div class="modal_block_num">8</div>
+       		<div class="input">
+       			<label>Характер нагрузки потребителя электрической энергии</label>
+                   {{ form.load_type }}
+                   {{ form.load_type.errors }}
+       		</div>
+       	</div>
+
+    	<div class="modal_block">
+    		<div class="modal_block_num">9</div>
+    		<div class="input">
+    			<label>Прочая информация</label>
+                {{ form.other_inf }}
+                {{ form.other_inf.errors }}
+    		</div>
+    	</div>
+        <div style="display: none;"><input type="hidden" value="{{ case }}" id="form_type"></div>
+    	<div class="modal_btn"><div class="btn"><div class="btn_in"><input type="submit" value="Создать заявку" id="save_second_serv_request" /></div></div></div>
+        <script type="text/javascript">$('#fancybox-overlay').css('height',$(document).height());</script>
     </div>
     </div>
+{% endifequal %}
+
+
+{% ifequal case 'reception_form' %}
+<div class="modal">
+    <div class="modal_in">
+    	<h2 class="modal_h">Заявка на технологическое присоединение к электрическим
+    сетям ОАО «Ленэнерго»</h2>
+
+    	<div class="modal_des text">
+    		<p>Мы создали для Вас заполненную заявку на технологическое подключение.</p>
+    		<p>Вы можете ее <a href="/media/{{ pdf_path }}">скачать или распечатать</a>.</p>
+    	</div>
+
+    	<div class="modal_pl">
+    		<h2>Запись на приём</h2>
+    		<div>
+    			<div class="modal_2col">
+    				<div class="input">
+    					<label>Фамилия</label>
+    					{{ form.last_name }}
+    					{{ form.last_name.errors }}
+    				</div>
+    				<div class="input">
+    					<label>Имя</label>
+                        {{ form.first_name }}
+                        {{ form.first_name.errors }}
+    				</div>
+    				<div class="input">
+    					<label>Отчество</label>
+                        {{ form.middle_name }}
+                        {{ form.middle_name.errors }}
+    				</div>
+    			</div>
+    			<div class="modal_2col">
+    				<div class="input">
+    					<label>Телефон</label>
+                        {{ form.phonenumber }}
+                        {{ form.phonenumber.errors }}
+    				</div>
+    				<div class="input" title="{{ form.reception_date.help_text }}">
+    					<label>Дата приёма</label>
+                        {{ form.reception_date }}
+                        {{ form.reception_date.errors }}
+    				</div>
+    				<div class="input" title="{{ form.reception_time.help_text }}">
+    					<label>Время</label>
+                        {{ form.reception_time }}
+                        {{ form.reception_time.errors }}
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+        <div style="display: none;">
+            <input type="hidden" value="{{ case }}" id="form_type">
+            <input type="hidden" value="{{ id_serv }}" id="id_serv">
+            <input type="hidden" value="{{ pdf_path }}" id="pdf_path">
+            <input type="hidden" value="{{ serv_type }}" id="serv_type">
+        </div>
+    	<div class="modal_btn"><div class="btn"><div class="btn_in"><input type="submit" value="Записаться на приём" id="save_reception" /></div></div></div>
+
+    </div>
+</div>
 {% endifequal %}

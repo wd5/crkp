@@ -55,7 +55,17 @@
 
 {% block inline_field_sets %}
 {% for inline_admin_formset in inline_admin_formsets %}
-    {% include inline_admin_formset.opts.template %}
+
+    {% if inline_admin_formset.opts.template == 'admin/edit_inline/stacked.html' %}
+        {% for inline_admin_form in inline_admin_formset %}
+            {% if inline_admin_formset.formset.can_delete and inline_admin_form.original %}
+                {% include inline_admin_formset.opts.template %}
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        {% include inline_admin_formset.opts.template %}
+    {% endif %}
+
 {% endfor %}
 {% endblock %}
 

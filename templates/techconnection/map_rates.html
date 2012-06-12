@@ -14,7 +14,7 @@
         <img src="/media/img/connect_map.png" width="463" height="542" alt="" usemap="#connect_map" />
         <map name="connect_map" class="connect_map">
             {% for polygon in polygons %}
-                <area shape="poly" alt="{{ polygon.number }}" title="{{ polygon.title }}" coords="{{ polygon.polygon }}" class="fancybox" href="/showratestable/{{ polygon.number }}/" />
+                <area shape="poly" alt="{{ polygon.number }}" title="{{ polygon.title }}" coords="{{ polygon.polygon }}" class="fancybox-big" href="/showratestable/{{ polygon.number }}/" />
             {% endfor %}
         </map>
         <div class="map_labels">

@@ -154,7 +154,7 @@ def image_path_license(instance, filename):
 
 class License(models.Model):
     category = models.ForeignKey(LicensesCategory, verbose_name=u'категория')
-    image = ImageField(upload_to=image_path_license, verbose_name=u'изображение')
+    image = ImageField(upload_to=image_path_license, verbose_name=u'изображение',)
     order = models.IntegerField(u'порядок сортировки', help_text=u'Чем больше число, тем выше располагается элемент', default=10)
     is_published = models.BooleanField(verbose_name=u'опубликовано', default=True)
 

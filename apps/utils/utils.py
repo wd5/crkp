@@ -9,7 +9,7 @@ from django.template.loader import get_template
 from django.template import Context
 from sorl.thumbnail import ImageField as sorl_ImageField
 import settings
-#import xhtml2pdf.pisa as pisa
+import xhtml2pdf.pisa as pisa
 
 class ImageField(models.ImageField, sorl_ImageField):
     pass
@@ -40,7 +40,7 @@ def render_to_pdf(template_src, id_guest, context_dict):
     result = StringIO()
 
     file_name = 'guest_%s.pdf' % id_guest
-    path_name = settings.MEDIA_ROOT + 'uploads/files/guests/' + file_name
+    path_name = settings.MEDIA_ROOT + '/uploads/files/guests/' + file_name
     destination = open(path_name, 'wb+')
 
     pdf = pisa.pisaDocument(StringIO(html.encode("utf-8")), result, show_error_as_pdf=True, encoding='utf-8', )
