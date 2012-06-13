@@ -121,6 +121,23 @@ $(function(){
                 max_power:$('#id_max_power').val(),
                 other_inf:$('#id_other_inf').val(),
 
+                agent_full_name:$('#id_agent_full_name').val(),
+                authority_number:$('#id_authority_number').val(),
+                authority_date:$('#id_authority_date').val(),
+                phone_number:$('#id_phone_number').val(),
+                fax:$('#id_fax').val(),
+                email:$('#id_email').val(),
+
+                req_attachment1:$('#id_req_attachment1').prop("checked"),
+                req_attachment2:$('#id_req_attachment2').prop("checked"),
+                req_attachment3:$('#id_req_attachment3').prop("checked"),
+                req_attachment4:$('#id_req_attachment4').prop("checked"),
+                req_attachment5:$('#id_req_attachment5').prop("checked"),
+                req_attachment6:$('#id_req_attachment6').prop("checked"),
+                req_attachment7:$('#id_req_attachment7').prop("checked"),
+                req_attachment8:$('#id_req_attachment8').prop("checked"),
+                req_attachment9:$('#id_req_attachment9').prop("checked"),
+
                 form_type:$('#form_type').val()
                 }
         CheckForm(data,2);

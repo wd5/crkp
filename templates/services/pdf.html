@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
+{% load services_extras %}
 <html>
 <head>
 <title>
@@ -141,6 +141,26 @@ hr.headhr {
     </li>
     <li>
         <p>Прочая информация: <span>{{ saved_object.other_inf }}</span></p>
+    </li>
+    <li>
+        <p>Заявитель/представитель: <span>{{ saved_object.agent_full_name }}</span></p>
+        <p>Доверенность №: <span>{{ saved_object.authority_number }}</span></p>
+        <p>Дата доверенности: <span>{{ saved_object.authority_date }}</span></p>
+        <p>Телефон для связи: <span>{{ saved_object.phone_number }}</span></p>
+        <p>Факс: <span>{{ saved_object.fax }}</span></p>
+        <p>E-mail: <span>{{ saved_object.email }}</span></p>
+    </li>
+    <li>
+        <h3>Приложения к заявке</h3>
+        <p><span>{{ saved_object.req_attachment1|yesno:_("ЕСТЬ,НЕТ") }}</span>{% get_verbose_name saved_object 'req_attachment1' %}</p>
+        <p><span>{{ saved_object.req_attachment2|yesno:_("ЕСТЬ,НЕТ") }}</span>{% get_verbose_name saved_object 'req_attachment2' %}</p>
+        <p><span>{{ saved_object.req_attachment3|yesno:_("ЕСТЬ,НЕТ") }}</span>{% get_verbose_name saved_object 'req_attachment3' %}</p>
+        <p><span>{{ saved_object.req_attachment4|yesno:_("ЕСТЬ,НЕТ") }}</span>{% get_verbose_name saved_object 'req_attachment4' %}</p>
+        <p><span>{{ saved_object.req_attachment5|yesno:_("ЕСТЬ,НЕТ") }}</span>{% get_verbose_name saved_object 'req_attachment5' %}</p>
+        <p><span>{{ saved_object.req_attachment6|yesno:_("ЕСТЬ,НЕТ") }}</span>{% get_verbose_name saved_object 'req_attachment6' %}</p>
+        <p><span>{{ saved_object.req_attachment7|yesno:_("ЕСТЬ,НЕТ") }}</span>{% get_verbose_name saved_object 'req_attachment7' %}</p>
+        <p><span>{{ saved_object.req_attachment8|yesno:_("ЕСТЬ,НЕТ") }}</span>{% get_verbose_name saved_object 'req_attachment8' %}</p>
+        <p><span>{{ saved_object.req_attachment9|yesno:_("ЕСТЬ,НЕТ") }}</span>{% get_verbose_name saved_object 'req_attachment9' %}</p>
     </li>
 </ol>
 {% endifequal %}

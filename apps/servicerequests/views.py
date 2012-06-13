@@ -2,7 +2,7 @@
 from django.db.models import Max
 from apps.services.models import Service
 from apps.servicerequests.forms import TypicalRequestForm, FirstServRequestForm, ReceptionForm, SecondServRequestForm, ThirdServRequestForm, FourthServRequestForm, FifthServRequestForm
-from apps.servicerequests.models import FirstServRequest, SecondServRequest, ThirdServRequest, FourthServRequest, FifthServRequest
+from apps.servicerequests.models import FirstServRequest, SecondServRequest, ThirdServRequest, FourthServRequest, FifthServRequest, BlackList
 from django.views.generic import  DetailView, View
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.template.loader import render_to_string
@@ -16,12 +16,14 @@ class ReqFormLoaderView(View):
         try:
             id = int(id)
         except ValueError:
-            return HttpResponseBadRequest("Приносим свои извинения. Возникла непредвиденная ошибка.")
+            return HttpResponseBadRequest(
+                "Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
         try:
             service_curr = Service.objects.get(pk=id)
             service_title = service_curr.title
         except Service.DoesNotExist:
-            return HttpResponseBadRequest("Приносим свои извинения. Возникла непредвиденная ошибка.")
+            return HttpResponseBadRequest(
+                "Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
 
         if id in [1, 2, 3, 4, 5]:
             if id == 1:
@@ -51,32 +53,79 @@ class ReqFormLoaderView(View):
 
         items_html = render_to_string(
             'services/form_load_template.html',
-                {'form': form, 'case': case, 'service_title': service_title}
+                {'form': form, 'case': case, 'service_title': service_title, }
         )
         response.content = items_html
         return response
 
 load_request_form = ReqFormLoaderView.as_view()
 
+def CheckRequest(full_name, phonenum, email):
+    full_name = full_name.strip()
+    phonenum = phonenum.strip()
+    email = email.strip()
+    if full_name == '' or phonenum == '' or email == '':
+        return True
+    else:
+        black_list = BlackList.objects.all()
+        full_name = full_name.split(' ')
+        f = full_name[0]
+        try:
+            i = full_name[1]
+        except:
+            i = False
+        if i:
+            try:
+                o = full_name[2]
+            except:
+                o = False
+        else:
+            o = False
+
+        if f and i and o:
+            f_fio = black_list.filter(full_name__icontains=f).filter(full_name__icontains=i).filter(full_name__icontains=o)
+        elif f and i:
+            f_fio = black_list.filter(full_name__icontains=f).filter(full_name__icontains=i)
+        elif f:
+            f_fio = black_list.filter(full_name__icontains=f)
+        else:
+            f_fio = False
+
+        f_phone = black_list.filter(phonenumber__iexact='%s' % phonenum)
+        f_email = black_list.filter(email__iexact='%s' % email)
+        if f_fio or f_phone or f_email:
+            result = True
+        else:
+            result = False
+        return result
+
 class ReqFormCheckView(View):
     def post(self, request, *args, **kwargs):
         if request.is_ajax():
             data = request.POST.copy()
             if 'form_type' not in request.POST:
-                return HttpResponseBadRequest("Приносим свои извинения. Возникла непредвиденная ошибка.")
+                return HttpResponseBadRequest(
+                    "Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
             else:
                 form_type = request.POST['form_type']
                 if form_type == 'typical':
                     form = TypicalRequestForm(data)
                     if form.is_valid():
-                        form.save()
-                        return HttpResponse('success')
+                        # проверка по черному списку:
+                        check_result = CheckRequest(form.cleaned_data['full_name'], form.cleaned_data['phonenumber'], form.cleaned_data['email'])
+                        if check_result:
+                            return HttpResponseBadRequest(
+                                "Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
+                        else:
+                            form.save()
+                            return HttpResponse('success')
                     else:
                         id = request.POST['service']
                         try:
                             id = int(id)
                         except ValueError:
-                            return HttpResponseBadRequest("Приносим свои извинения. Возникла непредвиденная ошибка.")
+                            return HttpResponseBadRequest(
+                                "Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
                         service_set = Service.objects.filter(pk=id)
                         form.fields['service'].queryset = service_set
                         service_title = Service.objects.get(pk=id).title
@@ -102,13 +151,13 @@ class ReqFormCheckView(View):
                         items_html = render_to_string(
                             'services/form_load_template.html',
                                 {'form': RecForm, 'case': 'reception_form', 'pdf_path': saved_object.generated_pdf,
-                                 'id_serv': saved_object.pk, 'serv_type': 'first_serv'}
+                                 'id_serv': saved_object.pk, 'serv_type': 'first_serv',}
                         )
                         return HttpResponse(items_html)
                     else:
                         items_html = render_to_string(
                             'services/form_load_template.html',
-                                {'form': form, 'case': request.POST['form_type'], }
+                                {'form': form, 'case': request.POST['form_type'],}
                         )
                         return HttpResponse(items_html)
                 elif form_type == 'second_serv':
@@ -218,41 +267,60 @@ class ReqFormCheckView(View):
                 elif form_type == 'reception_form':
                     form = ReceptionForm(data)
                     if form.is_valid():
+                        # проверка по черному списку:
+                        check_result = CheckRequest('%s %s %s' % (form.cleaned_data['last_name'],form.cleaned_data['first_name'],form.cleaned_data['middle_name']), form.cleaned_data['phonenumber'], '-')
+                        if check_result:
+                            try:
+                                id_serv = int(request.POST['id_serv'])
+                            except:
+                                return HttpResponseBadRequest("Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
+                            serv = FirstServRequest.objects.get(pk=id_serv)
+                            serv.delete()
+                            return HttpResponseBadRequest("Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
+                        else:
+                            form.save()
+
                         saved_object = form.save()
                         try:
                             id_serv = int(request.POST['id_serv'])
                         except:
-                            return HttpResponseBadRequest("Приносим свои извинения. Возникла непредвиденная ошибка.")
+                            return HttpResponseBadRequest(
+                                "Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
 
                         if request.POST['serv_type'] == 'first_serv':
                             try:
                                 related_serv = FirstServRequest.objects.get(pk=id_serv)
                             except FirstServRequest.DoesNotExist:
-                                return HttpResponseBadRequest("Приносим свои извинения. Возникла непредвиденная ошибка.")
+                                return HttpResponseBadRequest(
+                                    "Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
 
                         if request.POST['serv_type'] == 'second_serv':
                             try:
                                 related_serv = SecondServRequest.objects.get(pk=id_serv)
                             except SecondServRequest.DoesNotExist:
-                                return HttpResponseBadRequest("Приносим свои извинения. Возникла непредвиденная ошибка.")
+                                return HttpResponseBadRequest(
+                                    "Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
 
                         if request.POST['serv_type'] == 'third_serv':
                             try:
                                 related_serv = ThirdServRequest.objects.get(pk=id_serv)
                             except ThirdServRequest.DoesNotExist:
-                                return HttpResponseBadRequest("Приносим свои извинения. Возникла непредвиденная ошибка.")
+                                return HttpResponseBadRequest(
+                                    "Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
 
                         if request.POST['serv_type'] == 'fourth_serv':
                             try:
                                 related_serv = FourthServRequest.objects.get(pk=id_serv)
                             except FourthServRequest.DoesNotExist:
-                                return HttpResponseBadRequest("Приносим свои извинения. Возникла непредвиденная ошибка.")
+                                return HttpResponseBadRequest(
+                                    "Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
 
                         if request.POST['serv_type'] == 'fifth_serv':
                             try:
                                 related_serv = FifthServRequest.objects.get(pk=id_serv)
                             except FifthServRequest.DoesNotExist:
-                                return HttpResponseBadRequest("Приносим свои извинения. Возникла непредвиденная ошибка.")
+                                return HttpResponseBadRequest(
+                                    "Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
 
                         related_serv.connection_request = saved_object
                         related_serv.save()
@@ -261,10 +329,11 @@ class ReqFormCheckView(View):
                         items_html = render_to_string(
                             'services/form_load_template.html',
                                 {'form': form, 'case': request.POST['form_type'], 'pdf_path': request.POST['pdf_path'],
-                                 'id_serv': request.POST['id_serv'], 'serv_type':request.POST['serv_type']}
+                                 'id_serv': request.POST['id_serv'], 'serv_type': request.POST['serv_type']}
                         )
                         return HttpResponse(items_html)
         else:
-            return HttpResponseBadRequest("Приносим свои извинения. Возникла непредвиденная ошибка.")
+            return HttpResponseBadRequest(
+                "Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
 
 check_request_form = ReqFormCheckView.as_view()

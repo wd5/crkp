@@ -50,7 +50,12 @@ class FirstServRequestInline(admin.StackedInline):
         }),
         ('Другая информация', {
             'classes': ('collapse',),
-            'fields': ('other_inf','date_create',)
+            'fields': ('other_inf','agent_full_name',('authority_number','authority_date'),'phone_number','fax','email','date_create',)
+        }),
+        ('Приложения к заявке', {
+            'classes': ('collapse',),
+            'fields': ('req_attachment1','req_attachment2','req_attachment3','req_attachment4','req_attachment5',
+                       'req_attachment6','req_attachment7','req_attachment8','req_attachment9',)
         }),
     )
     readonly_fields = ('date_create',)
@@ -238,32 +243,41 @@ class ReceptionAdmin(admin.ModelAdmin):
         FifthServRequestInline,
     ]
 
-#class FirstServRequestAdmin(admin.ModelAdmin):
-#    list_display = ('id', 'date_create',)
-#    list_display = ('id', 'date_create',)
-#    form = FirstServRequestForm
-#    fieldsets = (
-#        (None, {
-#            'fields': ('connection_request', 'generated_pdf', ('last_name', 'first_name','middle_name'))
-#        }),
-#        ('Реквизиты', {
-#            'classes': ('collapse',),
-#            'fields': (('passport_series', 'passport_number',), 'passport_issued', 'passport_issued_date', 'inn',)
-#        }),
-#        ('Объект', {
-#            'classes': ('collapse',),
-#            'fields': (('actual_address_with_index', 'object_title'),'object_location',)
-#        }),
-#        ('Параметры электроснабжения', {
-#            'classes': ('collapse',),
-#            'fields': (('earlier_power_kVA', 'additional_power','max_power',), 'earlier_power_kVt',)
-#        }),
-#        (None, {
-#            'fields': ('other_inf','date_create',)
-#        }),
-#    )
-#    readonly_fields = ('date_create',)
-#admin.site.register(FirstServRequest, FirstServRequestAdmin)
+class FirstServRequestAdmin(admin.ModelAdmin):
+    list_display = ('id', 'date_create',)
+    list_display = ('id', 'date_create',)
+    form = FirstServRequestForm
+    fieldsets = (
+        (None, {
+            'fields': ('generated_pdf', ('last_name', 'first_name','middle_name'))
+        }),
+        ('Реквизиты', {
+            'classes': ('collapse',),
+            'fields': (('passport_series', 'passport_number',), 'passport_issued', 'passport_issued_date', 'inn','actual_address_with_index',)
+        }),
+        ('Объект', {
+            'classes': ('collapse',),
+            'fields': ('object_title', 'object_location')
+        }),
+        ('Параметры электроснабжения', {
+            'classes': ('collapse',),
+            'fields': (('earlier_power_kVA', 'additional_power','max_power',), 'earlier_power_kVt',)
+        }),
+        ('Другая информация', {
+            'classes': ('collapse',),
+            'fields': ('other_inf','agent_full_name',('authority_number','authority_date'),'phone_number','fax','email',)
+        }),
+        ('Приложения к заявке', {
+            'classes': ('collapse',),
+            'fields': ('req_attachment1','req_attachment2','req_attachment3','req_attachment4','req_attachment5',
+                       'req_attachment6','req_attachment7','req_attachment8','req_attachment9',)
+        }),
+        (None, {
+            'fields': ('date_create',)
+        }),
+    )
+    readonly_fields = ('date_create',)
+admin.site.register(FirstServRequest, FirstServRequestAdmin)
 #
 #class SecondServRequestAdmin(admin.ModelAdmin):
 #    list_display = ('id', 'date_create',)

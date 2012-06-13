@@ -37,6 +37,23 @@ class FirstServRequestForm(forms.ModelForm):
     max_power = forms.DecimalField(required=True)
     other_inf = forms.CharField(widget=forms.Textarea, required=True)
 
+    agent_full_name = forms.CharField(required=True)
+    authority_number = forms.CharField(required=True)
+    authority_date = forms.DateField(widget=forms.DateInput, required=True, help_text='в формате "ДД.ММ.ГГГГ"')
+    phone_number = forms.CharField(required=True)
+    fax = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
+
+    req_attachment1 = forms.BooleanField(required=False, label=FirstServRequest._meta.get_field_by_name('req_attachment1')[0].verbose_name)
+    req_attachment2 = forms.BooleanField(required=False, label=FirstServRequest._meta.get_field_by_name('req_attachment2')[0].verbose_name)
+    req_attachment3 = forms.BooleanField(required=False, label=FirstServRequest._meta.get_field_by_name('req_attachment3')[0].verbose_name)
+    req_attachment4 = forms.BooleanField(required=False, label=FirstServRequest._meta.get_field_by_name('req_attachment4')[0].verbose_name)
+    req_attachment5 = forms.BooleanField(required=False, label=FirstServRequest._meta.get_field_by_name('req_attachment5')[0].verbose_name)
+    req_attachment6 = forms.BooleanField(required=False, label=FirstServRequest._meta.get_field_by_name('req_attachment6')[0].verbose_name)
+    req_attachment7 = forms.BooleanField(required=False, label=FirstServRequest._meta.get_field_by_name('req_attachment7')[0].verbose_name)
+    req_attachment8 = forms.BooleanField(required=False, label=FirstServRequest._meta.get_field_by_name('req_attachment8')[0].verbose_name)
+    req_attachment9 = forms.BooleanField(required=False, label=FirstServRequest._meta.get_field_by_name('req_attachment9')[0].verbose_name)
+
     class Meta:
         model = FirstServRequest
         exclude = ('connection_request', 'generated_pdf', 'date_create',)
