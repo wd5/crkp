@@ -3,7 +3,7 @@ from AptUrl.Helpers import _
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from apps.pages.models import Page
-from apps.techconnection.models import MapPolygon
+from apps.techconnection.models import MapPolygon,Electroload
 from apps.pages.views import ShowCompItemView
 from django.views.generic import ListView,DetailView,TemplateView
 
@@ -32,3 +32,15 @@ class ShowRatesTableView(DetailView):
     context_object_name = 'polygon'
 
 show_rates_table = ShowRatesTableView.as_view()
+
+class ShowTechCalcView(ListView):
+    model = Electroload
+    template_name = 'techconnection/tech_calc.html'
+    context_object_name = 'electroloads'
+
+    def get_context_data(self, **kwargs):
+        context = super(ShowTechCalcView,self).get_context_data(**kwargs)
+        context['page'] = Page.objects.get(pk=14)
+        return context
+
+show_techcalc = ShowTechCalcView.as_view()

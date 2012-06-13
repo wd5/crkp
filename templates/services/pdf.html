@@ -95,7 +95,7 @@ hr.headhr {
 <body>
 
 <div class="head">
-    <h3 align="center">Физические лица до 15 кВт (включительно) по 3 категории надежности электроснабжения</h3>
+    <h3 align="center">{{ title }}</h3>
     <hr class="headhr" style="width:90%;">
 </div>
 
@@ -203,5 +203,171 @@ hr.headhr {
 </ol>
 {% endifequal %}
 
+{% ifequal case 'third_serv' %}
+<ol>
+    <li>
+        <p>Полное наименование организации/индивидуального предпринимателя: <span>{{ saved_object.org_title }}</span></p>
+    </li>
+    <li>
+        <p>Номер записи в Едином государственном реестре юридических лиц/Едином государственном реестре индивидуальных предпринимателей: <span>{{ saved_object.egrul_number }}</span></p>
+    </li>
+    <li>
+        <p>Фактический адрес организации (заявителя) с индексом: <span>{{ saved_object.actual_address_with_index }}</span></p>
+    </li>
+    <li>
+        <p>Наименование объекта: <span>{{ saved_object.object_title }}</span></p>
+    </li>
+    <li>
+        <p>Местонахождение присоединяемого объекта: <span>{{ saved_object.object_location }}</span></p>
+    </li>
+    <li>
+        <p>Срок временного присоединения: <span>{{ saved_object.temp_period }}</span></p>
+    </li>
+    <li>
+        <p>Категория надежности электроснабжения: <span>I</span></p>
+        <p>Ранее присоединенная мощность (кВА): <span>{{ saved_object.first_earlier_power_kVA }}</span></p>
+        <p>Ранее присоединенная мощность (кВт): <span>{{ saved_object.first_earlier_power_kVt }}</span></p>
+        <p>Вновь присоединяемая мощность (дополнительная): <span>{{ saved_object.first_additional_power }}</span></p>
+        <p>Максимальная мощность (всего с учетом присоединенной мощности): <span>{{ saved_object.first_max_power }}</span></p>
+    </li>
+    <li>
+        <p>Категория надежности электроснабжения: <span>II</span></p>
+        <p>Ранее присоединенная мощность (кВА): <span>{{ saved_object.second_earlier_power_kVA }}</span></p>
+        <p>Ранее присоединенная мощность (кВт): <span>{{ saved_object.second_earlier_power_kVt }}</span></p>
+        <p>Вновь присоединяемая мощность (дополнительная): <span>{{ saved_object.second_additional_power }}</span></p>
+        <p>Максимальная мощность (всего с учетом присоединенной мощности): <span>{{ saved_object.second_max_power }}</span></p>
+    </li>
+    <li>
+        <p>Категория надежности электроснабжения: <span>III</span></p>
+        <p>Ранее присоединенная мощность (кВА): <span>{{ saved_object.third_earlier_power_kVA }}</span></p>
+        <p>Ранее присоединенная мощность (кВт): <span>{{ saved_object.third_earlier_power_kVt }}</span></p>
+        <p>Вновь присоединяемая мощность (дополнительная): <span>{{ saved_object.third_additional_power }}</span></p>
+        <p>Максимальная мощность (всего с учетом присоединенной мощности): <span>{{ saved_object.third_max_power }}</span></p>
+    </li>
+    <li>
+        <p>Характер нагрузки потребителя электрической энергии: <span>{{ saved_object.load_type }}</span></p>
+    </li>
+    <li>
+        <p>Прочая информация: <span>{{ saved_object.other_inf }}</span></p>
+    </li>
+</ol>
+{% endifequal %}
+
+{% ifequal case 'fourth_serv' %}
+<ol>
+    <li>
+        <p>Полное наименование организации/индивидуального предпринимателя: <span>{{ saved_object.org_title }}</span></p>
+    </li>
+    <li>
+        <p>Номер записи в Едином государственном реестре юридических лиц/Едином государственном реестре индивидуальных предпринимателей: <span>{{ saved_object.egrul_number }}</span></p>
+        <p>Дата внесения в реестр: <span>{{ saved_object.egrul_date }}</span></p>
+    </li>
+    <li>
+        <p>Фактический адрес организации (заявителя) с индексом: <span>{{ saved_object.actual_address_with_index }}</span></p>
+    </li>
+    <li>
+        <p>Наименование объекта: <span>{{ saved_object.object_title }}</span></p>
+    </li>
+    <li>
+        <p>Местонахождение присоединяемого объекта: <span>{{ saved_object.object_location }}</span></p>
+    </li>
+    <li>
+        <p>Категория надежности электроснабжения: <span>I</span></p>
+        <p>Ранее присоединенная мощность (кВА): <span>{{ saved_object.first_earlier_power_kVA }}</span></p>
+        <p>Ранее присоединенная мощность (кВт): <span>{{ saved_object.first_earlier_power_kVt }}</span></p>
+        <p>Вновь присоединяемая мощность (дополнительная): <span>{{ saved_object.first_additional_power }}</span></p>
+        <p>Максимальная мощность (всего с учетом присоединенной мощности): <span>{{ saved_object.first_max_power }}</span></p>
+    </li>
+    <li>
+        <p>Категория надежности электроснабжения: <span>II</span></p>
+        <p>Ранее присоединенная мощность (кВА): <span>{{ saved_object.second_earlier_power_kVA }}</span></p>
+        <p>Ранее присоединенная мощность (кВт): <span>{{ saved_object.second_earlier_power_kVt }}</span></p>
+        <p>Вновь присоединяемая мощность (дополнительная): <span>{{ saved_object.second_additional_power }}</span></p>
+        <p>Максимальная мощность (всего с учетом присоединенной мощности): <span>{{ saved_object.second_max_power }}</span></p>
+    </li>
+    <li>
+        <p>Категория надежности электроснабжения: <span>III</span></p>
+        <p>Ранее присоединенная мощность (кВА): <span>{{ saved_object.third_earlier_power_kVA }}</span></p>
+        <p>Ранее присоединенная мощность (кВт): <span>{{ saved_object.third_earlier_power_kVt }}</span></p>
+        <p>Вновь присоединяемая мощность (дополнительная): <span>{{ saved_object.third_additional_power }}</span></p>
+        <p>Максимальная мощность (всего с учетом присоединенной мощности): <span>{{ saved_object.third_max_power }}</span></p>
+    </li>
+    <li>
+        <p>Количество точек присоединения с указанием технических параметров элементов энергопринимающих устройств: <span>{{ saved_object.count_conn_points }}</span></p>
+    </li>
+    <li>
+        <p>Характер нагрузки потребителя электрической энергии: <span>{{ saved_object.load_type }}</span></p>
+    </li>
+    <li>
+        <p>Поэтапное распределение мощности, сроков ввода и сведения о категории надежности электроснабжения, при вводе энергопринимающих устройств по этапам и очередям: <span>{{ saved_object.power_distribution }}</span></p>
+    </li>
+    <li>
+        <p>Прочая информация: <span>{{ saved_object.other_inf }}</span></p>
+    </li>
+</ol>
+{% endifequal %}
+
+{% ifequal case 'fifth_serv' %}
+<ol>
+    <li>
+        <p>Полное наименование организации/индивидуального предпринимателя: <span>{{ saved_object.org_title }}</span></p>
+    </li>
+    <li>
+        <p>Номер записи в Едином государственном реестре юридических лиц/Едином государственном реестре индивидуальных предпринимателей: <span>{{ saved_object.egrul_number }}</span></p>
+        <p>Дата внесения в реестр: <span>{{ saved_object.egrul_date }}</span></p>
+    </li>
+    <li>
+        <p>Фактический адрес организации (заявителя) с индексом: <span>{{ saved_object.actual_address_with_index }}</span></p>
+    </li>
+    <li>
+        <p>Наименование объекта: <span>{{ saved_object.object_title }}</span></p>
+    </li>
+    <li>
+        <p>Местонахождение присоединяемого объекта: <span>{{ saved_object.object_location }}</span></p>
+    </li>
+    <li>
+        <p>Категория надежности электроснабжения: <span>I</span></p>
+        <p>Ранее присоединенная мощность (кВА): <span>{{ saved_object.first_earlier_power_kVA }}</span></p>
+        <p>Ранее присоединенная мощность (кВт): <span>{{ saved_object.first_earlier_power_kVt }}</span></p>
+        <p>Вновь присоединяемая мощность (дополнительная): <span>{{ saved_object.first_additional_power }}</span></p>
+        <p>Максимальная мощность (всего с учетом присоединенной мощности): <span>{{ saved_object.first_max_power }}</span></p>
+    </li>
+    <li>
+        <p>Категория надежности электроснабжения: <span>II</span></p>
+        <p>Ранее присоединенная мощность (кВА): <span>{{ saved_object.second_earlier_power_kVA }}</span></p>
+        <p>Ранее присоединенная мощность (кВт): <span>{{ saved_object.second_earlier_power_kVt }}</span></p>
+        <p>Вновь присоединяемая мощность (дополнительная): <span>{{ saved_object.second_additional_power }}</span></p>
+        <p>Максимальная мощность (всего с учетом присоединенной мощности): <span>{{ saved_object.second_max_power }}</span></p>
+    </li>
+    <li>
+        <p>Категория надежности электроснабжения: <span>III</span></p>
+        <p>Ранее присоединенная мощность (кВА): <span>{{ saved_object.third_earlier_power_kVA }}</span></p>
+        <p>Ранее присоединенная мощность (кВт): <span>{{ saved_object.third_earlier_power_kVt }}</span></p>
+        <p>Вновь присоединяемая мощность (дополнительная): <span>{{ saved_object.third_additional_power }}</span></p>
+        <p>Максимальная мощность (всего с учетом присоединенной мощности): <span>{{ saved_object.third_max_power }}</span></p>
+    </li>
+    <li>
+        <p>Количество и мощность присоединяемых к сети трансформаторов: <span>{{ saved_object.cnt_pwr_transformers }}</span></p>
+        <p>Количество и мощность присоединяемых к сети генераторов: <span>{{ saved_object.cnt_pwr_generators }}</span></p>
+    </li>
+    <li>
+        <p>Количество точек присоединения с указанием технических параметров элементов энергопринимающих устройств: <span>{{ saved_object.count_conn_points }}</span></p>
+    </li>
+    <li>
+        <p>Характер нагрузки потребителя электрической энергии: <span>{{ saved_object.load_type }}</span></p>
+    </li>
+    <li>
+        <p>Величина и обоснование величины технологического минимума (для генераторов): <span>{{ saved_object.tech_min_generators }}</span></p>
+        <p>Величина и обоснование величины технологической брони (для потребителей электрической энергии): <span>{{ saved_object.tech_armor_consumer }}</span></p>
+        <p>Величина и обоснование величины аварийной брони (для потребителей электрической энергии): <span>{{ saved_object.tech_emergency_armor_consumer }}</span></p>
+    </li>
+    <li>
+        <p>Поэтапное распределение мощности, сроков ввода и сведения о категории надежности электроснабжения, при вводе энергопринимающих устройств по этапам и очередям: <span>{{ saved_object.power_distribution }}</span></p>
+    </li>
+    <li>
+        <p>Прочая информация: <span>{{ saved_object.other_inf }}</span></p>
+    </li>
+</ol>
+{% endifequal %}
 </body>
 </html>

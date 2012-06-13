@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% load thumbnail siteblocks_extras faq_extras pages_extras %}
+
+{% if page.title %}
+    {% block title %}
+        {{ page.title }} &mdash;
+    {% endblock %}
+{% endif %}
+
+{% block content_l %}
+    <h1>{{ page.title }}</h1>
+    <p>Выберите электропотребителей, которые должны использоваться в помещении:</p>
+    <div class="tech_calc">
+        <table class="tech_calc_table">
+            <tr>
+                <th></th>
+                <th class="calc_name_col">Название</th>
+                <th class="calc_qty_col">Количество</th>
+            </tr>
+            {% for electroload in electroloads %}
+                <tr>
+                    <td class="calc_img_col">
+                        {% if electroload.icon %}
+                            <img src="{{ electroload.get_src_image }}" alt="" />
+                        {% endif %}
+                    </td>
+                    <td class="calc_name_col">
+                        <div>{{ electroload.title }}</div>
+                    </td>
+                    <td class="calc_qty_col">
+                        <div class="calc_qty">
+                            <input class="calc_qty_btn" type="button" value="1" />
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+
+            <tr>
+                <td class="calc_img_col">
+                    <img src="/media/img/tech_calc_4.png" alt="" />
+                </td>
+                <td class="calc_name_col">
+                    <div>Розетки для подключения компьютеров</div>
+                </td>
+                <td class="calc_qty_col">
+                    <div class="calc_qty">
+                        <input class="calc_qty_btn" type="button" value="12" />
+                        <div class="calc_qty_modal">
+                            <input class="calc_qty_input" type="text" value="10" />
+                            <input class="btn_save" type="button" value="Сохранить" />
+                            <input class="btn_cancel" type="button" value="Отменить" />
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div><!--/tech_calc-->
+
+    <div class="calc_submit">
+        <div class="btn"><div class="btn_in"><input type="submit" value="Расчитать нагрузки" /></div></div>
+        <div class="calc_add"><span>Добавить другой электропотребитель</span></div>
+    </div>
+{% endblock %}
+
+{% block submenu_r_pl %}
+    {% if page.parent %}
+        {% get_menu_by_parent page request.path %}
+    {% endif %}
+{% endblock %}
+
+{% block submenu_r_pl_second %}
+{% endblock %}
+
+{% block post_sbmns %}
+    {% faq_teaser '' %}
+{% endblock %}

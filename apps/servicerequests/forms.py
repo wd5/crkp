@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from apps.servicerequests.models import TypicalRequest, FirstServRequest, Reception, SecondServRequest
+from apps.servicerequests.models import TypicalRequest, FirstServRequest, Reception, SecondServRequest, ThirdServRequest, FourthServRequest, FifthServRequest
 
 class TypicalRequestForm(forms.ModelForm):
     full_name = forms.CharField(
@@ -104,7 +104,7 @@ class SecondServRequestForm(forms.ModelForm):
     third_additional_power = forms.DecimalField(required=True)
     third_max_power = forms.DecimalField(required=True)
 
-    load_type = forms.CharField(widget=forms.Textarea, required=True)
+    load_type = forms.CharField(required=True)
 
     other_inf = forms.CharField(widget=forms.Textarea, required=True)
 
@@ -144,6 +144,116 @@ class SecondServRequestForm(forms.ModelForm):
         if (len(inn) != 10 and len(inn) != 12) or not integer:
             raise forms.ValidationError("ИНН содержит 10 или 12 цифр (сейчас %s)"%len(inn))
         return inn
+
+class ThirdServRequestForm(forms.ModelForm):
+    org_title = forms.CharField(widget=forms.Textarea, required=True)
+    egrul_number = forms.CharField(widget=forms.Textarea, required=True)
+    actual_address_with_index = forms.CharField(widget=forms.Textarea, required=True)
+    object_title = forms.CharField(required=True)
+    object_location = forms.CharField(widget=forms.Textarea, required=True)
+
+    temp_period = forms.CharField(required=True)
+
+    first_earlier_power_kVA = forms.DecimalField(required=True)
+    first_earlier_power_kVt = forms.DecimalField(required=True)
+    first_additional_power = forms.DecimalField(required=True)
+    first_max_power = forms.DecimalField(required=True)
+
+    second_earlier_power_kVA = forms.DecimalField(required=True)
+    second_earlier_power_kVt = forms.DecimalField(required=True)
+    second_additional_power = forms.DecimalField(required=True)
+    second_max_power = forms.DecimalField(required=True)
+
+    third_earlier_power_kVA = forms.DecimalField(required=True)
+    third_earlier_power_kVt = forms.DecimalField(required=True)
+    third_additional_power = forms.DecimalField(required=True)
+    third_max_power = forms.DecimalField(required=True)
+
+    load_type = forms.CharField(widget=forms.Textarea, required=True)
+
+    other_inf = forms.CharField(widget=forms.Textarea, required=True)
+
+    class Meta:
+        model = ThirdServRequest
+        exclude = ('connection_request', 'generated_pdf', 'date_create',)
+
+class FourthServRequestForm(forms.ModelForm):
+    org_title = forms.CharField(widget=forms.Textarea, required=True)
+    egrul_number = forms.CharField(widget=forms.Textarea, required=True)
+    egrul_date = forms.DateField(widget=forms.DateInput, required=True, help_text='в формате "ДД.ММ.ГГГГ"')
+
+    actual_address_with_index = forms.CharField(widget=forms.Textarea, required=True)
+    object_title = forms.CharField(required=True)
+    object_location = forms.CharField(widget=forms.Textarea, required=True)
+
+    first_earlier_power_kVA = forms.DecimalField(required=True)
+    first_earlier_power_kVt = forms.DecimalField(required=True)
+    first_additional_power = forms.DecimalField(required=True)
+    first_max_power = forms.DecimalField(required=True)
+
+    second_earlier_power_kVA = forms.DecimalField(required=True)
+    second_earlier_power_kVt = forms.DecimalField(required=True)
+    second_additional_power = forms.DecimalField(required=True)
+    second_max_power = forms.DecimalField(required=True)
+
+    third_earlier_power_kVA = forms.DecimalField(required=True)
+    third_earlier_power_kVt = forms.DecimalField(required=True)
+    third_additional_power = forms.DecimalField(required=True)
+    third_max_power = forms.DecimalField(required=True)
+
+    count_conn_points = forms.CharField(widget=forms.Textarea, required=True)
+
+    load_type = forms.CharField(widget=forms.Textarea, required=True)
+
+    power_distribution = forms.CharField(widget=forms.Textarea, required=True)
+
+    other_inf = forms.CharField(widget=forms.Textarea, required=True)
+
+    class Meta:
+        model = FourthServRequest
+        exclude = ('connection_request', 'generated_pdf', 'date_create',)
+
+class FifthServRequestForm(forms.ModelForm):
+    org_title = forms.CharField(widget=forms.Textarea, required=True)
+    egrul_number = forms.CharField(widget=forms.Textarea, required=True)
+    egrul_date = forms.DateField(widget=forms.DateInput, required=True, help_text='в формате "ДД.ММ.ГГГГ"')
+
+    actual_address_with_index = forms.CharField(widget=forms.Textarea, required=True)
+    object_title = forms.CharField(required=True)
+    object_location = forms.CharField(widget=forms.Textarea, required=True)
+
+    first_earlier_power_kVA = forms.DecimalField(required=True)
+    first_earlier_power_kVt = forms.DecimalField(required=True)
+    first_additional_power = forms.DecimalField(required=True)
+    first_max_power = forms.DecimalField(required=True)
+
+    second_earlier_power_kVA = forms.DecimalField(required=True)
+    second_earlier_power_kVt = forms.DecimalField(required=True)
+    second_additional_power = forms.DecimalField(required=True)
+    second_max_power = forms.DecimalField(required=True)
+
+    third_earlier_power_kVA = forms.DecimalField(required=True)
+    third_earlier_power_kVt = forms.DecimalField(required=True)
+    third_additional_power = forms.DecimalField(required=True)
+    third_max_power = forms.DecimalField(required=True)
+
+    cnt_pwr_transformers = forms.CharField(widget=forms.Textarea, required=True)
+    cnt_pwr_generators = forms.CharField(widget=forms.Textarea, required=True)
+
+    count_conn_points = forms.CharField(widget=forms.Textarea, required=True)
+    load_type = forms.CharField(widget=forms.Textarea, required=True)
+
+    tech_min_generators = forms.CharField(widget=forms.Textarea, required=True)
+    tech_armor_consumer = forms.CharField(widget=forms.Textarea, required=True)
+    tech_emergency_armor_consumer = forms.CharField(widget=forms.Textarea, required=True)
+
+    power_distribution = forms.CharField(widget=forms.Textarea, required=True)
+
+    other_inf = forms.CharField(widget=forms.Textarea, required=True)
+
+    class Meta:
+        model = FifthServRequest
+        exclude = ('connection_request', 'generated_pdf', 'date_create',)
 
 class ReceptionForm(forms.ModelForm):
     last_name = forms.CharField(required=True)

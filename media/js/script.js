@@ -1,17 +1,7 @@
 $(function(){
-    var init_dh = $(document).height()
+    var dh = $('body').height();
 
-    $('.fancybox').fancybox();
-
-    $('.fancybox-big').fancybox({
-        'centerOnScroll':true,
-        'onComplete': function() {
-            $('#fancybox-overlay').css('height',$(document).height());
-            /*$('#fancybox-wrap').animate({
-                top:"100px"
-            });*/
-        }
-    });
+    SetFancy();
 
     $('div.faq').live('click',function(){
         $(this).toggleClass('faq_curr')
@@ -138,45 +128,165 @@ $(function(){
     });
 
     $('#save_second_serv_request').live('click',function(){
-            var data = {
-                    last_name:$('#id_last_name').val(),
-                    first_name:$('#id_first_name').val(),
-                    middle_name:$('#id_middle_name').val(),
-                    passport_series:$('#id_passport_series').val(),
-                    passport_number:$('#id_passport_number').val(),
-                    passport_issued:$('#id_passport_issued').val(),
-                    passport_issued_date:$('#id_passport_issued_date').val(),
-                    inn:$('#id_inn').val(),
-                    actual_address_with_index:$('#id_actual_address_with_index').val(),
-                    object_title:$('#id_object_title').val(),
-                    object_location:$('#id_object_location').val(),
+        var data = {
+            last_name:$('#id_last_name').val(),
+            first_name:$('#id_first_name').val(),
+            middle_name:$('#id_middle_name').val(),
+            passport_series:$('#id_passport_series').val(),
+            passport_number:$('#id_passport_number').val(),
+            passport_issued:$('#id_passport_issued').val(),
+            passport_issued_date:$('#id_passport_issued_date').val(),
+            inn:$('#id_inn').val(),
+            actual_address_with_index:$('#id_actual_address_with_index').val(),
+            object_title:$('#id_object_title').val(),
+            object_location:$('#id_object_location').val(),
 
-                    temp_period:$('#id_temp_period').val(),
+            temp_period:$('#id_temp_period').val(),
 
-                    first_earlier_power_kVA:$('#id_first_earlier_power_kVA').val(),
-                    first_earlier_power_kVt:$('#id_first_earlier_power_kVt').val(),
-                    first_additional_power:$('#id_first_additional_power').val(),
-                    first_max_power:$('#id_first_max_power').val(),
+            first_earlier_power_kVA:$('#id_first_earlier_power_kVA').val(),
+            first_earlier_power_kVt:$('#id_first_earlier_power_kVt').val(),
+            first_additional_power:$('#id_first_additional_power').val(),
+            first_max_power:$('#id_first_max_power').val(),
 
-                    second_earlier_power_kVA:$('#id_second_earlier_power_kVA').val(),
-                    second_earlier_power_kVt:$('#id_second_earlier_power_kVt').val(),
-                    second_additional_power:$('#id_second_additional_power').val(),
-                    second_max_power:$('#id_second_max_power').val(),
+            second_earlier_power_kVA:$('#id_second_earlier_power_kVA').val(),
+            second_earlier_power_kVt:$('#id_second_earlier_power_kVt').val(),
+            second_additional_power:$('#id_second_additional_power').val(),
+            second_max_power:$('#id_second_max_power').val(),
 
-                    third_earlier_power_kVA:$('#id_third_earlier_power_kVA').val(),
-                    third_earlier_power_kVt:$('#id_third_earlier_power_kVt').val(),
-                    third_additional_power:$('#id_third_additional_power').val(),
-                    third_max_power:$('#id_third_max_power').val(),
+            third_earlier_power_kVA:$('#id_third_earlier_power_kVA').val(),
+            third_earlier_power_kVt:$('#id_third_earlier_power_kVt').val(),
+            third_additional_power:$('#id_third_additional_power').val(),
+            third_max_power:$('#id_third_max_power').val(),
 
-                    load_type:$('#id_load_type').val(),
+            load_type:$('#id_load_type').val(),
 
-                    other_inf:$('#id_other_inf').val(),
+            other_inf:$('#id_other_inf').val(),
 
-                    form_type:$('#form_type').val()
-                    }
-            CheckForm(data,2);
-            return false;
-        });
+            form_type:$('#form_type').val()
+            }
+        CheckForm(data,2);
+        return false;
+    });
+
+    $('#save_third_serv_request').live('click',function(){
+        var data = {
+            org_title:$('#id_org_title').val(),
+            egrul_number:$('#id_egrul_number').val(),
+            actual_address_with_index:$('#id_actual_address_with_index').val(),
+            object_title:$('#id_object_title').val(),
+            object_location:$('#id_object_location').val(),
+
+            temp_period:$('#id_temp_period').val(),
+
+            first_earlier_power_kVA:$('#id_first_earlier_power_kVA').val(),
+            first_earlier_power_kVt:$('#id_first_earlier_power_kVt').val(),
+            first_additional_power:$('#id_first_additional_power').val(),
+            first_max_power:$('#id_first_max_power').val(),
+
+            second_earlier_power_kVA:$('#id_second_earlier_power_kVA').val(),
+            second_earlier_power_kVt:$('#id_second_earlier_power_kVt').val(),
+            second_additional_power:$('#id_second_additional_power').val(),
+            second_max_power:$('#id_second_max_power').val(),
+
+            third_earlier_power_kVA:$('#id_third_earlier_power_kVA').val(),
+            third_earlier_power_kVt:$('#id_third_earlier_power_kVt').val(),
+            third_additional_power:$('#id_third_additional_power').val(),
+            third_max_power:$('#id_third_max_power').val(),
+
+            load_type:$('#id_load_type').val(),
+
+            other_inf:$('#id_other_inf').val(),
+
+            form_type:$('#form_type').val()
+            }
+        CheckForm(data,2);
+        return false;
+    });
+
+    $('#save_fourth_serv_request').live('click',function(){
+        var data = {
+            org_title:$('#id_org_title').val(),
+            egrul_number:$('#id_egrul_number').val(),
+            egrul_date:$('#id_egrul_date').val(),
+
+            actual_address_with_index:$('#id_actual_address_with_index').val(),
+            object_title:$('#id_object_title').val(),
+            object_location:$('#id_object_location').val(),
+
+            first_earlier_power_kVA:$('#id_first_earlier_power_kVA').val(),
+            first_earlier_power_kVt:$('#id_first_earlier_power_kVt').val(),
+            first_additional_power:$('#id_first_additional_power').val(),
+            first_max_power:$('#id_first_max_power').val(),
+
+            second_earlier_power_kVA:$('#id_second_earlier_power_kVA').val(),
+            second_earlier_power_kVt:$('#id_second_earlier_power_kVt').val(),
+            second_additional_power:$('#id_second_additional_power').val(),
+            second_max_power:$('#id_second_max_power').val(),
+
+            third_earlier_power_kVA:$('#id_third_earlier_power_kVA').val(),
+            third_earlier_power_kVt:$('#id_third_earlier_power_kVt').val(),
+            third_additional_power:$('#id_third_additional_power').val(),
+            third_max_power:$('#id_third_max_power').val(),
+
+            count_conn_points:$('#id_count_conn_points').val(),
+
+            load_type:$('#id_load_type').val(),
+
+            power_distribution:$('#id_power_distribution').val(),
+
+            other_inf:$('#id_other_inf').val(),
+
+            form_type:$('#form_type').val()
+            }
+        CheckForm(data,2);
+        return false;
+    });
+
+    $('#save_fifth_serv_request').live('click',function(){
+        var data = {
+            org_title:$('#id_org_title').val(),
+            egrul_number:$('#id_egrul_number').val(),
+            egrul_date:$('#id_egrul_date').val(),
+
+            actual_address_with_index:$('#id_actual_address_with_index').val(),
+            object_title:$('#id_object_title').val(),
+            object_location:$('#id_object_location').val(),
+
+            first_earlier_power_kVA:$('#id_first_earlier_power_kVA').val(),
+            first_earlier_power_kVt:$('#id_first_earlier_power_kVt').val(),
+            first_additional_power:$('#id_first_additional_power').val(),
+            first_max_power:$('#id_first_max_power').val(),
+
+            second_earlier_power_kVA:$('#id_second_earlier_power_kVA').val(),
+            second_earlier_power_kVt:$('#id_second_earlier_power_kVt').val(),
+            second_additional_power:$('#id_second_additional_power').val(),
+            second_max_power:$('#id_second_max_power').val(),
+
+            third_earlier_power_kVA:$('#id_third_earlier_power_kVA').val(),
+            third_earlier_power_kVt:$('#id_third_earlier_power_kVt').val(),
+            third_additional_power:$('#id_third_additional_power').val(),
+            third_max_power:$('#id_third_max_power').val(),
+
+            cnt_pwr_transformers:$('#id_cnt_pwr_transformers').val(),
+            cnt_pwr_generators:$('#id_cnt_pwr_generators').val(),
+
+            count_conn_points:$('#id_count_conn_points').val(),
+
+            load_type:$('#id_load_type').val(),
+
+            tech_min_generators:$('#id_tech_min_generators').val(),
+            tech_armor_consumer:$('#id_tech_armor_consumer').val(),
+            tech_emergency_armor_consumer:$('#id_tech_emergency_armor_consumer').val(),
+
+            power_distribution:$('#id_power_distribution').val(),
+
+            other_inf:$('#id_other_inf').val(),
+
+            form_type:$('#form_type').val()
+            }
+        CheckForm(data,2);
+        return false;
+    });
 
     $('#save_reception').live('click',function(){
         var data = {
@@ -211,7 +321,14 @@ function CheckForm(data_fields,type){
                     {$('.modal').replaceWith(data);}
                 }
             else
-                {$('.modal').replaceWith(data);}
+                {
+                    $('.modal').replaceWith(data);
+                    $('.modal').animate({top:"10px"},"slow");
+                    $('html').animate({scrollTop:0},"slow");
+                }
+        },
+        error:function(jqXHR,textStatus,errorThrown) {
+            $('.modal_in').replaceWith(jqXHR.responseText);
         }
     });
 }
@@ -234,10 +351,14 @@ function SetFancy(){
     $('.fancybox-big').fancybox({
         'centerOnScroll':true,
         'onComplete': function() {
-            $('#fancybox-overlay').css('height',$(document).height());
-            /*$('#fancybox-wrap').animate({
-                top:"100px"
-            });*/
+            var dh = $('body').height();
+            $('#fancybox-overlay').height(dh);
+            $('#fancybox-wrap').animate({top:"10px"},"slow");
+            $('html').animate({scrollTop:0},"slow");
+            if ($('.wrapper').height()<$('.modal').height())
+                {
+                    $('#fancybox-overlay').height($('.modal').height()+100);
+                }
         }
     });
 

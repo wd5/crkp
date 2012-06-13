@@ -17,6 +17,7 @@ urlpatterns = patterns('',
 
     url(r'^techconnection/$', 'apps.techconnection.views.show_tech_item', {'slug':'/techconnect/'}),
     url(r'^techconnection/rates/$', 'apps.techconnection.views.show_rates_map'),
+    url(r'^techconnection/techcalc/$', 'apps.techconnection.views.show_techcalc'),
     url(r'^techconnection/(?P<slug>[^/]+)/$', 'apps.techconnection.views.show_tech_item'),
     url(r'^showratestable/(?P<slug>[^/]+)/$', 'apps.techconnection.views.show_rates_table'),
 

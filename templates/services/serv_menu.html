@@ -7,11 +7,11 @@
         </li>
         {% endif %}
     {% else %}
-    <li class="{% if curr_serv.id == service.id %}curr{% endif %} {% if not forloop.last %}submenu_arr{% endif %} ">
-        <a href="{{ service.get_absolute_url }}">{{ service.title }}</a>
-        {% if service.id == 8 %}
-            <div class="submenu_free">Бесплатно</div>
-        {% endif %}
-    </li>
+        <li class="{% if curr_serv.id == service.id %}curr{% endif %} {% if not forloop.last %}submenu_arr{% endif %} ">
+            <a href="{{ service.get_absolute_url }}">{{ service.title }}</a>
+            {% if service.id == 8 %}
+                <div class="submenu_free">Бесплатно</div>
+            {% endif %}
+        </li>
     {% endif %}
 {% endfor %}

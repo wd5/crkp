@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.db.models import Max
 from apps.services.models import Service
-from apps.servicerequests.forms import TypicalRequestForm, FirstServRequestForm, ReceptionForm, SecondServRequestForm
-from apps.servicerequests.models import FirstServRequest, SecondServRequest
+from apps.servicerequests.forms import TypicalRequestForm, FirstServRequestForm, ReceptionForm, SecondServRequestForm, ThirdServRequestForm, FourthServRequestForm, FifthServRequestForm
+from apps.servicerequests.models import FirstServRequest, SecondServRequest, ThirdServRequest, FourthServRequest, FifthServRequest
 from django.views.generic import  DetailView, View
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.template.loader import render_to_string
@@ -16,12 +16,12 @@ class ReqFormLoaderView(View):
         try:
             id = int(id)
         except ValueError:
-            return HttpResponseBadRequest()
+            return HttpResponseBadRequest("Приносим свои извинения. Возникла непредвиденная ошибка.")
         try:
             service_curr = Service.objects.get(pk=id)
             service_title = service_curr.title
         except Service.DoesNotExist:
-            return HttpResponseBadRequest()
+            return HttpResponseBadRequest("Приносим свои извинения. Возникла непредвиденная ошибка.")
 
         if id in [1, 2, 3, 4, 5]:
             if id == 1:
@@ -30,12 +30,18 @@ class ReqFormLoaderView(View):
             elif id == 2:
                 form = SecondServRequestForm()
                 case = 'second_serv'
+            elif id == 3:
+                form = ThirdServRequestForm()
+                case = 'third_serv'
+            elif id == 4:
+                form = FourthServRequestForm()
+                case = 'fourth_serv'
+            elif id == 5:
+                form = FifthServRequestForm()
+                case = 'fifth_serv'
             else:
                 form = False
                 case = False
-        elif id == 10:
-            form = False
-            case = False
         else:
             service_set = Service.objects.filter(pk=id)
             form = TypicalRequestForm()
@@ -57,7 +63,7 @@ class ReqFormCheckView(View):
         if request.is_ajax():
             data = request.POST.copy()
             if 'form_type' not in request.POST:
-                return HttpResponseBadRequest()
+                return HttpResponseBadRequest("Приносим свои извинения. Возникла непредвиденная ошибка.")
             else:
                 form_type = request.POST['form_type']
                 if form_type == 'typical':
@@ -70,7 +76,7 @@ class ReqFormCheckView(View):
                         try:
                             id = int(id)
                         except ValueError:
-                            return HttpResponseBadRequest()
+                            return HttpResponseBadRequest("Приносим свои извинения. Возникла непредвиденная ошибка.")
                         service_set = Service.objects.filter(pk=id)
                         form.fields['service'].queryset = service_set
                         service_title = Service.objects.get(pk=id).title
@@ -131,6 +137,84 @@ class ReqFormCheckView(View):
                                 {'form': form, 'case': request.POST['form_type'], }
                         )
                         return HttpResponse(items_html)
+                elif form_type == 'third_serv':
+                    form = ThirdServRequestForm(data)
+                    if form.is_valid():
+                        saved_object = form.save()
+                        path = render_to_pdf('services/pdf.html', 'third_serv_%s' % saved_object.pk, {
+                            'title': u'Заявка на договор и технические условия на подключение к электрическим сетям, юридические лица и индивидуальные предприниматели до 100 кВт (включительно)',
+                            'saved_object': saved_object,
+                            'case': request.POST['form_type'],
+                            'MEDIA_ROOT': settings.ROOT_PATH
+                        })
+                        saved_object.generated_pdf = 'uploads/files/guests/guest_third_serv_%s.pdf' % saved_object.pk
+                        saved_object.save()
+
+                        RecForm = ReceptionForm()
+                        items_html = render_to_string(
+                            'services/form_load_template.html',
+                                {'form': RecForm, 'case': 'reception_form', 'pdf_path': saved_object.generated_pdf,
+                                 'id_serv': saved_object.pk, 'serv_type': 'third_serv'}
+                        )
+                        return HttpResponse(items_html)
+                    else:
+                        items_html = render_to_string(
+                            'services/form_load_template.html',
+                                {'form': form, 'case': request.POST['form_type'], }
+                        )
+                        return HttpResponse(items_html)
+                elif form_type == 'fourth_serv':
+                    form = FourthServRequestForm(data)
+                    if form.is_valid():
+                        saved_object = form.save()
+                        path = render_to_pdf('services/pdf.html', 'fourth_serv_%s' % saved_object.pk, {
+                            'title': u'Заявка на договор и технические условия на подключение к электрическим сетям, юридические лица и индивидуальные предприниматели до 750 кВА (включительно)',
+                            'saved_object': saved_object,
+                            'case': request.POST['form_type'],
+                            'MEDIA_ROOT': settings.ROOT_PATH
+                        })
+                        saved_object.generated_pdf = 'uploads/files/guests/guest_fourth_serv_%s.pdf' % saved_object.pk
+                        saved_object.save()
+
+                        RecForm = ReceptionForm()
+                        items_html = render_to_string(
+                            'services/form_load_template.html',
+                                {'form': RecForm, 'case': 'reception_form', 'pdf_path': saved_object.generated_pdf,
+                                 'id_serv': saved_object.pk, 'serv_type': 'fourth_serv'}
+                        )
+                        return HttpResponse(items_html)
+                    else:
+                        items_html = render_to_string(
+                            'services/form_load_template.html',
+                                {'form': form, 'case': request.POST['form_type'], }
+                        )
+                        return HttpResponse(items_html)
+                elif form_type == 'fifth_serv':
+                    form = FifthServRequestForm(data)
+                    if form.is_valid():
+                        saved_object = form.save()
+                        path = render_to_pdf('services/pdf.html', 'fifth_serv_%s' % saved_object.pk, {
+                            'title': u'Заявка на договор и технические условия на подключение к электрическим сетям, юридические лица и индивидуальные предприниматели свыше 750 кВА',
+                            'saved_object': saved_object,
+                            'case': request.POST['form_type'],
+                            'MEDIA_ROOT': settings.ROOT_PATH
+                        })
+                        saved_object.generated_pdf = 'uploads/files/guests/guest_fifth_serv_%s.pdf' % saved_object.pk
+                        saved_object.save()
+
+                        RecForm = ReceptionForm()
+                        items_html = render_to_string(
+                            'services/form_load_template.html',
+                                {'form': RecForm, 'case': 'reception_form', 'pdf_path': saved_object.generated_pdf,
+                                 'id_serv': saved_object.pk, 'serv_type': 'fifth_serv'}
+                        )
+                        return HttpResponse(items_html)
+                    else:
+                        items_html = render_to_string(
+                            'services/form_load_template.html',
+                                {'form': form, 'case': request.POST['form_type'], }
+                        )
+                        return HttpResponse(items_html)
                 elif form_type == 'reception_form':
                     form = ReceptionForm(data)
                     if form.is_valid():
@@ -138,19 +222,37 @@ class ReqFormCheckView(View):
                         try:
                             id_serv = int(request.POST['id_serv'])
                         except:
-                            return HttpResponseBadRequest()
+                            return HttpResponseBadRequest("Приносим свои извинения. Возникла непредвиденная ошибка.")
 
                         if request.POST['serv_type'] == 'first_serv':
                             try:
                                 related_serv = FirstServRequest.objects.get(pk=id_serv)
                             except FirstServRequest.DoesNotExist:
-                                return HttpResponseBadRequest()
+                                return HttpResponseBadRequest("Приносим свои извинения. Возникла непредвиденная ошибка.")
 
                         if request.POST['serv_type'] == 'second_serv':
                             try:
                                 related_serv = SecondServRequest.objects.get(pk=id_serv)
                             except SecondServRequest.DoesNotExist:
-                                return HttpResponseBadRequest()
+                                return HttpResponseBadRequest("Приносим свои извинения. Возникла непредвиденная ошибка.")
+
+                        if request.POST['serv_type'] == 'third_serv':
+                            try:
+                                related_serv = ThirdServRequest.objects.get(pk=id_serv)
+                            except ThirdServRequest.DoesNotExist:
+                                return HttpResponseBadRequest("Приносим свои извинения. Возникла непредвиденная ошибка.")
+
+                        if request.POST['serv_type'] == 'fourth_serv':
+                            try:
+                                related_serv = FourthServRequest.objects.get(pk=id_serv)
+                            except FourthServRequest.DoesNotExist:
+                                return HttpResponseBadRequest("Приносим свои извинения. Возникла непредвиденная ошибка.")
+
+                        if request.POST['serv_type'] == 'fifth_serv':
+                            try:
+                                related_serv = FifthServRequest.objects.get(pk=id_serv)
+                            except FifthServRequest.DoesNotExist:
+                                return HttpResponseBadRequest("Приносим свои извинения. Возникла непредвиденная ошибка.")
 
                         related_serv.connection_request = saved_object
                         related_serv.save()
@@ -163,6 +265,6 @@ class ReqFormCheckView(View):
                         )
                         return HttpResponse(items_html)
         else:
-            return HttpResponseBadRequest()
+            return HttpResponseBadRequest("Приносим свои извинения. Возникла непредвиденная ошибка.")
 
 check_request_form = ReqFormCheckView.as_view()
