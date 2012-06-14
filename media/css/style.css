@@ -958,6 +958,7 @@ div.faq_modal {
 .modal {
 	background: #fff;
 	width: 800px;
+	overflow: hidden;
 }
 .modal_in {
 	padding: 30px 30px 30px 30px;
@@ -1136,6 +1137,17 @@ div.faq_modal {
 .text_modal td {
 	
 	padding: 12px 8px 12px 8px;
+}
+
+.modal_block .check {
+	margin-bottom: 12px;
+}
+.modal_block .check input {
+	width: auto;
+	height: auto;
+}
+.modal_block .check label {
+	width: auto;
 }
 /*/modal*/
 /*-----------------PAGE-END-----------------*/

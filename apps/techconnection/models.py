@@ -40,9 +40,9 @@ count_choices = (
 class Parameter(models.Model):
     electroload = models.ForeignKey(Electroload, verbose_name = u'электропотребитель')
     count_type = models.CharField(u'тип', choices=count_choices, max_length=20)
-    start_count_interval = models.PositiveSmallIntegerField(verbose_name = u'от', blank=True, null=True)
-    end_count_interval = models.PositiveSmallIntegerField(verbose_name = u'до', blank=True, null=True)
-    count = models.PositiveSmallIntegerField(verbose_name = u'фиксированное количество', blank=True, null=True)
+    start_count_interval = models.PositiveIntegerField(verbose_name = u'от', blank=True, null=True)
+    end_count_interval = models.PositiveIntegerField(verbose_name = u'до', blank=True, null=True)
+    count = models.PositiveIntegerField(verbose_name = u'фиксированное количество', blank=True, null=True)
     parameter_demand = models.DecimalField(max_digits=6, decimal_places=4, verbose_name=u'коэффициент спроса')
     parameter_cos = models.DecimalField(max_digits=6, decimal_places=4, verbose_name=u'коэффициент cosф')
 

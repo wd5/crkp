@@ -1,0 +1,7 @@
+<uwsgi>
+    <pythonpath>/home/crkp/crkp/</pythonpath>
+    <pythonpath>/home/crkp/</pythonpath>
+    <app mountpoint="/">
+        <script>django_wsgi</script>
+    </app>
+</uwsgi>

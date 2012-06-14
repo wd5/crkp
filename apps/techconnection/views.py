@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-from AptUrl.Helpers import _
-from django.core.exceptions import ObjectDoesNotExist
-from django.http import Http404
 from apps.pages.models import Page
 from apps.techconnection.models import MapPolygon,Electroload
 from apps.pages.views import ShowCompItemView
