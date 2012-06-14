@@ -50,12 +50,15 @@ class FirstServRequestInline(admin.StackedInline):
         }),
         ('Другая информация', {
             'classes': ('collapse',),
-            'fields': ('other_inf','agent_full_name',('authority_number','authority_date'),'phone_number','fax','email','date_create',)
+            'fields': ('other_inf','agent_full_name',('authority_number','authority_date'),'phone_number','fax','email',)
         }),
         ('Приложения к заявке', {
             'classes': ('collapse',),
             'fields': ('req_attachment1','req_attachment2','req_attachment3','req_attachment4','req_attachment5',
                        'req_attachment6','req_attachment7','req_attachment8','req_attachment9',)
+        }),
+        (None, {
+            'fields': ('date_create',)
         }),
     )
     readonly_fields = ('date_create',)
@@ -97,7 +100,15 @@ class SecondServRequestInline(admin.StackedInline):
         }),
         ('Другая информация', {
             'classes': ('collapse',),
-            'fields': ('load_type','other_inf','date_create',)
+            'fields': ('load_type','other_inf','agent_full_name',('authority_number','authority_date'),'phone_number','fax','email',)
+        }),
+        ('Приложения к заявке', {
+            'classes': ('collapse',),
+            'fields': ('req_attachment1','req_attachment2','req_attachment3','req_attachment4','req_attachment5',
+                       'req_attachment6','req_attachment7','req_attachment8','req_attachment9',)
+        }),
+        (None, {
+            'fields': ('date_create',)
         }),
     )
     readonly_fields = ('date_create',)
@@ -135,7 +146,19 @@ class ThirdServRequestInline(admin.StackedInline):
         }),
         ('Другая информация', {
             'classes': ('collapse',),
-            'fields': ('load_type','other_inf','date_create',)
+            'fields': ('load_type','other_inf','agent_full_name',('authority_number','authority_date'),'phone_number','fax','email',('director_post','director_full_name',))
+        }),
+        ('Реквизиты заявителя', {
+            'classes': ('collapse',),
+            'fields': ('agent_inn',('agent_kpp','agent_bik'),'agent_bank_title','agent_bank_account','agent_correspond_account',)
+        }),
+        ('Приложения к заявке', {
+            'classes': ('collapse',),
+            'fields': ('req_attachment1','req_attachment2','req_attachment3','req_attachment4','req_attachment5',
+                       'req_attachment6','req_attachment7','req_attachment8','req_attachment9','req_attachment10','req_attachment11',)
+        }),
+        (None, {
+            'fields': ('date_create',)
         }),
     )
     readonly_fields = ('date_create',)
@@ -177,7 +200,19 @@ class FourthServRequestInline(admin.StackedInline):
         }),
         ('Другая информация', {
             'classes': ('collapse',),
-            'fields': ('other_inf','date_create',)
+            'fields': ('other_inf','agent_full_name',('authority_number','authority_date'),'phone_number','fax','email',('director_post','director_full_name',))
+        }),
+        ('Реквизиты заявителя', {
+            'classes': ('collapse',),
+            'fields': ('agent_inn',('agent_kpp','agent_bik'),'agent_bank_title','agent_bank_account','agent_correspond_account',)
+        }),
+        ('Приложения к заявке', {
+            'classes': ('collapse',),
+            'fields': ('req_attachment1','req_attachment2','req_attachment3','req_attachment4','req_attachment5','req_attachment6','req_attachment7',
+                       'req_attachment8','req_attachment9','req_attachment10','req_attachment11','req_attachment12','req_attachment13',)
+        }),
+        (None, {
+            'fields': ('date_create',)
         }),
     )
     readonly_fields = ('date_create',)
@@ -223,7 +258,19 @@ class FifthServRequestInline(admin.StackedInline):
         }),
         ('Другая информация', {
             'classes': ('collapse',),
-            'fields': ('other_inf','date_create',)
+            'fields': ('other_inf','agent_full_name',('authority_number','authority_date'),'phone_number','fax','email',('director_post','director_full_name',))
+        }),
+        ('Реквизиты заявителя', {
+            'classes': ('collapse',),
+            'fields': ('agent_inn',('agent_kpp','agent_bik'),'agent_bank_title','agent_bank_account','agent_correspond_account',)
+        }),
+        ('Приложения к заявке', {
+            'classes': ('collapse',),
+            'fields': ('req_attachment1','req_attachment2','req_attachment3','req_attachment4','req_attachment5','req_attachment6','req_attachment7',
+                       'req_attachment8','req_attachment9','req_attachment10','req_attachment11','req_attachment12','req_attachment13',)
+        }),
+        (None, {
+            'fields': ('date_create',)
         }),
     )
     readonly_fields = ('date_create',)
@@ -243,42 +290,41 @@ class ReceptionAdmin(admin.ModelAdmin):
         FifthServRequestInline,
     ]
 
-class FirstServRequestAdmin(admin.ModelAdmin):
-    list_display = ('id', 'date_create',)
-    list_display = ('id', 'date_create',)
-    form = FirstServRequestForm
-    fieldsets = (
-        (None, {
-            'fields': ('generated_pdf', ('last_name', 'first_name','middle_name'))
-        }),
-        ('Реквизиты', {
-            'classes': ('collapse',),
-            'fields': (('passport_series', 'passport_number',), 'passport_issued', 'passport_issued_date', 'inn','actual_address_with_index',)
-        }),
-        ('Объект', {
-            'classes': ('collapse',),
-            'fields': ('object_title', 'object_location')
-        }),
-        ('Параметры электроснабжения', {
-            'classes': ('collapse',),
-            'fields': (('earlier_power_kVA', 'additional_power','max_power',), 'earlier_power_kVt',)
-        }),
-        ('Другая информация', {
-            'classes': ('collapse',),
-            'fields': ('other_inf','agent_full_name',('authority_number','authority_date'),'phone_number','fax','email',)
-        }),
-        ('Приложения к заявке', {
-            'classes': ('collapse',),
-            'fields': ('req_attachment1','req_attachment2','req_attachment3','req_attachment4','req_attachment5',
-                       'req_attachment6','req_attachment7','req_attachment8','req_attachment9',)
-        }),
-        (None, {
-            'fields': ('date_create',)
-        }),
-    )
-    readonly_fields = ('date_create',)
-admin.site.register(FirstServRequest, FirstServRequestAdmin)
-#
+#class FirstServRequestAdmin(admin.ModelAdmin):
+#    list_display = ('id', 'date_create',)
+#    form = FirstServRequestForm
+#    fieldsets = (
+#        (None, {
+#            'fields': ('generated_pdf', ('last_name', 'first_name','middle_name'))
+#        }),
+#        ('Реквизиты', {
+#            'classes': ('collapse',),
+#            'fields': (('passport_series', 'passport_number',), 'passport_issued', 'passport_issued_date', 'inn','actual_address_with_index',)
+#        }),
+#        ('Объект', {
+#            'classes': ('collapse',),
+#            'fields': ('object_title', 'object_location')
+#        }),
+#        ('Параметры электроснабжения', {
+#            'classes': ('collapse',),
+#            'fields': (('earlier_power_kVA', 'additional_power','max_power',), 'earlier_power_kVt',)
+#        }),
+#        ('Другая информация', {
+#            'classes': ('collapse',),
+#            'fields': ('other_inf','agent_full_name',('authority_number','authority_date'),'phone_number','fax','email',)
+#        }),
+#        ('Приложения к заявке', {
+#            'classes': ('collapse',),
+#            'fields': ('req_attachment1','req_attachment2','req_attachment3','req_attachment4','req_attachment5',
+#                       'req_attachment6','req_attachment7','req_attachment8','req_attachment9',)
+#        }),
+#        (None, {
+#            'fields': ('date_create',)
+#        }),
+#    )
+#    readonly_fields = ('date_create',)
+#admin.site.register(FirstServRequest, FirstServRequestAdmin)
+
 #class SecondServRequestAdmin(admin.ModelAdmin):
 #    list_display = ('id', 'date_create',)
 #    form = SecondServRequestForm
@@ -308,7 +354,15 @@ admin.site.register(FirstServRequest, FirstServRequestAdmin)
 #        }),
 #        ('Другая информация', {
 #            'classes': ('collapse',),
-#            'fields': ('load_type','other_inf','date_create',)
+#            'fields': ('load_type','other_inf','agent_full_name',('authority_number','authority_date'),'phone_number','fax','email',)
+#        }),
+#        ('Приложения к заявке', {
+#            'classes': ('collapse',),
+#            'fields': ('req_attachment1','req_attachment2','req_attachment3','req_attachment4','req_attachment5',
+#                       'req_attachment6','req_attachment7','req_attachment8','req_attachment9',)
+#        }),
+#        (None, {
+#            'fields': ('date_create',)
 #        }),
 #    )
 #    readonly_fields = ('date_create',)
@@ -339,7 +393,19 @@ admin.site.register(FirstServRequest, FirstServRequestAdmin)
 #        }),
 #        ('Другая информация', {
 #            'classes': ('collapse',),
-#            'fields': ('load_type','other_inf','date_create',)
+#            'fields': ('load_type','other_inf','agent_full_name',('authority_number','authority_date'),'phone_number','fax','email',('director_post','director_full_name',))
+#        }),
+#        ('Реквизиты заявителя', {
+#            'classes': ('collapse',),
+#            'fields': ('agent_inn',('agent_kpp','agent_bik'),'agent_bank_title','agent_bank_account','agent_correspond_account',)
+#        }),
+#        ('Приложения к заявке', {
+#            'classes': ('collapse',),
+#            'fields': ('req_attachment1','req_attachment2','req_attachment3','req_attachment4','req_attachment5',
+#                       'req_attachment6','req_attachment7','req_attachment8','req_attachment9','req_attachment10','req_attachment11',)
+#        }),
+#        (None, {
+#            'fields': ('date_create',)
 #        }),
 #    )
 #    readonly_fields = ('date_create',)
@@ -374,7 +440,19 @@ admin.site.register(FirstServRequest, FirstServRequestAdmin)
 #        }),
 #        ('Другая информация', {
 #            'classes': ('collapse',),
-#            'fields': ('other_inf','date_create',)
+#            'fields': ('other_inf','agent_full_name',('authority_number','authority_date'),'phone_number','fax','email',('director_post','director_full_name',))
+#        }),
+#        ('Реквизиты заявителя', {
+#            'classes': ('collapse',),
+#            'fields': ('agent_inn',('agent_kpp','agent_bik'),'agent_bank_title','agent_bank_account','agent_correspond_account',)
+#        }),
+#        ('Приложения к заявке', {
+#            'classes': ('collapse',),
+#            'fields': ('req_attachment1','req_attachment2','req_attachment3','req_attachment4','req_attachment5','req_attachment6','req_attachment7',
+#                       'req_attachment8','req_attachment9','req_attachment10','req_attachment11','req_attachment12','req_attachment13',)
+#        }),
+#        (None, {
+#            'fields': ('date_create',)
 #        }),
 #    )
 #    readonly_fields = ('date_create',)
@@ -413,13 +491,23 @@ admin.site.register(FirstServRequest, FirstServRequestAdmin)
 #        }),
 #        ('Другая информация', {
 #            'classes': ('collapse',),
-#            'fields': ('other_inf','date_create',)
+#            'fields': ('other_inf','agent_full_name',('authority_number','authority_date'),'phone_number','fax','email',('director_post','director_full_name',))
+#        }),
+#        ('Реквизиты заявителя', {
+#            'classes': ('collapse',),
+#            'fields': ('agent_inn',('agent_kpp','agent_bik'),'agent_bank_title','agent_bank_account','agent_correspond_account',)
+#        }),
+#        ('Приложения к заявке', {
+#            'classes': ('collapse',),
+#            'fields': ('req_attachment1','req_attachment2','req_attachment3','req_attachment4','req_attachment5','req_attachment6','req_attachment7',
+#                       'req_attachment8','req_attachment9','req_attachment10','req_attachment11','req_attachment12','req_attachment13',)
+#        }),
+#        (None, {
+#            'fields': ('date_create',)
 #        }),
 #    )
 #    readonly_fields = ('date_create',)
 #admin.site.register(FifthServRequest, FifthServRequestAdmin)
-
-
 
 admin.site.register(TypicalRequest, TypicalRequestAdmin)
 admin.site.register(BlackList, BlackListAdmin)

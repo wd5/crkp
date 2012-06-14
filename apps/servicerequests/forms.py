@@ -18,7 +18,6 @@ class TypicalRequestForm(forms.ModelForm):
         model = TypicalRequest
         exclude = ('date_create',)
 
-
 class FirstServRequestForm(forms.ModelForm):
     last_name = forms.CharField(required=True)
     first_name = forms.CharField(required=True)
@@ -122,8 +121,24 @@ class SecondServRequestForm(forms.ModelForm):
     third_max_power = forms.DecimalField(required=True)
 
     load_type = forms.CharField(required=True)
-
     other_inf = forms.CharField(widget=forms.Textarea, required=True)
+
+    agent_full_name = forms.CharField(required=True)
+    authority_number = forms.CharField(required=True)
+    authority_date = forms.DateField(widget=forms.DateInput, required=True, help_text='в формате "ДД.ММ.ГГГГ"')
+    phone_number = forms.CharField(required=True)
+    fax = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
+
+    req_attachment1 = forms.BooleanField(required=False, label=SecondServRequest._meta.get_field_by_name('req_attachment1')[0].verbose_name)
+    req_attachment2 = forms.BooleanField(required=False, label=SecondServRequest._meta.get_field_by_name('req_attachment2')[0].verbose_name)
+    req_attachment3 = forms.BooleanField(required=False, label=SecondServRequest._meta.get_field_by_name('req_attachment3')[0].verbose_name)
+    req_attachment4 = forms.BooleanField(required=False, label=SecondServRequest._meta.get_field_by_name('req_attachment4')[0].verbose_name)
+    req_attachment5 = forms.BooleanField(required=False, label=SecondServRequest._meta.get_field_by_name('req_attachment5')[0].verbose_name)
+    req_attachment6 = forms.BooleanField(required=False, label=SecondServRequest._meta.get_field_by_name('req_attachment6')[0].verbose_name)
+    req_attachment7 = forms.BooleanField(required=False, label=SecondServRequest._meta.get_field_by_name('req_attachment7')[0].verbose_name)
+    req_attachment8 = forms.BooleanField(required=False, label=SecondServRequest._meta.get_field_by_name('req_attachment8')[0].verbose_name)
+    req_attachment9 = forms.BooleanField(required=False, label=SecondServRequest._meta.get_field_by_name('req_attachment9')[0].verbose_name)
 
     class Meta:
         model = SecondServRequest
@@ -187,12 +202,95 @@ class ThirdServRequestForm(forms.ModelForm):
     third_max_power = forms.DecimalField(required=True)
 
     load_type = forms.CharField(widget=forms.Textarea, required=True)
-
     other_inf = forms.CharField(widget=forms.Textarea, required=True)
+
+    agent_full_name = forms.CharField(required=True)
+    authority_number = forms.CharField(required=True)
+    authority_date = forms.DateField(widget=forms.DateInput, required=True, help_text='в формате "ДД.ММ.ГГГГ"')
+    phone_number = forms.CharField(required=True)
+    fax = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
+
+    director_post = forms.CharField(required=True, label=ThirdServRequest._meta.get_field_by_name('director_post')[0].verbose_name)
+    director_full_name = forms.CharField(required=True, label=ThirdServRequest._meta.get_field_by_name('director_full_name')[0].verbose_name)
+
+    agent_inn = forms.CharField(required=True, label=ThirdServRequest._meta.get_field_by_name('agent_inn')[0].verbose_name)
+    agent_kpp = forms.CharField(required=True, label=ThirdServRequest._meta.get_field_by_name('agent_kpp')[0].verbose_name)
+    agent_bik = forms.CharField(required=True, label=ThirdServRequest._meta.get_field_by_name('agent_bik')[0].verbose_name)
+    agent_bank_title = forms.CharField(required=True, label=ThirdServRequest._meta.get_field_by_name('agent_bank_title')[0].verbose_name)
+    agent_bank_account = forms.CharField(required=True, label=ThirdServRequest._meta.get_field_by_name('agent_bank_account')[0].verbose_name)
+    agent_correspond_account = forms.CharField(required=True, label=ThirdServRequest._meta.get_field_by_name('agent_correspond_account')[0].verbose_name)
+
+    req_attachment1 = forms.BooleanField(required=False, label=ThirdServRequest._meta.get_field_by_name('req_attachment1')[0].verbose_name)
+    req_attachment2 = forms.BooleanField(required=False, label=ThirdServRequest._meta.get_field_by_name('req_attachment2')[0].verbose_name)
+    req_attachment3 = forms.BooleanField(required=False, label=ThirdServRequest._meta.get_field_by_name('req_attachment3')[0].verbose_name)
+    req_attachment4 = forms.BooleanField(required=False, label=ThirdServRequest._meta.get_field_by_name('req_attachment4')[0].verbose_name)
+    req_attachment5 = forms.BooleanField(required=False, label=ThirdServRequest._meta.get_field_by_name('req_attachment5')[0].verbose_name)
+    req_attachment6 = forms.BooleanField(required=False, label=ThirdServRequest._meta.get_field_by_name('req_attachment6')[0].verbose_name)
+    req_attachment7 = forms.BooleanField(required=False, label=ThirdServRequest._meta.get_field_by_name('req_attachment7')[0].verbose_name)
+    req_attachment8 = forms.BooleanField(required=False, label=ThirdServRequest._meta.get_field_by_name('req_attachment8')[0].verbose_name)
+    req_attachment9 = forms.BooleanField(required=False, label=ThirdServRequest._meta.get_field_by_name('req_attachment9')[0].verbose_name)
+    req_attachment10 = forms.BooleanField(required=False, label=ThirdServRequest._meta.get_field_by_name('req_attachment10')[0].verbose_name)
+    req_attachment11 = forms.BooleanField(required=False, label=ThirdServRequest._meta.get_field_by_name('req_attachment11')[0].verbose_name)
 
     class Meta:
         model = ThirdServRequest
         exclude = ('connection_request', 'generated_pdf', 'date_create',)
+
+    def clean_agent_inn(self):
+        agent_inn = self.cleaned_data['agent_inn']
+        try:
+            integer = int(agent_inn)
+        except:
+            integer = False
+
+        if (len(agent_inn) != 10 and len(agent_inn) != 12) or not integer:
+            raise forms.ValidationError("ИНН содержит 10 или 12 цифр (сейчас %s)"%len(agent_inn))
+        return agent_inn
+
+    def clean_agent_kpp(self):
+        agent_kpp = self.cleaned_data['agent_kpp']
+        try:
+            integer = int(agent_kpp)
+        except:
+            integer = False
+
+        if len(agent_kpp) != 9 or not integer:
+            raise forms.ValidationError("КПП содержит 9 цифр (сейчас %s)"%len(agent_kpp))
+        return agent_kpp
+
+    def clean_agent_bik(self):
+        agent_bik = self.cleaned_data['agent_bik']
+        try:
+            integer = int(agent_bik)
+        except:
+            integer = False
+
+        if len(agent_bik) != 9 or not integer:
+            raise forms.ValidationError("БИК содержит 9 цифр (сейчас %s)"%len(agent_bik))
+        return agent_bik
+
+    def clean_agent_bank_account(self):
+        agent_bank_account = self.cleaned_data['agent_bank_account']
+        try:
+            integer = int(agent_bank_account)
+        except:
+            integer = False
+
+        if len(agent_bank_account) != 20 or not integer:
+            raise forms.ValidationError("Расчетный счёт содержит 20 цифр (сейчас %s)"%len(agent_bank_account))
+        return agent_bank_account
+
+    def clean_agent_correspond_account(self):
+        agent_correspond_account = self.cleaned_data['agent_correspond_account']
+        try:
+            integer = int(agent_correspond_account)
+        except:
+            integer = False
+
+        if len(agent_correspond_account) != 20 or not integer:
+            raise forms.ValidationError("Корреспондентский счет содержит 20 цифр (сейчас %s)"%len(agent_correspond_account))
+        return agent_correspond_account
 
 class FourthServRequestForm(forms.ModelForm):
     org_title = forms.CharField(widget=forms.Textarea, required=True)
@@ -219,16 +317,99 @@ class FourthServRequestForm(forms.ModelForm):
     third_max_power = forms.DecimalField(required=True)
 
     count_conn_points = forms.CharField(widget=forms.Textarea, required=True)
-
     load_type = forms.CharField(widget=forms.Textarea, required=True)
-
     power_distribution = forms.CharField(widget=forms.Textarea, required=True)
-
     other_inf = forms.CharField(widget=forms.Textarea, required=True)
+
+    agent_full_name = forms.CharField(required=True)
+    authority_number = forms.CharField(required=True)
+    authority_date = forms.DateField(widget=forms.DateInput, required=True, help_text='в формате "ДД.ММ.ГГГГ"')
+    phone_number = forms.CharField(required=True)
+    fax = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
+
+    director_post = forms.CharField(required=True, label=FourthServRequest._meta.get_field_by_name('director_post')[0].verbose_name)
+    director_full_name = forms.CharField(required=True, label=FourthServRequest._meta.get_field_by_name('director_full_name')[0].verbose_name)
+
+    agent_inn = forms.CharField(required=True, label=FourthServRequest._meta.get_field_by_name('agent_inn')[0].verbose_name)
+    agent_kpp = forms.CharField(required=True, label=FourthServRequest._meta.get_field_by_name('agent_kpp')[0].verbose_name)
+    agent_bik = forms.CharField(required=True, label=FourthServRequest._meta.get_field_by_name('agent_bik')[0].verbose_name)
+    agent_bank_title = forms.CharField(required=True, label=FourthServRequest._meta.get_field_by_name('agent_bank_title')[0].verbose_name)
+    agent_bank_account = forms.CharField(required=True, label=FourthServRequest._meta.get_field_by_name('agent_bank_account')[0].verbose_name)
+    agent_correspond_account = forms.CharField(required=True, label=FourthServRequest._meta.get_field_by_name('agent_correspond_account')[0].verbose_name)
+
+    req_attachment1 = forms.BooleanField(required=False, label=FourthServRequest._meta.get_field_by_name('req_attachment1')[0].verbose_name)
+    req_attachment2 = forms.BooleanField(required=False, label=FourthServRequest._meta.get_field_by_name('req_attachment2')[0].verbose_name)
+    req_attachment3 = forms.BooleanField(required=False, label=FourthServRequest._meta.get_field_by_name('req_attachment3')[0].verbose_name)
+    req_attachment4 = forms.BooleanField(required=False, label=FourthServRequest._meta.get_field_by_name('req_attachment4')[0].verbose_name)
+    req_attachment5 = forms.BooleanField(required=False, label=FourthServRequest._meta.get_field_by_name('req_attachment5')[0].verbose_name)
+    req_attachment6 = forms.BooleanField(required=False, label=FourthServRequest._meta.get_field_by_name('req_attachment6')[0].verbose_name)
+    req_attachment7 = forms.BooleanField(required=False, label=FourthServRequest._meta.get_field_by_name('req_attachment7')[0].verbose_name)
+    req_attachment8 = forms.BooleanField(required=False, label=FourthServRequest._meta.get_field_by_name('req_attachment8')[0].verbose_name)
+    req_attachment9 = forms.BooleanField(required=False, label=FourthServRequest._meta.get_field_by_name('req_attachment9')[0].verbose_name)
+    req_attachment10 = forms.BooleanField(required=False, label=FourthServRequest._meta.get_field_by_name('req_attachment10')[0].verbose_name)
+    req_attachment11 = forms.BooleanField(required=False, label=FourthServRequest._meta.get_field_by_name('req_attachment11')[0].verbose_name)
+    req_attachment12 = forms.BooleanField(required=False, label=FourthServRequest._meta.get_field_by_name('req_attachment12')[0].verbose_name)
+    req_attachment13 = forms.BooleanField(required=False, label=FourthServRequest._meta.get_field_by_name('req_attachment13')[0].verbose_name)
 
     class Meta:
         model = FourthServRequest
         exclude = ('connection_request', 'generated_pdf', 'date_create',)
+
+    def clean_agent_inn(self):
+        agent_inn = self.cleaned_data['agent_inn']
+        try:
+            integer = int(agent_inn)
+        except:
+            integer = False
+
+        if (len(agent_inn) != 10 and len(agent_inn) != 12) or not integer:
+            raise forms.ValidationError("ИНН содержит 10 или 12 цифр (сейчас %s)"%len(agent_inn))
+        return agent_inn
+
+    def clean_agent_kpp(self):
+        agent_kpp = self.cleaned_data['agent_kpp']
+        try:
+            integer = int(agent_kpp)
+        except:
+            integer = False
+
+        if len(agent_kpp) != 9 or not integer:
+            raise forms.ValidationError("КПП содержит 9 цифр (сейчас %s)"%len(agent_kpp))
+        return agent_kpp
+
+    def clean_agent_bik(self):
+        agent_bik = self.cleaned_data['agent_bik']
+        try:
+            integer = int(agent_bik)
+        except:
+            integer = False
+
+        if len(agent_bik) != 9 or not integer:
+            raise forms.ValidationError("БИК содержит 9 цифр (сейчас %s)"%len(agent_bik))
+        return agent_bik
+
+    def clean_agent_bank_account(self):
+        agent_bank_account = self.cleaned_data['agent_bank_account']
+        try:
+            integer = int(agent_bank_account)
+        except:
+            integer = False
+
+        if len(agent_bank_account) != 20 or not integer:
+            raise forms.ValidationError("Расчетный счёт содержит 20 цифр (сейчас %s)"%len(agent_bank_account))
+        return agent_bank_account
+
+    def clean_agent_correspond_account(self):
+        agent_correspond_account = self.cleaned_data['agent_correspond_account']
+        try:
+            integer = int(agent_correspond_account)
+        except:
+            integer = False
+
+        if len(agent_correspond_account) != 20 or not integer:
+            raise forms.ValidationError("Корреспондентский счет содержит 20 цифр (сейчас %s)"%len(agent_correspond_account))
+        return agent_correspond_account
 
 class FifthServRequestForm(forms.ModelForm):
     org_title = forms.CharField(widget=forms.Textarea, required=True)
@@ -265,12 +446,97 @@ class FifthServRequestForm(forms.ModelForm):
     tech_emergency_armor_consumer = forms.CharField(widget=forms.Textarea, required=True)
 
     power_distribution = forms.CharField(widget=forms.Textarea, required=True)
-
     other_inf = forms.CharField(widget=forms.Textarea, required=True)
+
+    agent_full_name = forms.CharField(required=True)
+    authority_number = forms.CharField(required=True)
+    authority_date = forms.DateField(widget=forms.DateInput, required=True, help_text='в формате "ДД.ММ.ГГГГ"')
+    phone_number = forms.CharField(required=True)
+    fax = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
+
+    director_post = forms.CharField(required=True, label=FifthServRequest._meta.get_field_by_name('director_post')[0].verbose_name)
+    director_full_name = forms.CharField(required=True, label=FifthServRequest._meta.get_field_by_name('director_full_name')[0].verbose_name)
+
+    agent_inn = forms.CharField(required=True, label=FifthServRequest._meta.get_field_by_name('agent_inn')[0].verbose_name)
+    agent_kpp = forms.CharField(required=True, label=FifthServRequest._meta.get_field_by_name('agent_kpp')[0].verbose_name)
+    agent_bik = forms.CharField(required=True, label=FifthServRequest._meta.get_field_by_name('agent_bik')[0].verbose_name)
+    agent_bank_title = forms.CharField(required=True, label=FifthServRequest._meta.get_field_by_name('agent_bank_title')[0].verbose_name)
+    agent_bank_account = forms.CharField(required=True, label=FifthServRequest._meta.get_field_by_name('agent_bank_account')[0].verbose_name)
+    agent_correspond_account = forms.CharField(required=True, label=FifthServRequest._meta.get_field_by_name('agent_correspond_account')[0].verbose_name)
+
+    req_attachment1 = forms.BooleanField(required=False, label=FifthServRequest._meta.get_field_by_name('req_attachment1')[0].verbose_name)
+    req_attachment2 = forms.BooleanField(required=False, label=FifthServRequest._meta.get_field_by_name('req_attachment2')[0].verbose_name)
+    req_attachment3 = forms.BooleanField(required=False, label=FifthServRequest._meta.get_field_by_name('req_attachment3')[0].verbose_name)
+    req_attachment4 = forms.BooleanField(required=False, label=FifthServRequest._meta.get_field_by_name('req_attachment4')[0].verbose_name)
+    req_attachment5 = forms.BooleanField(required=False, label=FifthServRequest._meta.get_field_by_name('req_attachment5')[0].verbose_name)
+    req_attachment6 = forms.BooleanField(required=False, label=FifthServRequest._meta.get_field_by_name('req_attachment6')[0].verbose_name)
+    req_attachment7 = forms.BooleanField(required=False, label=FifthServRequest._meta.get_field_by_name('req_attachment7')[0].verbose_name)
+    req_attachment8 = forms.BooleanField(required=False, label=FifthServRequest._meta.get_field_by_name('req_attachment8')[0].verbose_name)
+    req_attachment9 = forms.BooleanField(required=False, label=FifthServRequest._meta.get_field_by_name('req_attachment9')[0].verbose_name)
+    req_attachment10 = forms.BooleanField(required=False, label=FifthServRequest._meta.get_field_by_name('req_attachment10')[0].verbose_name)
+    req_attachment11 = forms.BooleanField(required=False, label=FifthServRequest._meta.get_field_by_name('req_attachment11')[0].verbose_name)
+    req_attachment12 = forms.BooleanField(required=False, label=FifthServRequest._meta.get_field_by_name('req_attachment12')[0].verbose_name)
+    req_attachment13 = forms.BooleanField(required=False, label=FifthServRequest._meta.get_field_by_name('req_attachment13')[0].verbose_name)
 
     class Meta:
         model = FifthServRequest
         exclude = ('connection_request', 'generated_pdf', 'date_create',)
+
+    def clean_agent_inn(self):
+        agent_inn = self.cleaned_data['agent_inn']
+        try:
+            integer = int(agent_inn)
+        except:
+            integer = False
+
+        if (len(agent_inn) != 10 and len(agent_inn) != 12) or not integer:
+            raise forms.ValidationError("ИНН содержит 10 или 12 цифр (сейчас %s)"%len(agent_inn))
+        return agent_inn
+
+    def clean_agent_kpp(self):
+        agent_kpp = self.cleaned_data['agent_kpp']
+        try:
+            integer = int(agent_kpp)
+        except:
+            integer = False
+
+        if len(agent_kpp) != 9 or not integer:
+            raise forms.ValidationError("КПП содержит 9 цифр (сейчас %s)"%len(agent_kpp))
+        return agent_kpp
+
+    def clean_agent_bik(self):
+        agent_bik = self.cleaned_data['agent_bik']
+        try:
+            integer = int(agent_bik)
+        except:
+            integer = False
+
+        if len(agent_bik) != 9 or not integer:
+            raise forms.ValidationError("БИК содержит 9 цифр (сейчас %s)"%len(agent_bik))
+        return agent_bik
+
+    def clean_agent_bank_account(self):
+        agent_bank_account = self.cleaned_data['agent_bank_account']
+        try:
+            integer = int(agent_bank_account)
+        except:
+            integer = False
+
+        if len(agent_bank_account) != 20 or not integer:
+            raise forms.ValidationError("Расчетный счёт содержит 20 цифр (сейчас %s)"%len(agent_bank_account))
+        return agent_bank_account
+
+    def clean_agent_correspond_account(self):
+        agent_correspond_account = self.cleaned_data['agent_correspond_account']
+        try:
+            integer = int(agent_correspond_account)
+        except:
+            integer = False
+
+        if len(agent_correspond_account) != 20 or not integer:
+            raise forms.ValidationError("Корреспондентский счет содержит 20 цифр (сейчас %s)"%len(agent_correspond_account))
+        return agent_correspond_account
 
 class ReceptionForm(forms.ModelForm):
     last_name = forms.CharField(required=True)

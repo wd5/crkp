@@ -183,50 +183,59 @@
 
         <h2 class="modal_h">Приложения к заявке</h2>
         <div class="modal_block">
-            <div class="input">
-                <label>{{ form.req_attachment1.label }}</label>
-                {{ form.req_attachment1 }}
-                {{ form.req_attachment1.errors }}
+            <div class="check">
+                <label>
+                    {{ form.req_attachment1 }}
+                    {{ form.req_attachment1.label }}
+                </label>
             </div>
-            <div class="input">
-                <label>{{ form.req_attachment2.label }}</label>
-                {{ form.req_attachment2 }}
-                {{ form.req_attachment2.errors }}
+            <div class="check">
+                <label>
+                    {{ form.req_attachment2 }}
+                    {{ form.req_attachment2.label }}
+                </label>
             </div>
-            <div class="input">
-                <label>{{ form.req_attachment3.label }}</label>
-                {{ form.req_attachment3 }}
-                {{ form.req_attachment3.errors }}
+            <div class="check">
+                <label>
+                    {{ form.req_attachment3 }}
+                    {{ form.req_attachment3.label }}
+                </label>
             </div>
-            <div class="input">
-                <label>{{ form.req_attachment4.label }}</label>
-                {{ form.req_attachment4 }}
-                {{ form.req_attachment4.errors }}
+            <div class="check">
+                <label>
+                    {{ form.req_attachment4 }}
+                    {{ form.req_attachment4.label }}
+                </label>
             </div>
-            <div class="input">
-                <label>{{ form.req_attachment5.label }}</label>
-                {{ form.req_attachment5 }}
-                {{ form.req_attachment5.errors }}
+            <div class="check">
+                <label>
+                    {{ form.req_attachment5 }}
+                    {{ form.req_attachment5.label }}
+                </label>
             </div>
-            <div class="input">
-                <label>{{ form.req_attachment6.label }}</label>
-                {{ form.req_attachment6 }}
-                {{ form.req_attachment6.errors }}
+            <div class="check">
+                <label>
+                    {{ form.req_attachment6 }}
+                    {{ form.req_attachment6.label }}
+                </label>
             </div>
-            <div class="input">
-                <label>{{ form.req_attachment7.label }}</label>
-                {{ form.req_attachment7 }}
-                {{ form.req_attachment7.errors }}
+            <div class="check">
+                <label>
+                    {{ form.req_attachment7 }}
+                    {{ form.req_attachment7.label }}
+                </label>
             </div>
-            <div class="input">
-                <label>{{ form.req_attachment8.label }}</label>
-                {{ form.req_attachment8 }}
-                {{ form.req_attachment8.errors }}
+            <div class="check">
+                <label>
+                    {{ form.req_attachment8 }}
+                    {{ form.req_attachment8.label }}
+                </label>
             </div>
-            <div class="input">
-                <label>{{ form.req_attachment9.label }}</label>
-                {{ form.req_attachment9 }}
-                {{ form.req_attachment9.errors }}
+            <div class="check">
+                <label>
+                    {{ form.req_attachment9 }}
+                    {{ form.req_attachment9.label }}
+                </label>
             </div>
         </div>
         <div style="display: none;"><input type="hidden" value="{{ case }}" id="form_type"></div>
@@ -403,6 +412,101 @@
                 {{ form.other_inf.errors }}
     		</div>
     	</div>
+
+        <div class="modal_block">
+            <div class="input">
+                <label>Заявитель/представитель ФИО</label>
+                {{ form.agent_full_name }}
+                {{ form.agent_full_name.errors }}
+            </div>
+            <div class="input">
+                <span class="modal_block_short_1">
+                    <label>Доверенность №</label>
+                    {{ form.authority_number }}
+                    {{ form.authority_number.errors }}
+                </span>
+                <span class="modal_block_short_2" title="{{ form.authority_date.help_text }}">
+                    <label>от</label>
+                    {{ form.authority_date }}
+                    {{ form.authority_date.errors }}
+                </span>
+            </div>
+            <div class="input">
+                <span class="modal_block_short_1">
+                    <label>Телефон для связи</label>
+                    {{ form.phone_number }}
+                    {{ form.phone_number.errors }}
+                </span>
+                <span class="modal_block_short_2">
+                    <label>Факс</label>
+                    {{ form.fax }}
+                    {{ form.fax.errors }}
+                </span>
+            </div>
+            <div class="input">
+                <label>E-mail</label>
+                {{ form.email }}
+                {{ form.email.errors }}
+            </div>
+        </div>
+
+        <h2 class="modal_h">Приложения к заявке</h2>
+        <div class="modal_block">
+            <div class="check">
+                <label>
+                    {{ form.req_attachment1 }}
+                    {{ form.req_attachment1.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment2 }}
+                    {{ form.req_attachment2.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment3 }}
+                    {{ form.req_attachment3.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment4 }}
+                    {{ form.req_attachment4.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment5 }}
+                    {{ form.req_attachment5.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment6 }}
+                    {{ form.req_attachment6.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment7 }}
+                    {{ form.req_attachment7.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment8 }}
+                    {{ form.req_attachment8.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment9 }}
+                    {{ form.req_attachment9.label }}
+                </label>
+            </div>
+        </div>
         <div style="display: none;"><input type="hidden" value="{{ case }}" id="form_type"></div>
     	<div class="modal_btn"><div class="btn"><div class="btn_in"><input type="submit" value="Создать заявку" id="save_second_serv_request" /></div></div></div>
         <script type="text/javascript">$('#fancybox-overlay').css('height',$(document).height());</script>
@@ -429,7 +533,6 @@
                 {{ form.egrul_number.errors }}
             </div>
     	</div>
-
 
     	<div class="modal_block">
     		<div class="modal_block_num">3</div>
@@ -544,6 +647,159 @@
                 {{ form.other_inf.errors }}
     		</div>
     	</div>
+
+        <div class="modal_block">
+            <div class="input">
+                <label>Заявитель/представитель ФИО</label>
+                {{ form.agent_full_name }}
+                {{ form.agent_full_name.errors }}
+            </div>
+            <div class="input">
+                <span class="modal_block_short_1">
+                    <label>Доверенность №</label>
+                    {{ form.authority_number }}
+                    {{ form.authority_number.errors }}
+                </span>
+                <span class="modal_block_short_2" title="{{ form.authority_date.help_text }}">
+                    <label>от</label>
+                    {{ form.authority_date }}
+                    {{ form.authority_date.errors }}
+                </span>
+            </div>
+            <div class="input">
+                <span class="modal_block_short_1">
+                    <label>Телефон для связи</label>
+                    {{ form.phone_number }}
+                    {{ form.phone_number.errors }}
+                </span>
+                <span class="modal_block_short_2">
+                    <label>Факс</label>
+                    {{ form.fax }}
+                    {{ form.fax.errors }}
+                </span>
+            </div>
+            <div class="input">
+                <label>E-mail</label>
+                {{ form.email }}
+                {{ form.email.errors }}
+            </div>
+            <div class="input">
+                <label>{{ form.director_post.label }}</label>
+                {{ form.director_post }}
+                {{ form.director_post.errors }}
+            </div>
+            <div class="input">
+                <label>{{ form.director_full_name.label }}</label>
+                {{ form.director_full_name }}
+                {{ form.director_full_name.errors }}
+            </div>
+        </div>
+
+        <h2 class="modal_h">Реквизиты заявителя</h2>
+        <div class="modal_block">
+            <div class="input">
+                <label>{{ form.agent_inn.label }}</label>
+                {{ form.agent_inn }}
+                {{ form.agent_inn.errors }}
+            </div>
+            <div class="input">
+                <span class="modal_block_short_1">
+                    <label>{{ form.agent_kpp.label }}</label>
+                    {{ form.agent_kpp }}
+                    {{ form.agent_kpp.errors }}
+                </span>
+                <span class="modal_block_short_2">
+                    <label>{{ form.agent_bik.label }}</label>
+                    {{ form.agent_bik }}
+                    {{ form.agent_bik.errors }}
+                </span>
+            </div>
+            <div class="input">
+                <label>{{ form.agent_bank_title.label }}</label>
+                {{ form.agent_bank_title }}
+                {{ form.agent_bank_title.errors }}
+            </div>
+            <div class="input">
+                <label>{{ form.agent_bank_account.label }}</label>
+                {{ form.agent_bank_account }}
+                {{ form.agent_bank_account.errors }}
+            </div>
+            <div class="input">
+                <label>{{ form.agent_correspond_account.label }}</label>
+                {{ form.agent_correspond_account }}
+                {{ form.agent_correspond_account.errors }}
+            </div>
+        </div>
+
+        <h2 class="modal_h">Приложения к заявке</h2>
+        <div class="modal_block">
+            <div class="check">
+                <label>
+                    {{ form.req_attachment1 }}
+                    {{ form.req_attachment1.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment2 }}
+                    {{ form.req_attachment2.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment3 }}
+                    {{ form.req_attachment3.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment4 }}
+                    {{ form.req_attachment4.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment5 }}
+                    {{ form.req_attachment5.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment6 }}
+                    {{ form.req_attachment6.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment7 }}
+                    {{ form.req_attachment7.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment8 }}
+                    {{ form.req_attachment8.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment9 }}
+                    {{ form.req_attachment9.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment10 }}
+                    {{ form.req_attachment10.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment11 }}
+                    {{ form.req_attachment11.label }}
+                </label>
+            </div>
+        </div>
         <div style="display: none;"><input type="hidden" value="{{ case }}" id="form_type"></div>
     	<div class="modal_btn"><div class="btn"><div class="btn_in"><input type="submit" value="Создать заявку" id="save_third_serv_request" /></div></div></div>
         <script type="text/javascript">$('#fancybox-overlay').css('height',$(document).height());</script>
@@ -698,6 +954,172 @@
                 {{ form.other_inf.errors }}
     		</div>
     	</div>
+
+        <div class="modal_block">
+            <div class="input">
+                <label>Заявитель/представитель ФИО</label>
+                {{ form.agent_full_name }}
+                {{ form.agent_full_name.errors }}
+            </div>
+            <div class="input">
+                <span class="modal_block_short_1">
+                    <label>Доверенность №</label>
+                    {{ form.authority_number }}
+                    {{ form.authority_number.errors }}
+                </span>
+                <span class="modal_block_short_2" title="{{ form.authority_date.help_text }}">
+                    <label>от</label>
+                    {{ form.authority_date }}
+                    {{ form.authority_date.errors }}
+                </span>
+            </div>
+            <div class="input">
+                <span class="modal_block_short_1">
+                    <label>Телефон для связи</label>
+                    {{ form.phone_number }}
+                    {{ form.phone_number.errors }}
+                </span>
+                <span class="modal_block_short_2">
+                    <label>Факс</label>
+                    {{ form.fax }}
+                    {{ form.fax.errors }}
+                </span>
+            </div>
+            <div class="input">
+                <label>E-mail</label>
+                {{ form.email }}
+                {{ form.email.errors }}
+            </div>
+            <div class="input">
+                <label>{{ form.director_post.label }}</label>
+                {{ form.director_post }}
+                {{ form.director_post.errors }}
+            </div>
+            <div class="input">
+                <label>{{ form.director_full_name.label }}</label>
+                {{ form.director_full_name }}
+                {{ form.director_full_name.errors }}
+            </div>
+        </div>
+
+        <h2 class="modal_h">Реквизиты заявителя</h2>
+        <div class="modal_block">
+            <div class="input">
+                <label>{{ form.agent_inn.label }}</label>
+                {{ form.agent_inn }}
+                {{ form.agent_inn.errors }}
+            </div>
+            <div class="input">
+                <span class="modal_block_short_1">
+                    <label>{{ form.agent_kpp.label }}</label>
+                    {{ form.agent_kpp }}
+                    {{ form.agent_kpp.errors }}
+                </span>
+                <span class="modal_block_short_2">
+                    <label>{{ form.agent_bik.label }}</label>
+                    {{ form.agent_bik }}
+                    {{ form.agent_bik.errors }}
+                </span>
+            </div>
+            <div class="input">
+                <label>{{ form.agent_bank_title.label }}</label>
+                {{ form.agent_bank_title }}
+                {{ form.agent_bank_title.errors }}
+            </div>
+            <div class="input">
+                <label>{{ form.agent_bank_account.label }}</label>
+                {{ form.agent_bank_account }}
+                {{ form.agent_bank_account.errors }}
+            </div>
+            <div class="input">
+                <label>{{ form.agent_correspond_account.label }}</label>
+                {{ form.agent_correspond_account }}
+                {{ form.agent_correspond_account.errors }}
+            </div>
+        </div>
+
+        <h2 class="modal_h">Приложения к заявке</h2>
+        <div class="modal_block">
+            <div class="check">
+                <label>
+                    {{ form.req_attachment1 }}
+                    {{ form.req_attachment1.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment2 }}
+                    {{ form.req_attachment2.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment3 }}
+                    {{ form.req_attachment3.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment4 }}
+                    {{ form.req_attachment4.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment5 }}
+                    {{ form.req_attachment5.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment6 }}
+                    {{ form.req_attachment6.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment7 }}
+                    {{ form.req_attachment7.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment8 }}
+                    {{ form.req_attachment8.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment9 }}
+                    {{ form.req_attachment9.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment10 }}
+                    {{ form.req_attachment10.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment11 }}
+                    {{ form.req_attachment11.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment12 }}
+                    {{ form.req_attachment12.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment13 }}
+                    {{ form.req_attachment13.label }}
+                </label>
+            </div>
+        </div>
+
         <div style="display: none;"><input type="hidden" value="{{ case }}" id="form_type"></div>
     	<div class="modal_btn"><div class="btn"><div class="btn_in"><input type="submit" value="Создать заявку" id="save_fourth_serv_request" /></div></div></div>
         <script type="text/javascript">$('#fancybox-overlay').css('height',$(document).height());</script>
@@ -897,6 +1319,172 @@
                 {{ form.other_inf.errors }}
     		</div>
     	</div>
+
+        <div class="modal_block">
+            <div class="input">
+                <label>Заявитель/представитель ФИО</label>
+                {{ form.agent_full_name }}
+                {{ form.agent_full_name.errors }}
+            </div>
+            <div class="input">
+                <span class="modal_block_short_1">
+                    <label>Доверенность №</label>
+                    {{ form.authority_number }}
+                    {{ form.authority_number.errors }}
+                </span>
+                <span class="modal_block_short_2" title="{{ form.authority_date.help_text }}">
+                    <label>от</label>
+                    {{ form.authority_date }}
+                    {{ form.authority_date.errors }}
+                </span>
+            </div>
+            <div class="input">
+                <span class="modal_block_short_1">
+                    <label>Телефон для связи</label>
+                    {{ form.phone_number }}
+                    {{ form.phone_number.errors }}
+                </span>
+                <span class="modal_block_short_2">
+                    <label>Факс</label>
+                    {{ form.fax }}
+                    {{ form.fax.errors }}
+                </span>
+            </div>
+            <div class="input">
+                <label>E-mail</label>
+                {{ form.email }}
+                {{ form.email.errors }}
+            </div>
+            <div class="input">
+                <label>{{ form.director_post.label }}</label>
+                {{ form.director_post }}
+                {{ form.director_post.errors }}
+            </div>
+            <div class="input">
+                <label>{{ form.director_full_name.label }}</label>
+                {{ form.director_full_name }}
+                {{ form.director_full_name.errors }}
+            </div>
+        </div>
+
+        <h2 class="modal_h">Реквизиты заявителя</h2>
+        <div class="modal_block">
+            <div class="input">
+                <label>{{ form.agent_inn.label }}</label>
+                {{ form.agent_inn }}
+                {{ form.agent_inn.errors }}
+            </div>
+            <div class="input">
+                <span class="modal_block_short_1">
+                    <label>{{ form.agent_kpp.label }}</label>
+                    {{ form.agent_kpp }}
+                    {{ form.agent_kpp.errors }}
+                </span>
+                <span class="modal_block_short_2">
+                    <label>{{ form.agent_bik.label }}</label>
+                    {{ form.agent_bik }}
+                    {{ form.agent_bik.errors }}
+                </span>
+            </div>
+            <div class="input">
+                <label>{{ form.agent_bank_title.label }}</label>
+                {{ form.agent_bank_title }}
+                {{ form.agent_bank_title.errors }}
+            </div>
+            <div class="input">
+                <label>{{ form.agent_bank_account.label }}</label>
+                {{ form.agent_bank_account }}
+                {{ form.agent_bank_account.errors }}
+            </div>
+            <div class="input">
+                <label>{{ form.agent_correspond_account.label }}</label>
+                {{ form.agent_correspond_account }}
+                {{ form.agent_correspond_account.errors }}
+            </div>
+        </div>
+
+        <h2 class="modal_h">Приложения к заявке</h2>
+        <div class="modal_block">
+            <div class="check">
+                <label>
+                    {{ form.req_attachment1 }}
+                    {{ form.req_attachment1.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment2 }}
+                    {{ form.req_attachment2.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment3 }}
+                    {{ form.req_attachment3.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment4 }}
+                    {{ form.req_attachment4.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment5 }}
+                    {{ form.req_attachment5.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment6 }}
+                    {{ form.req_attachment6.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment7 }}
+                    {{ form.req_attachment7.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment8 }}
+                    {{ form.req_attachment8.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment9 }}
+                    {{ form.req_attachment9.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment10 }}
+                    {{ form.req_attachment10.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment11 }}
+                    {{ form.req_attachment11.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment12 }}
+                    {{ form.req_attachment12.label }}
+                </label>
+            </div>
+            <div class="check">
+                <label>
+                    {{ form.req_attachment13 }}
+                    {{ form.req_attachment13.label }}
+                </label>
+            </div>
+        </div>
+
         <div style="display: none;"><input type="hidden" value="{{ case }}" id="form_type"></div>
     	<div class="modal_btn"><div class="btn"><div class="btn_in"><input type="submit" value="Создать заявку" id="save_fifth_serv_request" /></div></div></div>
         <script type="text/javascript">$('#fancybox-overlay').css('height',$(document).height());</script>

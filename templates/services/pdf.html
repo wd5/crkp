@@ -152,15 +152,15 @@ hr.headhr {
     </li>
     <li>
         <h3>Приложения к заявке</h3>
-        <p><span>{{ saved_object.req_attachment1|yesno:_("ЕСТЬ,НЕТ") }}</span>{% get_verbose_name saved_object 'req_attachment1' %}</p>
-        <p><span>{{ saved_object.req_attachment2|yesno:_("ЕСТЬ,НЕТ") }}</span>{% get_verbose_name saved_object 'req_attachment2' %}</p>
-        <p><span>{{ saved_object.req_attachment3|yesno:_("ЕСТЬ,НЕТ") }}</span>{% get_verbose_name saved_object 'req_attachment3' %}</p>
-        <p><span>{{ saved_object.req_attachment4|yesno:_("ЕСТЬ,НЕТ") }}</span>{% get_verbose_name saved_object 'req_attachment4' %}</p>
-        <p><span>{{ saved_object.req_attachment5|yesno:_("ЕСТЬ,НЕТ") }}</span>{% get_verbose_name saved_object 'req_attachment5' %}</p>
-        <p><span>{{ saved_object.req_attachment6|yesno:_("ЕСТЬ,НЕТ") }}</span>{% get_verbose_name saved_object 'req_attachment6' %}</p>
-        <p><span>{{ saved_object.req_attachment7|yesno:_("ЕСТЬ,НЕТ") }}</span>{% get_verbose_name saved_object 'req_attachment7' %}</p>
-        <p><span>{{ saved_object.req_attachment8|yesno:_("ЕСТЬ,НЕТ") }}</span>{% get_verbose_name saved_object 'req_attachment8' %}</p>
-        <p><span>{{ saved_object.req_attachment9|yesno:_("ЕСТЬ,НЕТ") }}</span>{% get_verbose_name saved_object 'req_attachment9' %}</p>
+        <p><span>{{ saved_object.req_attachment1|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment1' %}</p>
+        <p><span>{{ saved_object.req_attachment2|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment2' %}</p>
+        <p><span>{{ saved_object.req_attachment3|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment3' %}</p>
+        <p><span>{{ saved_object.req_attachment4|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment4' %}</p>
+        <p><span>{{ saved_object.req_attachment5|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment5' %}</p>
+        <p><span>{{ saved_object.req_attachment6|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment6' %}</p>
+        <p><span>{{ saved_object.req_attachment7|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment7' %}</p>
+        <p><span>{{ saved_object.req_attachment8|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment8' %}</p>
+        <p><span>{{ saved_object.req_attachment9|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment9' %}</p>
     </li>
 </ol>
 {% endifequal %}
@@ -220,6 +220,26 @@ hr.headhr {
     <li>
         <p>Прочая информация: <span>{{ saved_object.other_inf }}</span></p>
     </li>
+    <li>
+        <p>Заявитель/представитель: <span>{{ saved_object.agent_full_name }}</span></p>
+        <p>Доверенность №: <span>{{ saved_object.authority_number }}</span></p>
+        <p>Дата доверенности: <span>{{ saved_object.authority_date }}</span></p>
+        <p>Телефон для связи: <span>{{ saved_object.phone_number }}</span></p>
+        <p>Факс: <span>{{ saved_object.fax }}</span></p>
+        <p>E-mail: <span>{{ saved_object.email }}</span></p>
+    </li>
+    <li>
+        <h3>Приложения к заявке</h3>
+        <p><span>{{ saved_object.req_attachment1|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment1' %}</p>
+        <p><span>{{ saved_object.req_attachment2|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment2' %}</p>
+        <p><span>{{ saved_object.req_attachment3|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment3' %}</p>
+        <p><span>{{ saved_object.req_attachment4|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment4' %}</p>
+        <p><span>{{ saved_object.req_attachment5|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment5' %}</p>
+        <p><span>{{ saved_object.req_attachment6|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment6' %}</p>
+        <p><span>{{ saved_object.req_attachment7|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment7' %}</p>
+        <p><span>{{ saved_object.req_attachment8|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment8' %}</p>
+        <p><span>{{ saved_object.req_attachment9|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment9' %}</p>
+    </li>
 </ol>
 {% endifequal %}
 
@@ -269,6 +289,39 @@ hr.headhr {
     </li>
     <li>
         <p>Прочая информация: <span>{{ saved_object.other_inf }}</span></p>
+    </li>
+    <li>
+        <p>Заявитель/представитель: <span>{{ saved_object.agent_full_name }}</span></p>
+        <p>Доверенность №: <span>{{ saved_object.authority_number }}</span></p>
+        <p>Дата доверенности: <span>{{ saved_object.authority_date }}</span></p>
+        <p>Телефон для связи: <span>{{ saved_object.phone_number }}</span></p>
+        <p>Факс: <span>{{ saved_object.fax }}</span></p>
+        <p>E-mail: <span>{{ saved_object.email }}</span></p>
+        <p>Должность руковоителя: <span>{{ saved_object.email }}</span></p>
+        <p>ФИО руковоителя: <span>{{ saved_object.email }}</span></p>
+    </li>
+    <li>
+        <h3>Реквизиты заявителя</h3>
+        <p>ИНН: <span>{{ saved_object.agent_inn }}</span></p>
+        <p>КПП: <span>{{ saved_object.agent_kpp }}</span></p>
+        <p>БИК: <span>{{ saved_object.agent_bik }}</span></p>
+        <p>Наименование банка: <span>{{ saved_object.agent_bank_title }}</span></p>
+        <p>Расчетный счёт: <span>{{ saved_object.agent_bank_account }}</span></p>
+        <p>Корреспондентский счет: <span>{{ saved_object.agent_correspond_account }}</span></p>
+    </li>
+    <li>
+        <h3>Приложения к заявке</h3>
+        <p><span>{{ saved_object.req_attachment1|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment1' %}</p>
+        <p><span>{{ saved_object.req_attachment2|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment2' %}</p>
+        <p><span>{{ saved_object.req_attachment3|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment3' %}</p>
+        <p><span>{{ saved_object.req_attachment4|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment4' %}</p>
+        <p><span>{{ saved_object.req_attachment5|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment5' %}</p>
+        <p><span>{{ saved_object.req_attachment6|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment6' %}</p>
+        <p><span>{{ saved_object.req_attachment7|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment7' %}</p>
+        <p><span>{{ saved_object.req_attachment8|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment8' %}</p>
+        <p><span>{{ saved_object.req_attachment9|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment9' %}</p>
+        <p><span>{{ saved_object.req_attachment10|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment10' %}</p>
+        <p><span>{{ saved_object.req_attachment11|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment11' %}</p>
     </li>
 </ol>
 {% endifequal %}
@@ -323,6 +376,41 @@ hr.headhr {
     </li>
     <li>
         <p>Прочая информация: <span>{{ saved_object.other_inf }}</span></p>
+    </li>
+    <li>
+        <p>Заявитель/представитель: <span>{{ saved_object.agent_full_name }}</span></p>
+        <p>Доверенность №: <span>{{ saved_object.authority_number }}</span></p>
+        <p>Дата доверенности: <span>{{ saved_object.authority_date }}</span></p>
+        <p>Телефон для связи: <span>{{ saved_object.phone_number }}</span></p>
+        <p>Факс: <span>{{ saved_object.fax }}</span></p>
+        <p>E-mail: <span>{{ saved_object.email }}</span></p>
+        <p>Должность руковоителя: <span>{{ saved_object.director_post }}</span></p>
+        <p>ФИО руковоителя: <span>{{ saved_object.director_full_name }}</span></p>
+    </li>
+    <li>
+        <h3>Реквизиты заявителя</h3>
+        <p>ИНН: <span>{{ saved_object.agent_inn }}</span></p>
+        <p>КПП: <span>{{ saved_object.agent_kpp }}</span></p>
+        <p>БИК: <span>{{ saved_object.agent_bik }}</span></p>
+        <p>Наименование банка: <span>{{ saved_object.agent_bank_title }}</span></p>
+        <p>Расчетный счёт: <span>{{ saved_object.agent_bank_account }}</span></p>
+        <p>Корреспондентский счет: <span>{{ saved_object.agent_correspond_account }}</span></p>
+    </li>
+    <li>
+        <h3>Приложения к заявке</h3>
+        <p><span>{{ saved_object.req_attachment1|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment1' %}</p>
+        <p><span>{{ saved_object.req_attachment2|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment2' %}</p>
+        <p><span>{{ saved_object.req_attachment3|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment3' %}</p>
+        <p><span>{{ saved_object.req_attachment4|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment4' %}</p>
+        <p><span>{{ saved_object.req_attachment5|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment5' %}</p>
+        <p><span>{{ saved_object.req_attachment6|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment6' %}</p>
+        <p><span>{{ saved_object.req_attachment7|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment7' %}</p>
+        <p><span>{{ saved_object.req_attachment8|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment8' %}</p>
+        <p><span>{{ saved_object.req_attachment9|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment9' %}</p>
+        <p><span>{{ saved_object.req_attachment10|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment10' %}</p>
+        <p><span>{{ saved_object.req_attachment11|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment11' %}</p>
+        <p><span>{{ saved_object.req_attachment12|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment12' %}</p>
+        <p><span>{{ saved_object.req_attachment13|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment13' %}</p>
     </li>
 </ol>
 {% endifequal %}
@@ -386,6 +474,41 @@ hr.headhr {
     </li>
     <li>
         <p>Прочая информация: <span>{{ saved_object.other_inf }}</span></p>
+    </li>
+    <li>
+        <p>Заявитель/представитель: <span>{{ saved_object.agent_full_name }}</span></p>
+        <p>Доверенность №: <span>{{ saved_object.authority_number }}</span></p>
+        <p>Дата доверенности: <span>{{ saved_object.authority_date }}</span></p>
+        <p>Телефон для связи: <span>{{ saved_object.phone_number }}</span></p>
+        <p>Факс: <span>{{ saved_object.fax }}</span></p>
+        <p>E-mail: <span>{{ saved_object.email }}</span></p>
+        <p>Должность руковоителя: <span>{{ saved_object.director_post }}</span></p>
+        <p>ФИО руковоителя: <span>{{ saved_object.director_full_name }}</span></p>
+    </li>
+    <li>
+        <h3>Реквизиты заявителя</h3>
+        <p>ИНН: <span>{{ saved_object.agent_inn }}</span></p>
+        <p>КПП: <span>{{ saved_object.agent_kpp }}</span></p>
+        <p>БИК: <span>{{ saved_object.agent_bik }}</span></p>
+        <p>Наименование банка: <span>{{ saved_object.agent_bank_title }}</span></p>
+        <p>Расчетный счёт: <span>{{ saved_object.agent_bank_account }}</span></p>
+        <p>Корреспондентский счет: <span>{{ saved_object.agent_correspond_account }}</span></p>
+    </li>
+    <li>
+        <h3>Приложения к заявке</h3>
+        <p><span>{{ saved_object.req_attachment1|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment1' %}</p>
+        <p><span>{{ saved_object.req_attachment2|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment2' %}</p>
+        <p><span>{{ saved_object.req_attachment3|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment3' %}</p>
+        <p><span>{{ saved_object.req_attachment4|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment4' %}</p>
+        <p><span>{{ saved_object.req_attachment5|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment5' %}</p>
+        <p><span>{{ saved_object.req_attachment6|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment6' %}</p>
+        <p><span>{{ saved_object.req_attachment7|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment7' %}</p>
+        <p><span>{{ saved_object.req_attachment8|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment8' %}</p>
+        <p><span>{{ saved_object.req_attachment9|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment9' %}</p>
+        <p><span>{{ saved_object.req_attachment10|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment10' %}</p>
+        <p><span>{{ saved_object.req_attachment11|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment11' %}</p>
+        <p><span>{{ saved_object.req_attachment12|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment12' %}</p>
+        <p><span>{{ saved_object.req_attachment13|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment13' %}</p>
     </li>
 </ol>
 {% endifequal %}
