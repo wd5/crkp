@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.simple import direct_to_template
 from apps.pages.models import Page, Vacancy, LicensesCategory
 from apps.siteblocks.models import Settings
+from django.utils.translation import ugettext as _
 from django.views.generic import ListView,DetailView,TemplateView
 
 def page(request, url):
