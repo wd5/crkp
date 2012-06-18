@@ -7,9 +7,11 @@ from apps.services.views import load_serv
 from apps.servicerequests.views import load_request_form,check_request_form
 
 from views import index
+from views import generatepdf
 
 urlpatterns = patterns('',
     url(r'^$',index, name='index'),
+    (r'^pdf123/$',generatepdf),
     (r'^faq/', include('apps.faq.urls')),
 
     (r'^company/$', 'apps.pages.views.show_company_item', {'slug':'/about/'}),
@@ -26,6 +28,5 @@ urlpatterns = patterns('',
     (r'^services/requestform/(?P<id>[^/]+)/$', csrf_exempt(load_request_form)),
     url(r'^services/$', 'apps.services.views.show_service', {'pk':'1'}, name='show_service'),
     (r'^services/(?P<pk>[^/]+)/$', 'apps.services.views.show_service'),
-
 )
 

@@ -9,6 +9,7 @@ class Service(models.Model):
     description =  models.TextField(verbose_name = u'описание')
     result =  models.TextField(verbose_name = u'результат')
     order = models.IntegerField(u'порядок сортировки', help_text=u'Чем больше число, тем выше располагается элемент', default=10)
+    second_menu_blck = models.BooleanField(verbose_name=u'во втором блоке меню', default=True)
     is_published = models.BooleanField(verbose_name=u'опубликовано', default=True)
 
     objects = PublishedManager()

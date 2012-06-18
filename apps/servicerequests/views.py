@@ -139,7 +139,7 @@ class ReqFormCheckView(View):
                     if form.is_valid():
                         saved_object = form.save()
                         path = render_to_pdf('services/pdf.html', 'first_serv_%s' % saved_object.pk, {
-                            'title': u'Заявка на договор и технические условия на подключение к электрическим сетям, физические лица до 15 кВт (включительно)',
+                            'title': u'Физические лица до 15 кВт (включительно) по 3 категории надежности электроснабжения',
                             'saved_object': saved_object,
                             'case': request.POST['form_type'],
                             'MEDIA_ROOT': settings.ROOT_PATH
@@ -165,7 +165,7 @@ class ReqFormCheckView(View):
                     if form.is_valid():
                         saved_object = form.save()
                         path = render_to_pdf('services/pdf.html', 'second_serv_%s' % saved_object.pk, {
-                            'title': u'Заявка на договор и технические условия на подключение к электрическим сетям, физические лица до 100 кВт (включительно)',
+                            'title': u'Физические лица до 100 кВт (включительно) по 1,2,3 категории надежности электроснабжения ВРЕМЕННОЕ присоединение',
                             'saved_object': saved_object,
                             'case': request.POST['form_type'],
                             'MEDIA_ROOT': settings.ROOT_PATH
@@ -191,7 +191,7 @@ class ReqFormCheckView(View):
                     if form.is_valid():
                         saved_object = form.save()
                         path = render_to_pdf('services/pdf.html', 'third_serv_%s' % saved_object.pk, {
-                            'title': u'Заявка на договор и технические условия на подключение к электрическим сетям, юридические лица и индивидуальные предприниматели до 100 кВт (включительно)',
+                            'title': u'Юридические лица и индивидуальные предприниматели до 100 кВт (включительно) по 1, 2, 3 категории надежности электроснабжения ВРЕМЕННОЕ присоединение',
                             'saved_object': saved_object,
                             'case': request.POST['form_type'],
                             'MEDIA_ROOT': settings.ROOT_PATH
@@ -217,7 +217,7 @@ class ReqFormCheckView(View):
                     if form.is_valid():
                         saved_object = form.save()
                         path = render_to_pdf('services/pdf.html', 'fourth_serv_%s' % saved_object.pk, {
-                            'title': u'Заявка на договор и технические условия на подключение к электрическим сетям, юридические лица и индивидуальные предприниматели до 750 кВА (включительно)',
+                            'title': u'Юридические лица и индивидуальные предприниматели до 750 кВА (включительно) по 1, 2, 3 категории надежности электроснабжения',
                             'saved_object': saved_object,
                             'case': request.POST['form_type'],
                             'MEDIA_ROOT': settings.ROOT_PATH
@@ -243,7 +243,7 @@ class ReqFormCheckView(View):
                     if form.is_valid():
                         saved_object = form.save()
                         path = render_to_pdf('services/pdf.html', 'fifth_serv_%s' % saved_object.pk, {
-                            'title': u'Заявка на договор и технические условия на подключение к электрическим сетям, юридические лица и индивидуальные предприниматели свыше 750 кВА',
+                            'title': u'Юридические лица и индивидуальные предприниматели свыше 750 кВА по 1,2,3 категории надежности электроснабжения',
                             'saved_object': saved_object,
                             'case': request.POST['form_type'],
                             'MEDIA_ROOT': settings.ROOT_PATH
@@ -274,7 +274,16 @@ class ReqFormCheckView(View):
                                 id_serv = int(request.POST['id_serv'])
                             except:
                                 return HttpResponseBadRequest("Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
-                            serv = FirstServRequest.objects.get(pk=id_serv)
+                            if request.POST['serv_type'] == 'first_serv':
+                                serv = FirstServRequest.objects.get(pk=id_serv)
+                            elif request.POST['serv_type'] == 'second_serv':
+                                serv = SecondServRequest.objects.get(pk=id_serv)
+                            elif request.POST['serv_type'] == 'third_serv':
+                                serv = ThirdServRequest.objects.get(pk=id_serv)
+                            elif request.POST['serv_type'] == 'fourth_serv':
+                                serv = FourthServRequest.objects.get(pk=id_serv)
+                            elif request.POST['serv_type'] == 'fifth_serv':
+                                serv = FifthServRequest.objects.get(pk=id_serv)
                             serv.delete()
                             return HttpResponseBadRequest("Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
                         else:

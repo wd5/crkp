@@ -1,17 +1,20 @@
-{% for service in services %}
-    {% if service.id == 1 or service.id == 2 or service.id == 3 or service.id == 4 or service.id == 5 %}
-        {% if service.id == 1 %}
-        <li class="{% if curr_serv.id == 1 or curr_serv.id == 2 or curr_serv.id == 3 or curr_serv.id == 4 or curr_serv.id == 5 %}curr{% endif %} {% if not forloop.last %}submenu_arr{% endif %}">
-            <a href="{{ service.get_absolute_url }}">{{ service.title }}</a>
-            <div class="submenu_free">Бесплатно</div>
-        </li>
-        {% endif %}
-    {% else %}
-        <li class="{% if curr_serv.id == service.id %}curr{% endif %} {% if not forloop.last %}submenu_arr{% endif %} ">
-            <a href="{{ service.get_absolute_url }}">{{ service.title }}</a>
-            {% if service.id == 8 %}
+{% if not second %}
+    {% for service in services %}
+        {% if service.id == 1 or service.id == 2 or service.id == 3 or service.id == 4 or service.id == 5 %}
+            {% if service.id == 1 %}
+            <li class="{% if curr_serv.id == 1 or curr_serv.id == 2 or curr_serv.id == 3 or curr_serv.id == 4 or curr_serv.id == 5 %}curr{% endif %} {% if not forloop.last %}submenu_arr{% endif %}">
+                <a href="{{ service.get_absolute_url }}">{{ service.title }}</a>
                 <div class="submenu_free">Бесплатно</div>
+            </li>
             {% endif %}
-        </li>
-    {% endif %}
-{% endfor %}
+        {% else %}
+            <li class="{% if curr_serv.id == service.id %}curr{% endif %} {% if not forloop.last %}submenu_arr{% endif %} ">
+                <a href="{{ service.get_absolute_url }}">{{ service.title }}</a>
+            </li>
+        {% endif %}
+    {% endfor %}
+{% else %}
+    {% for service in services %}
+        <li class="{% if curr_serv.id == service.id %}curr{% endif %}"><a href="{{ service.get_absolute_url }}">{{ service.title }}</a></li>
+    {% endfor %}
+{% endif %}

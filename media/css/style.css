@@ -389,12 +389,12 @@ h3 {
 }
 .connect_lnk a {
 	display: block;
-	background: url('../img/tumbler.png') no-repeat -31px 0;
-	padding-left: 36px;
+	background: url('../img/tumbler.png') no-repeat -48px 0;
+	padding-left: 40px;
 	text-decoration: none;
 }
 .connect_lnk a:hover {
-	background-position: 0 -41px;
+	background-position: 0 -43px;
 }
 .connect_lnk span {
 	text-decoration: underline;
@@ -1060,10 +1060,20 @@ div.faq_modal {
 	left: 0;
 }
 
+.modal_block_short_1 {
+	width: 348px;
+}
+.modal_block_short_2 {
+	width: 228px;
+}
+.modal_block_short_1, .modal_block_short_2 {
+	display: inline-block;
+	vertical-align: top;
+}
 .modal_block .modal_block_short_1 input {
 	width: 123px;
 	background-position: -171px 0;
-	margin-right: 48px;
+	/*margin-right: 48px;*/
 }
 .modal_block .modal_block_short_2 input {
 	width: 153px;
@@ -1267,7 +1277,19 @@ div.faq_modal {
 /*/btn*/
 
 
-
+.errorlist {
+	font-size: 12px;
+	color: #d00;
+}
+.modal_block .errorlist {
+	margin-left: 166px;
+}
+.modal_block_short_1 .errorlist,
+.modal_block_short_2 .errorlist,
+.modal_block_short_1 .errorlist li,
+.modal_block_short_2 .errorlist li {
+	/*display: inline;*/
+}
 
 
 .pl {
