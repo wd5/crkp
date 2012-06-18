@@ -8,6 +8,7 @@ class Service(models.Model):
     title = models.CharField(max_length=255, verbose_name=u'название услуги')
     description =  models.TextField(verbose_name = u'описание')
     result =  models.TextField(verbose_name = u'результат')
+    button_title = models.CharField(max_length=50, verbose_name=u'подпись кнопки')
     order = models.IntegerField(u'порядок сортировки', help_text=u'Чем больше число, тем выше располагается элемент', default=10)
     second_menu_blck = models.BooleanField(verbose_name=u'во втором блоке меню', default=True)
     is_published = models.BooleanField(verbose_name=u'опубликовано', default=True)
