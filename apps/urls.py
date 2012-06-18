@@ -17,7 +17,7 @@ urlpatterns = patterns('',
     (r'^company/$', 'apps.pages.views.show_company_item', {'slug':'/about/'}),
     (r'^company/(?P<slug>[^/]+)/$', 'apps.pages.views.show_company_item'),
 
-    (r'^techconnection/$', 'apps.techconnection.views.show_tech_item', {'slug':'/techconnect/'}),
+    (r'^techconnection/$', 'apps.techconnection.views.show_tech_item', {'slug':'/order/'}),
     (r'^techconnection/rates/$', 'apps.techconnection.views.show_rates_map'),
     (r'^techconnection/techcalc/$', 'apps.techconnection.views.show_techcalc'),
     (r'^techconnection/(?P<slug>[^/]+)/$', 'apps.techconnection.views.show_tech_item'),

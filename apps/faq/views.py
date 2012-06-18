@@ -19,7 +19,7 @@ class QuestionListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(QuestionListView,self).get_context_data(**kwargs)
-        context['page'] = Page.objects.get(pk=9)
+        context['page'] = Page.objects.get(pk=14)
         return context
 
 questions_list = QuestionListView.as_view()

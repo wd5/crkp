@@ -14,4 +14,4 @@ def block_page_summary(alias):
 
 @register.inclusion_tag("pages/menu_by_parent.html")
 def get_menu_by_parent(page,current_path):
-    return {'children_pages': page.parent.get_children(), 'current_path':current_path,'page_url':page.get_absolute_url() }
+    return {'children_pages': page.parent.get_children().filter(is_published=True), 'current_path':current_path,'page_url':page.get_absolute_url() }
