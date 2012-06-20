@@ -75,7 +75,7 @@ table {
 .doctable td table {
 	border-collapse: separate;
 }
-.doctable td table td {
+.doctable td table td, .moretable td {
 	padding: 0.07cm 0 0 0;
 	line-height: 12pt;
 	vertical-align: top;
@@ -104,7 +104,9 @@ table {
 	margin: 0 0 0.2cm 0;
 	padding: 0;
 }
-
+.add span {
+	padding: 0 0.3cm 0 0;
+}
 .headtable p {
 	margin: 0;
 	padding: 0;
@@ -115,10 +117,10 @@ table {
 	text-align: center;
 	margin-top: 0.2cm;
 }
-.doctable td table .input {
+.doctable td table .input, .moretable .input {
 	font-size: 9pt;
 }
-.doctable td table td.input {
+.doctable td table td.input, .moretable td.input {
 	border: 1px solid #ccc;
 	border-top-color: #777;
 	border-left-color: #777;
@@ -147,6 +149,9 @@ table {
 	</tr>
 </table>
 
+
+
+
 {% ifequal case 'first_serv' %}
 <table class="doctable" cellpadding="0" cellspacing="0">
 	<tr>
@@ -165,7 +170,7 @@ table {
 		<td>
 			<table>
 				<tr>
-					<td style="width: 3cm;">Паспорт серия</td>
+					<td style="width: 3.14cm;">Паспорт серия</td>
 					<td class="input">{{ saved_object.passport_series }}</td>
 					<td style="width: 1.6cm; padding-left: 0.1cm;">номер</td>
 					<td class="input">{{ saved_object.passport_number }}</td>
@@ -192,7 +197,7 @@ table {
 			<table>
 				<tr>
 					<td style="width: 1cm;">ИНН</td>
-					<td style="width: 3cm;" class="input">{{ saved_object.inn }}</td>
+					<td class="input">{{ saved_object.inn }}</td>
 				</tr>
 			</table>
 		</td>
@@ -265,29 +270,56 @@ table {
 	</tr>
 </table>
 
-<p><strong>Заявитель/представитель</strong>: подпись ____________________  <span class="input">{{ saved_object.agent_full_name }}</span></p>
-<p>Доверенность № <span class="input">{{ saved_object.authority_number }}</span> от <span class="input">{{ saved_object.authority_date }}</span></p>
-<p>Телефон для связи: <span class="input">{{ saved_object.phone_number }}</span>, Факс: <span class="input">{{ saved_object.fax }}</span>, E-mail: <span class="input">{{ saved_object.email }}</span></p>
-<br/>
-<p>Заявку принял специалист ЦОК: _____________________________________________________________ "_____"________________20&nbsp;&nbsp;&nbsp;&nbsp;г.</p>
+<table class="moretable">
+	<tr>
+		<td style="width: 18cm;"><strong>Заявитель/представитель</strong>: подпись ____________________ ФИО</td>
+		<td class="input">{{ saved_object.agent_full_name }}</td>
+	</tr>
+</table>
+
+<table class="moretable">
+	<tr>
+		<td style="width: 3.44cm;">Доверенность №</td>
+		<td class="input">{{ saved_object.authority_number }}</td>
+		<td style="width: 0.7cm;">&nbsp;&nbsp;от </td>
+		<td class="input">{{ saved_object.authority_date }}</td>
+	</tr>
+</table>
+
+<table class="moretable">
+	<tr>
+		<td style="width: 3.9cm;">Телефон для связи:</td>
+		<td class="input">{{ saved_object.phone_number }}</td>
+		<td style="width: 1.6cm;">&nbsp;&nbsp;Факс:</td>
+		<td class="input">{{ saved_object.fax }}</td>
+		<td style="width: 1.9cm;">&nbsp;&nbsp;E-mail:</td>
+		<td class="input">{{ saved_object.email }}</td>
+	</tr>
+</table>
+
+<br/><br/>
+<p>Заявку принял специалист ЦОК: ________________________________________________________________ "_____"________________20&nbsp;&nbsp;&nbsp;&nbsp;г.</p>
 
 <pdf:nextpage name="" />
 
 <div class="add">
 	<br />
 	<h3>Приложения к заявке</h3>
-	<p><span>{{ saved_object.req_attachment1|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment1' %}</p>
-	<p><span>{{ saved_object.req_attachment2|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment2' %}</p>
-	<p><span>{{ saved_object.req_attachment3|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment3' %}</p>
-	<p><span>{{ saved_object.req_attachment4|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment4' %}</p>
-	<p><span>{{ saved_object.req_attachment5|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment5' %}</p>
-	<p><span>{{ saved_object.req_attachment6|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment6' %}</p>
-	<p><span>{{ saved_object.req_attachment7|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment7' %}</p>
-	<p><span>{{ saved_object.req_attachment8|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment8' %}</p>
-	<p><span>{{ saved_object.req_attachment9|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment9' %}</p>
+	<p><span>{{ saved_object.req_attachment1|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment1' %}</p>
+	<p><span>{{ saved_object.req_attachment2|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment2' %}</p>
+	<p><span>{{ saved_object.req_attachment3|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment3' %}</p>
+	<p><span>{{ saved_object.req_attachment4|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment4' %}</p>
+	<p><span>{{ saved_object.req_attachment5|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment5' %}</p>
+	<p><span>{{ saved_object.req_attachment6|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment6' %}</p>
+	<p><span>{{ saved_object.req_attachment7|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment7' %}</p>
+	<p><span>{{ saved_object.req_attachment8|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment8' %}</p>
+	<p><span>{{ saved_object.req_attachment9|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment9' %}</p>
+	<br/>
 	<p class="addnote">Физические лица предоставляют копии документов, заверенные своей подписью.</p>
 </div>
 {% endifequal %}
+
+
 
 
 
@@ -297,54 +329,100 @@ table {
 	<tr>
 		<td class="doctable_num">1.</td>
 		<td>
-	        <p>Фамилия: <span class="input">{{ saved_object.last_name }}</span></p>
-	        <p>Имя: <span class="input">{{ saved_object.first_name }}</span></p>
-	        <p>Отчество: <span class="input">{{ saved_object.middle_name }}</span></p>
+	        <table>
+		        <tr><td style="width: 1.6cm;">Фамилия</td> <td class="input">{{ saved_object.last_name }}</td></tr>
+		        <tr><td>Имя</td> <td class="input">{{ saved_object.first_name }}</td></tr>
+		        <tr><td>Отчество</td> <td class="input">{{ saved_object.middle_name }}</td></tr>
+	        </table>
 		</td>
 	</tr>
 	
 	<tr>
 		<td class="doctable_num">2.</td>
 		<td>
-	        <p>Паспорт серия:  class="input"{{ saved_object.passport_series }}</span>, номер:  class="input"{{ saved_object.passport_number }}</span></p>
-	        <p>Кем выдан:  class="input"{{ saved_object.passport_issued }}</span></p>
-	        <p>Дата выдачи:  class="input"{{ saved_object.passport_issued_date }}</span></p>
+			<table>
+				<tr>
+					<td style="width: 3.14cm;">Паспорт серия</td>
+					<td class="input">{{ saved_object.passport_series }}</td>
+					<td style="width: 1.6cm; padding-left: 0.1cm;">номер</td>
+					<td class="input">{{ saved_object.passport_number }}</td>
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<td style="width: 2.9cm;">Кем выдан</td>
+					<td class="input">{{ saved_object.passport_issued }}</td>
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<td style="width: 2.9cm;">Дата выдачи</td>
+					<td class="input">{{ saved_object.passport_issued_date }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
 	
 	<tr>
 		<td class="doctable_num">3.</td>
 		<td>
-	        <p>ИНН:  class="input"{{ saved_object.inn }}</span></p>
+			<table>
+				<tr>
+					<td style="width: 1cm;">ИНН</td>
+					<td class="input">{{ saved_object.inn }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
 	
 	<tr>
 		<td class="doctable_num">4.</td>
 		<td>
-	        <p>Фактический адрес заявителя с индексом:  class="input"{{ saved_object.actual_address_with_index }}</span></p>
+			<table>
+				<tr>
+					<td style="width: 10cm;">Фактический адрес заявителя с индексом:</td>
+					<td class="input">{{ saved_object.actual_address_with_index }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
 	
 	<tr>
 		<td class="doctable_num">5.</td>
 		<td>
-	        <p>Наименование объекта:  class="input"{{ saved_object.object_title }}</span></p>
+			<table>
+				<tr>
+					<td style="width: 10cm;">Наименование присоединяемого объекта:</td>
+					<td class="input">{{ saved_object.object_title }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
 	
 	<tr>
 		<td class="doctable_num">6.</td>
 		<td>
-	        <p>Местонахождение присоединяемого объекта:  class="input"{{ saved_object.object_location }}</span></p>
+			<table>
+				<tr>
+					<td style="width: 10cm;">Местонахождение присоединяемого объекта:</td>
+					<td class="input">{{ saved_object.object_location }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
 	
 	<tr>
 		<td class="doctable_num">7.</td>
 		<td>
-	        <p>Срок временного присоединения:  class="input"{{ saved_object.temp_period }}</span></p>
-		</td>
+			<table>
+				<tr>
+					<td>Срок временного присоединения:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.temp_period }}</td>
+				</tr>
+			</table>
+		</td>	
 	</tr>
 
 	<tr>
@@ -386,42 +464,82 @@ table {
 	<tr>
 		<td class="doctable_num">9.</td>
 		<td>
-	        <p>Характер нагрузки потребителя электрической энергии:</p>
-	        <p>{{ saved_object.load_type }}</p>
+			<table>
+				<tr>
+					<td>Характер нагрузки потребителя электрической энергии:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.load_type }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
-	
+
 	<tr>
 		<td class="doctable_num">10.</td>
 		<td>
-	        <p>Прочая информация:</p>
-	        <p>{{ saved_object.other_inf }}</p>
+			<table>
+				<tr>
+					<td>Прочая информация:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.other_inf }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
 </table>
 
-<p><strong>Заявитель/представитель</strong>: подпись ____________________   class="input"{{ saved_object.agent_full_name }}</span></p>
-<p>Доверенность №  class="input"{{ saved_object.authority_number }}</span> от:  class="input"{{ saved_object.authority_date }}</span></p>
-<p>Телефон для связи:  class="input"{{ saved_object.phone_number }}</span>, Факс:  class="input"{{ saved_object.fax }}</span>, E-mail:  class="input"{{ saved_object.email }}</span></p>
-<br/>
-<p>Заявку принял специалист ЦОК: _____________________________________________________________ "_____"________________20&nbsp;&nbsp;&nbsp;&nbsp;г.</p>
+<table class="moretable">
+	<tr>
+		<td style="width: 18cm;"><strong>Заявитель/представитель</strong>: подпись ____________________ ФИО</td>
+		<td class="input">{{ saved_object.agent_full_name }}</td>
+	</tr>
+</table>
+
+<table class="moretable">
+	<tr>
+		<td style="width: 3.44cm;">Доверенность №</td>
+		<td class="input">{{ saved_object.authority_number }}</td>
+		<td style="width: 0.7cm;">&nbsp;&nbsp;от </td>
+		<td class="input">{{ saved_object.authority_date }}</td>
+	</tr>
+</table>
+
+<table class="moretable">
+	<tr>
+		<td style="width: 3.9cm;">Телефон для связи:</td>
+		<td class="input">{{ saved_object.phone_number }}</td>
+		<td style="width: 1.6cm;">&nbsp;&nbsp;Факс:</td>
+		<td class="input">{{ saved_object.fax }}</td>
+		<td style="width: 1.9cm;">&nbsp;&nbsp;E-mail:</td>
+		<td class="input">{{ saved_object.email }}</td>
+	</tr>
+</table>
+
+<br/><br/>
+<p>Заявку принял специалист ЦОК: ________________________________________________________________ "_____"________________20&nbsp;&nbsp;&nbsp;&nbsp;г.</p>
 
 <pdf:nextpage name="" />
 
 <div class="add">
 	<h3>Приложения к заявке</h3>
-    <p><span>{{ saved_object.req_attachment1|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment1' %}</p>
-    <p><span>{{ saved_object.req_attachment2|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment2' %}</p>
-    <p><span>{{ saved_object.req_attachment3|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment3' %}</p>
-    <p><span>{{ saved_object.req_attachment4|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment4' %}</p>
-    <p><span>{{ saved_object.req_attachment5|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment5' %}</p>
-    <p><span>{{ saved_object.req_attachment6|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment6' %}</p>
-    <p><span>{{ saved_object.req_attachment7|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment7' %}</p>
-    <p><span>{{ saved_object.req_attachment8|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment8' %}</p>
-    <p><span>{{ saved_object.req_attachment9|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment9' %}</p>
+    <p><span>{{ saved_object.req_attachment1|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment1' %}</p>
+    <p><span>{{ saved_object.req_attachment2|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment2' %}</p>
+    <p><span>{{ saved_object.req_attachment3|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment3' %}</p>
+    <p><span>{{ saved_object.req_attachment4|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment4' %}</p>
+    <p><span>{{ saved_object.req_attachment5|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment5' %}</p>
+    <p><span>{{ saved_object.req_attachment6|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment6' %}</p>
+    <p><span>{{ saved_object.req_attachment7|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment7' %}</p>
+    <p><span>{{ saved_object.req_attachment8|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment8' %}</p>
+    <p><span>{{ saved_object.req_attachment9|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment9' %}</p>
+	<br/>
 	<p class="addnote">Физические лица предоставляют копии документов, заверенные своей подписью.</p>
 </div>
 {% endifequal %}
+
+
+
 
 
 
@@ -430,42 +548,84 @@ table {
 	<tr>
 		<td class="doctable_num">1.</td>
 		<td>
-	        <p>Полное наименование организации/индивидуального предпринимателя:  <span class="input">{{ saved_object.org_title }}</span></p>
+			<table>
+				<tr>
+					<td>Полное наименование организации/индивидуального предпринимателя:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.org_title }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
-	
+
 	<tr>
 		<td class="doctable_num">2.</td>
 		<td>
-	        <p>Номер записи в Едином государственном реестре юридических лиц/Едином государственном реестре индивидуальных предпринимателей:  <span class="input">{{ saved_object.egrul_number }}</span></p>
+			<table>
+				<tr>
+					<td>Номер записи в Едином государственном реестре юридических лиц/Едином государственном реестре индивидуальных предпринимателей:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.egrul_number }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
-	
+
 	<tr>
 		<td class="doctable_num">3.</td>
 		<td>
-	        <p>Фактический адрес организации (заявителя) с индексом:  <span class="input">{{ saved_object.actual_address_with_index }}</span></p>
+			<table>
+				<tr>
+					<td>Фактический адрес организации (заявителя) с индексом:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.actual_address_with_index }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
-	
+
 	<tr>
 		<td class="doctable_num">4.</td>
 		<td>
-	        <p>Наименование объекта:  <span class="input">{{ saved_object.object_title }}</span></p>
+			<table>
+				<tr>
+					<td>Наименование присоединяемого объекта:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.object_title }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
-	
+
 	<tr>
 		<td class="doctable_num">5.</td>
 		<td>
-	        <p>Местонахождение присоединяемого объекта:  <span class="input">{{ saved_object.object_location }}</span></p>
+			<table>
+				<tr>
+					<td>Местонахождение присоединяемого объекта:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.object_location }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
-	
+
 	<tr>
 		<td class="doctable_num">6.</td>
 		<td>
-	        <p>Срок временного присоединения:  <span class="input">{{ saved_object.temp_period }}</span></p>
+			<table>
+				<tr>
+					<td>Срок временного присоединения:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.temp_period }}</td>
+				</tr>
+			</table>
 	        <table class="doctable4col">
 	        	<tr>
 	        		<td><p>Категория надежности электроснабжения:</p></td>
@@ -502,51 +662,121 @@ table {
 	<tr>
 		<td class="doctable_num">7.</td>
 		<td>
-	        <p>Характер нагрузки потребителя электрической энергии:</p>
-	        <p>{{ saved_object.load_type }}</p>
+			<table>
+				<tr>
+					<td>Характер нагрузки потребителя электрической энергии:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.load_type }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
-	
+
 	<tr>
-		<td class="doctable_num">7.</td>
+		<td class="doctable_num">8.</td>
 		<td>
-	        <p>Прочая информация:</p>
-	        <p>{{ saved_object.other_inf }}</p>
+			<table>
+				<tr>
+					<td>Прочая информация:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.other_inf }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
 </table>
 
-<p><strong>Заявитель/представитель</strong>: подпись ____________________   <span class="input">{{ saved_object.agent_full_name }}</span></p>
-<p><strong>Доверенность №</strong>  <span class="input">{{ saved_object.authority_number }}</span> от:  <span class="input">{{ saved_object.authority_date }}</span></p>
-<p>Телефон для связи:  <span class="input">{{ saved_object.phone_number }}</span>, Факс:  <span class="input">{{ saved_object.fax }}</span>, E-mail:  <span class="input">{{ saved_object.email }}</span></p>
-<p>Должность руковоителя:  <span class="input">{{ saved_object.director_post }}</span></p>
-<p>подпись ____________________ ФИО:  <span class="input">{{ saved_object.director_full_name }}</span></p>
+<table class="moretable">
+	<tr>
+		<td style="width: 18cm;"><strong>Заявитель/представитель</strong>: подпись ____________________ ФИО</td>
+		<td class="input">{{ saved_object.agent_full_name }}</td>
+	</tr>
+</table>
 
-<h3>Реквизиты заявителя</h3>
-<p>ИНН:  <span class="input">{{ saved_object.agent_inn }}</span></p>
-<p>КПП:  <span class="input">{{ saved_object.agent_kpp }}</span></p>
-<p>БИК:  <span class="input">{{ saved_object.agent_bik }}</span></p>
-<p>Наименование банка:  <span class="input">{{ saved_object.agent_bank_title }}</span></p>
-<p>Расчетный счёт:  <span class="input">{{ saved_object.agent_bank_account }}</span></p>
-<p>Корреспондентский счет:  <span class="input">{{ saved_object.agent_correspond_account }}</span></p>
-<br/>
-<p>Заявку принял специалист ЦОК: _____________________________________________________________ "_____"________________20&nbsp;&nbsp;&nbsp;&nbsp;г.</p>
+<table class="moretable">
+	<tr>
+		<td style="width: 3.44cm;">Доверенность №</td>
+		<td class="input">{{ saved_object.authority_number }}</td>
+		<td style="width: 0.7cm;">&nbsp;&nbsp;от </td>
+		<td class="input">{{ saved_object.authority_date }}</td>
+	</tr>
+</table>
+
+<table class="moretable">
+	<tr>
+		<td style="width: 3.9cm;">Телефон для связи:</td>
+		<td class="input">{{ saved_object.phone_number }}</td>
+		<td style="width: 1.6cm;">&nbsp;&nbsp;Факс:</td>
+		<td class="input">{{ saved_object.fax }}</td>
+		<td style="width: 1.9cm;">&nbsp;&nbsp;E-mail:</td>
+		<td class="input">{{ saved_object.email }}</td>
+	</tr>
+</table>
+
+<table class="moretable">
+	<tr>
+		<td style="width: 7cm;">Руководитель: должность</td>
+		<td class="input">{{ saved_object.director_post }}</td>
+	</tr>
+	<tr>
+		<td>подпись ____________________ ФИО</td>
+		<td class="input">{{ saved_object.director_full_name }}</td>
+	</tr>
+</table>
+
+<br/><br/>
+<p>Заявку принял специалист ЦОК: ________________________________________________________________ "_____"________________20&nbsp;&nbsp;&nbsp;&nbsp;г.</p>
 
 <pdf:nextpage name="" />
 
+<h3>Реквизиты заявителя</h3>
+
+<table class="moretable">
+	<tr>
+		<td style="width: 1cm;">ИНН:</td>
+		<td colspan="3" class="input">{{ saved_object.agent_inn }}</td>
+	</tr>
+	<tr>
+		<td style="width: 1cm;">КПП:</td>
+		<td class="input">{{ saved_object.agent_kpp }}</td>
+		<td style="width: 1cm;">&nbsp;&nbsp;БИК:</td>
+		<td class="input">{{ saved_object.agent_bik }}</td>
+	</tr>
+</table>
+
+<table class="moretable">
+	<tr>
+		<td style="width: 5cm;">Наименование банка:</td>
+		<td class="input">{{ saved_object.agent_bank_title }}</td>
+	</tr>
+	<tr>
+		<td>Расчетный счёт:</td>
+		<td class="input">{{ saved_object.agent_bank_account }}</td>
+	</tr>
+	<tr>
+		<td>Корреспондентский счет:</td>
+		<td class="input">{{ saved_object.agent_correspond_account }}</td>
+	</tr>
+</table>
+
+<br/><br/><br/>
+
 <div class="add">
 	<h3>Приложения к заявке</h3>
-    <p><span>{{ saved_object.req_attachment1|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment1' %}</p>
-    <p><span>{{ saved_object.req_attachment2|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment2' %}</p>
-    <p><span>{{ saved_object.req_attachment3|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment3' %}</p>
-    <p><span>{{ saved_object.req_attachment4|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment4' %}</p>
-    <p><span>{{ saved_object.req_attachment5|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment5' %}</p>
-    <p><span>{{ saved_object.req_attachment6|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment6' %}</p>
-    <p><span>{{ saved_object.req_attachment7|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment7' %}</p>
-    <p><span>{{ saved_object.req_attachment8|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment8' %}</p>
-    <p><span>{{ saved_object.req_attachment9|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment9' %}</p>
-    <p><span>{{ saved_object.req_attachment10|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment10' %}</p>
-    <p><span>{{ saved_object.req_attachment11|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment11' %}</p>
+    <p><span>{{ saved_object.req_attachment1|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment1' %}</p>
+    <p><span>{{ saved_object.req_attachment2|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment2' %}</p>
+    <p><span>{{ saved_object.req_attachment3|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment3' %}</p>
+    <p><span>{{ saved_object.req_attachment4|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment4' %}</p>
+    <p><span>{{ saved_object.req_attachment5|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment5' %}</p>
+    <p><span>{{ saved_object.req_attachment6|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment6' %}</p>
+    <p><span>{{ saved_object.req_attachment7|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment7' %}</p>
+    <p><span>{{ saved_object.req_attachment8|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment8' %}</p>
+    <p><span>{{ saved_object.req_attachment9|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment9' %}</p>
+    <p><span>{{ saved_object.req_attachment10|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment10' %}</p>
+    <p><span>{{ saved_object.req_attachment11|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment11' %}</p>
+    <br/>
 	<p class="addnote">Юридические лица предоставляют копии документов, заверенные печатью организации или нотариально заверенные копии. Индивидуальные предприниматели предоставляют копии документов, заверенные своей подписью.</p>
 </div>
 {% endifequal %}
@@ -559,36 +789,77 @@ table {
 	<tr>
 		<td class="doctable_num">1.</td>
 		<td>
-	        <p>Полное наименование организации/индивидуального предпринимателя:  <span class="input">{{ saved_object.org_title }}</span></p>
+			<table>
+				<tr>
+					<td>Полное наименование организации/индивидуального предпринимателя:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.org_title }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
-	
+
 	<tr>
 		<td class="doctable_num">2.</td>
 		<td>
-	        <p>Номер записи в Едином государственном реестре юридических лиц/Едином государственном реестре индивидуальных предпринимателей:  <span class="input">{{ saved_object.egrul_number }}</span></p>
-	        <p>Дата внесения в реестр:  <span class="input">{{ saved_object.egrul_date }}</span></p>
+			<table>
+				<tr>
+					<td>Номер записи в Едином государственном реестре юридических лиц/Едином государственном реестре индивидуальных предпринимателей:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.egrul_number }}</td>
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<td style="width: 4cm;">Дата внесения в реестр:</td>
+					<td style="width: 3cm;" class="input">{{ saved_object.egrul_date }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
-	
+
+
 	<tr>
 		<td class="doctable_num">3.</td>
 		<td>
-	        <p>Фактический адрес организации (заявителя) с индексом:  <span class="input">{{ saved_object.actual_address_with_index }}</span></p>
+			<table>
+				<tr>
+					<td>Фактический адрес организации (заявителя) с индексом:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.actual_address_with_index }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
-	
+
 	<tr>
 		<td class="doctable_num">4.</td>
 		<td>
-	        <p>Наименование объекта:  <span class="input">{{ saved_object.object_title }}</span></p>
+			<table>
+				<tr>
+					<td>Наименование присоединяемого объекта:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.object_title }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
-	
+
 	<tr>
 		<td class="doctable_num">5.</td>
 		<td>
-	        <p>Местонахождение присоединяемого объекта:  <span class="input">{{ saved_object.object_location }}</span></p>
+			<table>
+				<tr>
+					<td>Местонахождение присоединяемого объекта:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.object_location }}</td>
+				</tr>
+			</table>
 	        <table class="doctable4col">
 	        	<tr>
 	        		<td><p>Категория надежности электроснабжения:</p></td>
@@ -625,72 +896,156 @@ table {
 	<tr>
 		<td class="doctable_num">6.</td>
 		<td>
-	        <p>Количество точек присоединения с указанием технических параметров элементов энергопринимающих устройств:</p>
-	        <p>{{ saved_object.count_conn_points }}</p>
+			<table>
+				<tr>
+					<td>Количество точек присоединения с указанием технических параметров элементов энергопринимающих устройств:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.count_conn_points }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
 	
 	<tr>
 		<td class="doctable_num">7.</td>
 		<td>
-	        <p>Характер нагрузки потребителя электрической энергии:</p>
-	        <p>{{ saved_object.load_type }}</p>
+			<table>
+				<tr>
+					<td>Характер нагрузки потребителя электрической энергии:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.load_type }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
-	
+
 	<tr>
 		<td class="doctable_num">8.</td>
 		<td>
-	        <p>Поэтапное распределение мощности, сроков ввода и сведения о категории надежности электроснабжения, при вводе энергопринимающих устройств по этапам и очередям:</p>
-	        <p>{{ saved_object.power_distribution }}</p>
+			<table>
+				<tr>
+					<td>Поэтапное распределение мощности, сроков ввода и сведения о категории надежности электроснабжения, при вводе энергопринимающих устройств по этапам и очередям:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.power_distribution }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
-	
+
 	<tr>
 		<td class="doctable_num">9.</td>
 		<td>
-	        <p>Прочая информация:</p>
-	        <p>{{ saved_object.other_inf }}</p>
+			<table>
+				<tr>
+					<td>Прочая информация:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.other_inf }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
 </table>
 
-<p><strong>Заявитель/представитель</strong>: подпись ____________________   <span class="input">{{ saved_object.agent_full_name }}</span></p>
-<p><strong>Доверенность №</strong>  <span class="input">{{ saved_object.authority_number }}</span> от:  <span class="input">{{ saved_object.authority_date }}</span></p>
-<p>Телефон для связи:  <span class="input">{{ saved_object.phone_number }}</span>, Факс:  <span class="input">{{ saved_object.fax }}</span>, E-mail:  <span class="input">{{ saved_object.email }}</span></p>
-<p>Должность руковоителя:  <span class="input">{{ saved_object.director_post }}</span></p>
-<p>подпись ____________________ ФИО:  <span class="input">{{ saved_object.director_full_name }}</span></p>
+<table class="moretable">
+	<tr>
+		<td style="width: 18cm;"><strong>Заявитель/представитель</strong>: подпись ____________________ ФИО</td>
+		<td class="input">{{ saved_object.agent_full_name }}</td>
+	</tr>
+</table>
 
-<h3>Реквизиты заявителя</h3>
-<p>ИНН:  <span class="input">{{ saved_object.agent_inn }}</span></p>
-<p>КПП:  <span class="input">{{ saved_object.agent_kpp }}</span></p>
-<p>БИК:  <span class="input">{{ saved_object.agent_bik }}</span></p>
-<p>Наименование банка:  <span class="input">{{ saved_object.agent_bank_title }}</span></p>
-<p>Расчетный счёт:  <span class="input">{{ saved_object.agent_bank_account }}</span></p>
-<p>Корреспондентский счет:  <span class="input">{{ saved_object.agent_correspond_account }}</span></p>
-<br/>
-<p>Заявку принял специалист ЦОК: _____________________________________________________________ "_____"________________20&nbsp;&nbsp;&nbsp;&nbsp;г.</p>
+<table class="moretable">
+	<tr>
+		<td style="width: 3.44cm;">Доверенность №</td>
+		<td class="input">{{ saved_object.authority_number }}</td>
+		<td style="width: 0.7cm;">&nbsp;&nbsp;от </td>
+		<td class="input">{{ saved_object.authority_date }}</td>
+	</tr>
+</table>
+
+<table class="moretable">
+	<tr>
+		<td style="width: 3.9cm;">Телефон для связи:</td>
+		<td class="input">{{ saved_object.phone_number }}</td>
+		<td style="width: 1.6cm;">&nbsp;&nbsp;Факс:</td>
+		<td class="input">{{ saved_object.fax }}</td>
+		<td style="width: 1.9cm;">&nbsp;&nbsp;E-mail:</td>
+		<td class="input">{{ saved_object.email }}</td>
+	</tr>
+</table>
+
+<table class="moretable">
+	<tr>
+		<td style="width: 7cm;">Руководитель: должность</td>
+		<td class="input">{{ saved_object.director_post }}</td>
+	</tr>
+	<tr>
+		<td>подпись ____________________ ФИО</td>
+		<td class="input">{{ saved_object.director_full_name }}</td>
+	</tr>
+</table>
+
+<br/><br/>
+<p>Заявку принял специалист ЦОК: ________________________________________________________________ "_____"________________20&nbsp;&nbsp;&nbsp;&nbsp;г.</p>
 
 <pdf:nextpage name="" />
 
+<h3>Реквизиты заявителя</h3>
+
+<table class="moretable">
+	<tr>
+		<td style="width: 1cm;">ИНН:</td>
+		<td colspan="3" class="input">{{ saved_object.agent_inn }}</td>
+	</tr>
+	<tr>
+		<td style="width: 1cm;">КПП:</td>
+		<td class="input">{{ saved_object.agent_kpp }}</td>
+		<td style="width: 1cm;">&nbsp;&nbsp;БИК:</td>
+		<td class="input">{{ saved_object.agent_bik }}</td>
+	</tr>
+</table>
+
+<table class="moretable">
+	<tr>
+		<td style="width: 5cm;">Наименование банка:</td>
+		<td class="input">{{ saved_object.agent_bank_title }}</td>
+	</tr>
+	<tr>
+		<td>Расчетный счёт:</td>
+		<td class="input">{{ saved_object.agent_bank_account }}</td>
+	</tr>
+	<tr>
+		<td>Корреспондентский счет:</td>
+		<td class="input">{{ saved_object.agent_correspond_account }}</td>
+	</tr>
+</table>
+
+<br/><br/><br/>
+
 <div class="add">
 	<h3>Приложения к заявке</h3>
-    <p><span>{{ saved_object.req_attachment1|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment1' %}</p>
-    <p><span>{{ saved_object.req_attachment2|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment2' %}</p>
-    <p><span>{{ saved_object.req_attachment3|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment3' %}</p>
-    <p><span>{{ saved_object.req_attachment4|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment4' %}</p>
-    <p><span>{{ saved_object.req_attachment5|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment5' %}</p>
-    <p><span>{{ saved_object.req_attachment6|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment6' %}</p>
-    <p><span>{{ saved_object.req_attachment7|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment7' %}</p>
-    <p><span>{{ saved_object.req_attachment8|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment8' %}</p>
-    <p><span>{{ saved_object.req_attachment9|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment9' %}</p>
-    <p><span>{{ saved_object.req_attachment10|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment10' %}</p>
-    <p><span>{{ saved_object.req_attachment11|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment11' %}</p>
-    <p><span>{{ saved_object.req_attachment12|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment12' %}</p>
-    <p><span>{{ saved_object.req_attachment13|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment13' %}</p>
+    <p><span>{{ saved_object.req_attachment1|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment1' %}</p>
+    <p><span>{{ saved_object.req_attachment2|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment2' %}</p>
+    <p><span>{{ saved_object.req_attachment3|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment3' %}</p>
+    <p><span>{{ saved_object.req_attachment4|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment4' %}</p>
+    <p><span>{{ saved_object.req_attachment5|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment5' %}</p>
+    <p><span>{{ saved_object.req_attachment6|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment6' %}</p>
+    <p><span>{{ saved_object.req_attachment7|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment7' %}</p>
+    <p><span>{{ saved_object.req_attachment8|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment8' %}</p>
+    <p><span>{{ saved_object.req_attachment9|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment9' %}</p>
+    <p><span>{{ saved_object.req_attachment10|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment10' %}</p>
+    <p><span>{{ saved_object.req_attachment11|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment11' %}</p>
+    <p><span>{{ saved_object.req_attachment12|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment12' %}</p>
+    <p><span>{{ saved_object.req_attachment13|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment13' %}</p>
+    <br/>
 	<p class="addnote">Юридические лица предоставляют копии документов, заверенные печатью организации или нотариально заверенные копии. Индивидуальные предприниматели предоставляют копии документов, заверенные своей подписью.</p>
 </div>
 {% endifequal %}
+
+
 
 
 
@@ -700,36 +1055,77 @@ table {
 	<tr>
 		<td class="doctable_num">1.</td>
 		<td>
-	        <p>Полное наименование организации/индивидуального предпринимателя:  <span class="input">{{ saved_object.org_title }}</span></p>
+			<table>
+				<tr>
+					<td>Полное наименование организации/индивидуального предпринимателя:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.org_title }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
-	
+
 	<tr>
 		<td class="doctable_num">2.</td>
 		<td>
-	        <p>Номер записи в Едином государственном реестре юридических лиц/Едином государственном реестре индивидуальных предпринимателей:  <span class="input">{{ saved_object.egrul_number }}</span></p>
-	        <p>Дата внесения в реестр:  <span class="input">{{ saved_object.egrul_date }}</span></p>
+			<table>
+				<tr>
+					<td>Номер записи в Едином государственном реестре юридических лиц/Едином государственном реестре индивидуальных предпринимателей:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.egrul_number }}</td>
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<td style="width: 4cm;">Дата внесения в реестр:</td>
+					<td style="width: 3cm;" class="input">{{ saved_object.egrul_date }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
-	
+
+
 	<tr>
 		<td class="doctable_num">3.</td>
 		<td>
-	        <p>Фактический адрес организации (заявителя) с индексом:  <span class="input">{{ saved_object.actual_address_with_index }}</span></p>
+			<table>
+				<tr>
+					<td>Фактический адрес организации (заявителя) с индексом:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.actual_address_with_index }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
-	
+
 	<tr>
 		<td class="doctable_num">4.</td>
 		<td>
-	        <p>Наименование объекта:  <span class="input">{{ saved_object.object_title }}</span></p>
+			<table>
+				<tr>
+					<td>Наименование присоединяемого объекта:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.object_title }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
-	
+		
 	<tr>
 		<td class="doctable_num">5.</td>
 		<td>
-	        <p>Местонахождение присоединяемого объекта:  <span class="input">{{ saved_object.object_location }}</span></p>
+			<table>
+				<tr>
+					<td>Местонахождение присоединяемого объекта:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.object_location }}</td>
+				</tr>
+			</table>
 	        <table class="doctable4col">
 	        	<tr>
 	        		<td><p>Категория надежности электроснабжения:</p></td>
@@ -766,106 +1162,220 @@ table {
 	<tr>
 		<td class="doctable_num">6.</td>
 		<td>
-	        <p>Количество и мощность присоединяемых к сети трансформаторов:</p>
-	        <p>{{ saved_object.cnt_pwr_transformers }}</p>
+			<table>
+				<tr>
+					<td>Количество и мощность присоединяемых к сети трансформаторов:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.cnt_pwr_transformers }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
-	
+		
 	<tr>
 		<td class="doctable_num">7.</td>
 		<td>
-			<p>Количество и мощность присоединяемых к сети генераторов:</p>
-	        <p>{{ saved_object.cnt_pwr_generators }}</p>
+			<table>
+				<tr>
+					<td>Количество и мощность присоединяемых к сети генераторов:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.cnt_pwr_generators }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
-	
+		
 	<tr>
 		<td class="doctable_num">8.</td>
 		<td>
-	        <p>Количество точек присоединения с указанием технических параметров элементов энергопринимающих устройств:</p>
-	        <p>{{ saved_object.count_conn_points }}</p>
+			<table>
+				<tr>
+					<td>Количество точек присоединения с указанием технических параметров элементов энергопринимающих устройств:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.count_conn_points }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
-	
+		
 	<tr>
 		<td class="doctable_num">9.</td>
 		<td>
-	        <p>Характер нагрузки потребителя электрической энергии:</p>
-	        <p>{{ saved_object.load_type }}</p>
+			<table>
+				<tr>
+					<td>Характер нагрузки потребителя электрической энергии (для генераторов-возможная скорость набора или снижения нагрузки) и наличие нагрузок, искажающих форму кривой электрического тока и вызывающих нессиметрию напряжения в точках присоединения:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.load_type }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
-	
+		
 	<tr>
 		<td class="doctable_num">10.</td>
 		<td>
-	        <p>Величина и обоснование величины технологического минимума (для генераторов):</p>
-	        <p>{{ saved_object.tech_min_generators }}</p>
+			<table>
+				<tr>
+					<td>Величина и обоснование величины технологического минимума (для генераторов):</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.tech_min_generators }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
-	
+		
 	<tr>
 		<td class="doctable_num">11.</td>
 		<td>
-	        <p>Величина и обоснование величины технологической брони (для потребителей электрической энергии):</p>
-	        <p>{{ saved_object.tech_armor_consumer }}</p>
+			<table>
+				<tr>
+					<td>Величина и обоснование величины технологической брони (для потребителей электрической энергии):</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.tech_armor_consumer }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
-	
+		
 	<tr>
 		<td class="doctable_num">12.</td>
 		<td>
-	        <p>Величина и обоснование величины аварийной брони (для потребителей электрической энергии)</p>
-	        <p>{{ saved_object.tech_emergency_armor_consumer }}</p>
+			<table>
+				<tr>
+					<td>Величина и обоснование величины аварийной брони (для потребителей электрической энергии):</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.tech_emergency_armor_consumer }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
-	
+		
 	<tr>
 		<td class="doctable_num">13.</td>
 		<td>
-	        <p>Поэтапное распределение мощности, сроков ввода и сведения о категории надежности электроснабжения, при вводе энергопринимающих устройств по этапам и очередям:</p>
-	        <p>{{ saved_object.power_distribution }}</p>
+			<table>
+				<tr>
+					<td>Поэтапное распределение мощности, сроков ввода и сведения о категории надежности электроснабжения, при вводе энергопринимающих устройств по этапам и очередям:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.power_distribution }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
-	
+				
 	<tr>
 		<td class="doctable_num">14.</td>
 		<td>
-	        <p>Прочая информация:</p>
-	        <p>{{ saved_object.other_inf }}</p>
+			<table>
+				<tr>
+					<td>Прочая информация:</td>
+				</tr>
+				<tr>
+					<td class="input">{{ saved_object.other_inf }}</td>
+				</tr>
+			</table>
 		</td>
 	</tr>
 </table>
 
-<p><strong>Заявитель/представитель</strong>: подпись ____________________   <span class="input">{{ saved_object.agent_full_name }}</span></p>
-<p>Доверенность №  <span class="input">{{ saved_object.authority_number }}</span> от:  <span class="input">{{ saved_object.authority_date }}</span></p>
-<p>Телефон для связи:  <span class="input">{{ saved_object.phone_number }}</span>, Факс:  <span class="input">{{ saved_object.fax }}</span>, E-mail:  <span class="input">{{ saved_object.email }}</span></p>
-<p>Должность руковоителя:  <span class="input">{{ saved_object.director_post }}</span></p>
-<p>подпись ____________________ ФИО:  <span class="input">{{ saved_object.director_full_name }}</span></p>
-<p>Заявку принял специалист ЦОК: _____________________________________________________________ "_____"________________20&nbsp;&nbsp;&nbsp;&nbsp;г.</p>
+<table class="moretable">
+	<tr>
+		<td style="width: 18cm;"><strong>Заявитель/представитель</strong>: подпись ____________________ ФИО</td>
+		<td class="input">{{ saved_object.agent_full_name }}</td>
+	</tr>
+</table>
 
-<h3>Реквизиты заявителя</h3>
-<p>ИНН:  <span class="input">{{ saved_object.agent_inn }}</span></p>
-<p>КПП:  <span class="input">{{ saved_object.agent_kpp }}</span></p>
-<p>БИК:  <span class="input">{{ saved_object.agent_bik }}</span></p>
-<p>Наименование банка:  <span class="input">{{ saved_object.agent_bank_title }}</span></p>
-<p>Расчетный счёт:  <span class="input">{{ saved_object.agent_bank_account }}</span></p>
-<p>Корреспондентский счет:  <span class="input">{{ saved_object.agent_correspond_account }}</span></p>
+<table class="moretable">
+	<tr>
+		<td style="width: 3.44cm;">Доверенность №</td>
+		<td class="input">{{ saved_object.authority_number }}</td>
+		<td style="width: 0.7cm;">&nbsp;&nbsp;от </td>
+		<td class="input">{{ saved_object.authority_date }}</td>
+	</tr>
+</table>
+
+<table class="moretable">
+	<tr>
+		<td style="width: 3.9cm;">Телефон для связи:</td>
+		<td class="input">{{ saved_object.phone_number }}</td>
+		<td style="width: 1.6cm;">&nbsp;&nbsp;Факс:</td>
+		<td class="input">{{ saved_object.fax }}</td>
+		<td style="width: 1.9cm;">&nbsp;&nbsp;E-mail:</td>
+		<td class="input">{{ saved_object.email }}</td>
+	</tr>
+</table>
+
+<table class="moretable">
+	<tr>
+		<td style="width: 7cm;">Руководитель: должность</td>
+		<td class="input">{{ saved_object.director_post }}</td>
+	</tr>
+	<tr>
+		<td>подпись ____________________ ФИО</td>
+		<td class="input">{{ saved_object.director_full_name }}</td>
+	</tr>
+</table>
+
+<br/><br/>
+<p>Заявку принял специалист ЦОК: ________________________________________________________________ "_____"________________20&nbsp;&nbsp;&nbsp;&nbsp;г.</p>
+
+
+<br/><br/><br/>
+<h3>Реквизиты</h3>
+<table class="moretable">
+	<tr>
+		<td style="width: 1cm;">ИНН:</td>
+		<td colspan="3" class="input">{{ saved_object.agent_inn }}</td>
+	</tr>
+	<tr>
+		<td style="width: 1cm;">КПП:</td>
+		<td class="input">{{ saved_object.agent_kpp }}</td>
+		<td style="width: 1cm;">&nbsp;&nbsp;БИК:</td>
+		<td class="input">{{ saved_object.agent_bik }}</td>
+	</tr>
+</table>
+
+<table class="moretable">
+	<tr>
+		<td style="width: 5cm;">Наименование банка:</td>
+		<td class="input">{{ saved_object.agent_bank_title }}</td>
+	</tr>
+	<tr>
+		<td>Расчетный счёт:</td>
+		<td class="input">{{ saved_object.agent_bank_account }}</td>
+	</tr>
+	<tr>
+		<td>Корреспондентский счет:</td>
+		<td class="input">{{ saved_object.agent_correspond_account }}</td>
+	</tr>
+</table>
+
+<br/><br/><br/>
 
 <div class="add">
 	<h3>Приложения к заявке</h3>
-    <p><span>{{ saved_object.req_attachment1|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment1' %}</p>
-    <p><span>{{ saved_object.req_attachment2|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment2' %}</p>
-    <p><span>{{ saved_object.req_attachment3|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment3' %}</p>
-    <p><span>{{ saved_object.req_attachment4|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment4' %}</p>
-    <p><span>{{ saved_object.req_attachment5|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment5' %}</p>
-    <p><span>{{ saved_object.req_attachment6|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment6' %}</p>
-    <p><span>{{ saved_object.req_attachment7|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment7' %}</p>
-    <p><span>{{ saved_object.req_attachment8|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment8' %}</p>
-    <p><span>{{ saved_object.req_attachment9|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment9' %}</p>
-    <p><span>{{ saved_object.req_attachment10|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment10' %}</p>
-    <p><span>{{ saved_object.req_attachment11|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment11' %}</p>
-    <p><span>{{ saved_object.req_attachment12|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment12' %}</p>
-    <p><span>{{ saved_object.req_attachment13|yesno:_("ЕСТЬ,НЕТ") }}</span> - {% get_verbose_name saved_object 'req_attachment13' %}</p>
+    <p><span>{{ saved_object.req_attachment1|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment1' %}</p>
+    <p><span>{{ saved_object.req_attachment2|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment2' %}</p>
+    <p><span>{{ saved_object.req_attachment3|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment3' %}</p>
+    <p><span>{{ saved_object.req_attachment4|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment4' %}</p>
+    <p><span>{{ saved_object.req_attachment5|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment5' %}</p>
+    <p><span>{{ saved_object.req_attachment6|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment6' %}</p>
+    <p><span>{{ saved_object.req_attachment7|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment7' %}</p>
+    <p><span>{{ saved_object.req_attachment8|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment8' %}</p>
+    <p><span>{{ saved_object.req_attachment9|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment9' %}</p>
+    <p><span>{{ saved_object.req_attachment10|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment10' %}</p>
+    <p><span>{{ saved_object.req_attachment11|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment11' %}</p>
+    <p><span>{{ saved_object.req_attachment12|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment12' %}</p>
+    <p><span>{{ saved_object.req_attachment13|show_check:MEDIA_ROOT|safe }}</span> &nbsp;&nbsp; {% get_verbose_name saved_object 'req_attachment13' %}</p>
+	<br/>
 	<p class="addnote">Юридические лица предоставляют копии документов, заверенные печатью организации или нотариально заверенные копии. Индивидуальные предприниматели предоставляют копии документов, заверенные своей подписью.</p>
 </div>
 {% endifequal %}

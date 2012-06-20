@@ -76,7 +76,9 @@
     {% endif %}
 
     {% if contacts_page_block == False and vacancies == False and licCategories == False %}
+    <div class="text">
         {{ page.content|safe }}
+    </div>
     {% endif %}
 
 {% endblock %}

@@ -15,7 +15,6 @@ class DocumentsAdminForm(forms.ModelForm):
 #    class Media:
 #        js = (
 #            '/media/js/jquery.js',
-#            '/media/js/set_doc_height.js'
 #            )
 
 #class DocumentsAdminInline(admin.TabularInline):

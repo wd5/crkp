@@ -36,14 +36,47 @@ class TypicalRequest(models.Model):
         verbose_name = _(u'typical_request')
         verbose_name_plural = _(u'typical_requests')
 
+def get_rus_weekday(date,type):
+    if date.strftime('%A')=='Monday': wd = u'пн'; wd_full = u'понедельник'
+    elif date.strftime('%A')=='Tuesday': wd = u'вт'; wd_full = u'вторник'
+    elif date.strftime('%A')=='Wednesday': wd = u'ср'; wd_full = u'среда'
+    elif date.strftime('%A')=='Thursday': wd = u'чт'; wd_full = u'четверг'
+    elif date.strftime('%A')=='Friday': wd = u'пт'; wd_full = u'пятница'
+    elif date.strftime('%A')=='Saturday': wd = u'сб'; wd_full = u'суббота'
+    elif date.strftime('%A')=='Sunday': wd = u'вс'; wd_full = u'воскресенье'
+    else: wd='';wd_full = ''
+    if type=='short':
+        return  wd
+    elif type=='full':
+        return  wd_full
+    else:
+        return ''
+
+#время приёма
+class ReceptionTime(models.Model):
+    reception_date = models.DateField(verbose_name=u'дата приёма')
+    reception_start_time = models.TimeField(verbose_name=u'время начала')
+    reception_end_time = models.TimeField(verbose_name=u'время окончания')
+
+    def __unicode__(self):
+        wd = get_rus_weekday(self.reception_date,'short')
+        return u'%s (%s): %s - %s' % (wd.upper(), self.reception_date.strftime('%d.%m.%Y'),self.reception_start_time.strftime('%H:%M'),self.reception_end_time.strftime('%H:%M'))
+
+    class Meta:
+        ordering = ['-reception_date','-reception_start_time',]
+        verbose_name = _(u'reception_time')
+        verbose_name_plural = _(u'reception_times')
+
+    def get_actual_dates(self):
+        return self.objects.filter(reception_date__gte=datetime.date.today())
+
 # запись на приём
 class Reception(models.Model):
+    receptiontime = models.ForeignKey(ReceptionTime, verbose_name=u'дата и время приёма')
     last_name = models.CharField(max_length=50, verbose_name=u'фамилия')
     first_name = models.CharField(max_length=50, verbose_name=u'имя')
     middle_name = models.CharField(max_length=50, verbose_name=u'отчество')
     phonenumber = models.CharField(max_length=100, verbose_name=u'номер телефона')
-    reception_date = models.DateField(verbose_name=u'дата приёма')
-    reception_time = models.TimeField(verbose_name=u'время')
     date_create = models.DateTimeField(verbose_name = u'дата добавления', default=datetime.datetime.now)
 
     def __unicode__(self):
@@ -402,3 +435,4 @@ class FifthServRequest(models.Model):
         ordering = ['-date_create']
         verbose_name = _(u'fifth_serv_request')
         verbose_name_plural = _(u'fifth_serv_requests')
+

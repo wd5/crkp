@@ -22,6 +22,12 @@ msgstr "запись"
 msgid "reception_items"
 msgstr "записи на приём"
 
+msgid "reception_time"
+msgstr "время"
+
+msgid "reception_times"
+msgstr "время приёма"
+
 msgid "first_serv_request"
 msgstr "заявка"
 

@@ -412,8 +412,7 @@ $(function(){
             first_name:$('#id_first_name').val(),
             middle_name:$('#id_middle_name').val(),
             phonenumber:$('#id_phonenumber').val(),
-            reception_date:$('#id_reception_date').val(),
-            reception_time:$('#id_reception_time').val(),
+            receptiontime:$('#id_receptiontime').val(),
 
             form_type:$('#form_type').val(),
             id_serv:$('#id_serv').val(),
@@ -442,7 +441,7 @@ function CheckForm(data_fields,type){
                 {
                     $('.modal').replaceWith(data);
                     $('.modal').animate({top:"10px"},"slow");
-                    $('html').animate({scrollTop:0},"slow");
+                    $('body,html,document').animate({scrollTop:0},"slow");
                 }
         },
         error:function(jqXHR,textStatus,errorThrown) {
@@ -472,7 +471,9 @@ function SetFancy(){
             var dh = $('body').height();
             $('#fancybox-overlay').height(dh);
             $('#fancybox-wrap').animate({top:"10px"},"slow");
-            $('html').animate({scrollTop:0},"slow");
+
+            $('body,html,document').animate({scrollTop:0},"slow");
+
             if ($('.wrapper').height()<$('.modal').height())
                 {
                     $('#fancybox-overlay').height($('.modal').height()+100);

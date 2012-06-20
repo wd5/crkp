@@ -18,3 +18,10 @@ def get_second_serv_menu(service):
 @register.simple_tag
 def get_verbose_name(object,field):
     return object._meta.get_field_by_name(field)[0].verbose_name
+
+@register.filter
+def show_check(value,media_root):
+    if value==True:
+        return "<img style='width: 0.3cm;' src='%s/media/img/1.png' />" % media_root
+    elif value==False:
+        return "<img style='width: 0.3cm;' src='%s/media/img/0.png' />" % media_root

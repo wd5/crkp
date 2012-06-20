@@ -10,12 +10,14 @@
 
 {% block content_l %}
     <h1>{{ page.title }}</h1>
+    <div class="text">
     {{ page.content|safe }}
+    </div>
 {% endblock %}
 
 {% block submenu_r_pl %}
     {% if page.parent %}
-        {% get_menu_by_parent page request.path %}
+        {% get_menu_by_parent page '' %}
     {% endif %}
 {% endblock %}
 

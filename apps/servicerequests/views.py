@@ -3,10 +3,12 @@ from django.db.models import Max
 from apps.services.models import Service
 from apps.servicerequests.forms import TypicalRequestForm, FirstServRequestForm, ReceptionForm, SecondServRequestForm, ThirdServRequestForm, FourthServRequestForm, FifthServRequestForm
 from apps.servicerequests.models import FirstServRequest, SecondServRequest, ThirdServRequest, FourthServRequest, FifthServRequest, BlackList
+from apps.siteblocks.models import Settings
 from django.views.generic import  DetailView, View
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.template.loader import render_to_string
 from apps.utils.utils import render_to_pdf
+from django.core.mail.message import EmailMessage
 import settings
 
 class ReqFormLoaderView(View):
@@ -298,6 +300,7 @@ class ReqFormCheckView(View):
 
                         if request.POST['serv_type'] == 'first_serv':
                             try:
+                                serv_type=u'Физические лица до 15 кВт (включительно) по 3 категории надежности электроснабжения'
                                 related_serv = FirstServRequest.objects.get(pk=id_serv)
                             except FirstServRequest.DoesNotExist:
                                 return HttpResponseBadRequest(
@@ -305,6 +308,7 @@ class ReqFormCheckView(View):
 
                         if request.POST['serv_type'] == 'second_serv':
                             try:
+                                serv_type=u'Физические лица до 100 кВт (включительно) по 1,2,3 категории надежности электроснабжения ВРЕМЕННОЕ присоединение'
                                 related_serv = SecondServRequest.objects.get(pk=id_serv)
                             except SecondServRequest.DoesNotExist:
                                 return HttpResponseBadRequest(
@@ -312,6 +316,7 @@ class ReqFormCheckView(View):
 
                         if request.POST['serv_type'] == 'third_serv':
                             try:
+                                serv_type=u'Юридические лица и индивидуальные предприниматели до 100 кВт (включительно) по 1, 2, 3 категории надежности электроснабжения ВРЕМЕННОЕ присоединение'
                                 related_serv = ThirdServRequest.objects.get(pk=id_serv)
                             except ThirdServRequest.DoesNotExist:
                                 return HttpResponseBadRequest(
@@ -319,6 +324,7 @@ class ReqFormCheckView(View):
 
                         if request.POST['serv_type'] == 'fourth_serv':
                             try:
+                                serv_type=u'Юридические лица и индивидуальные предприниматели до 750 кВА (включительно) по 1, 2, 3 категории надежности электроснабжения'
                                 related_serv = FourthServRequest.objects.get(pk=id_serv)
                             except FourthServRequest.DoesNotExist:
                                 return HttpResponseBadRequest(
@@ -326,6 +332,7 @@ class ReqFormCheckView(View):
 
                         if request.POST['serv_type'] == 'fifth_serv':
                             try:
+                                serv_type=u'Юридические лица и индивидуальные предприниматели свыше 750 кВА по 1,2,3 категории надежности электроснабжения'
                                 related_serv = FifthServRequest.objects.get(pk=id_serv)
                             except FifthServRequest.DoesNotExist:
                                 return HttpResponseBadRequest(
@@ -333,6 +340,25 @@ class ReqFormCheckView(View):
 
                         related_serv.connection_request = saved_object
                         related_serv.save()
+
+                        subject = u'ООО ЦРКП - Информация о записи на приём.'
+                        subject = u''.join(subject.splitlines())
+                        message = render_to_string(
+                            'services/message_template.html',
+                                {
+                                'saved_object': saved_object,'serv_type':serv_type,
+                                }
+                        )
+                        try:
+                            emailto = Settings.objects.get(name='workemail').value
+                        except Settings.DoesNotExist:
+                            emailto = False
+
+                        if emailto:
+                            msg = EmailMessage(subject, message, settings.DEFAULT_FROM_EMAIL, [emailto])
+                            msg.content_subtype = "html"
+                            msg.send()
+
                         return HttpResponse('success')
                     else:
                         items_html = render_to_string(

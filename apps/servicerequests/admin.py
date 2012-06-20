@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
+import datetime
 from django.contrib import admin
 from django import forms
 from apps.services.models import Service
-from apps.servicerequests.models import TypicalRequest, BlackList, Reception, FirstServRequest, SecondServRequest, ThirdServRequest, FourthServRequest, FifthServRequest
+from apps.servicerequests.models import TypicalRequest, BlackList, Reception, FirstServRequest, SecondServRequest, ThirdServRequest, FourthServRequest, FifthServRequest, ReceptionTime
 from apps.utils.widgets import Redactor, AdminImageWidget
 from sorl.thumbnail.admin import AdminImageMixin
 from apps.utils.customfilterspec import CustomFilterSpec
@@ -275,11 +276,19 @@ class FifthServRequestInline(admin.StackedInline):
     )
     readonly_fields = ('date_create',)
 
+class ReceptionTimeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'reception_date', 'reception_start_time', 'reception_end_time',)
+    list_display_links = ('id', 'reception_date', 'reception_start_time', 'reception_end_time',)
+    #list_editable = ('reception_date', 'reception_start_time', 'reception_end_time',)
+    list_filter = ('reception_date',)
+
+admin.site.register(ReceptionTime, ReceptionTimeAdmin)
+
 class ReceptionAdmin(admin.ModelAdmin):
     list_display = ('id', 'full_name', 'phonenumber', 'date_create',)
     list_display_links = ('id', 'full_name', 'phonenumber', 'date_create',)
     search_fields = ('first_name', 'middle_name', 'last_name', 'phonenumber',)
-    readonly_fields = ('date_create',)
+    readonly_fields = ('receptiontime','date_create')
     list_filter = ('date_create',)
 
     inlines = [

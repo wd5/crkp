@@ -66,7 +66,7 @@
         </div>
     </div>
 
-    <div class="btn"><div class="btn_in"><a href="/services/requestform/{{ service.id }}/" class="fancybox-big">{{ service.button_title }}</a></div></div>
+    <div class="btn"><div class="btn_in"><a href="/services/requestform/{{ service.id }}/" class="{% if service.id != 1 %}fancybox{% else %}fancybox-big{% endif %}">{{ service.button_title }}</a></div></div>
 </div>
 
 {% endblock %}

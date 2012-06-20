@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
+import datetime
 from django import forms
-from apps.servicerequests.models import TypicalRequest, FirstServRequest, Reception, SecondServRequest, ThirdServRequest, FourthServRequest, FifthServRequest
+from apps.servicerequests.models import TypicalRequest, FirstServRequest, ReceptionTime, Reception, SecondServRequest, ThirdServRequest, FourthServRequest, FifthServRequest
 
 class TypicalRequestForm(forms.ModelForm):
     full_name = forms.CharField(
@@ -539,12 +540,11 @@ class FifthServRequestForm(forms.ModelForm):
         return agent_correspond_account
 
 class ReceptionForm(forms.ModelForm):
+    receptiontime = forms.ModelChoiceField(queryset=ReceptionTime.objects.filter(reception_date__gte=datetime.date.today()), label='Дата и время приёма', required=True)
     last_name = forms.CharField(required=True)
     first_name = forms.CharField(required=True)
     middle_name = forms.CharField(required=True)
     phonenumber = forms.CharField(required=True)
-    reception_date = forms.DateField(required=True, help_text='в формате "ДД.ММ.ГГГГ"')
-    reception_time = forms.TimeField(required=True, help_text='в формате "ЧЧ:ММ"')
 
     class Meta:
         model = Reception
