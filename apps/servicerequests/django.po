@@ -28,6 +28,12 @@ msgstr "время"
 msgid "reception_times"
 msgstr "время приёма"
 
+msgid "weekday"
+msgstr "день"
+
+msgid "weekdays"
+msgstr "приёмные дни"
+
 msgid "first_serv_request"
 msgstr "заявка"
 

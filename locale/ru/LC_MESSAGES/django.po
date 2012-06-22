@@ -198,6 +198,12 @@ msgstr "заявка"
 msgid "fifth_serv_requests"
 msgstr "заявка на подключение к электрическим сетям - Юридические лица и индивидуальные предприниматели свыше 750 кВА"
 
+msgid "weekday"
+msgstr "день"
+
+msgid "weekdays"
+msgstr "приёмные дни"
+
 
 #: apps/services/__init__.py:2
 msgid "services"

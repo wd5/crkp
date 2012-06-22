@@ -10,6 +10,7 @@
                     {{ form.full_name.errors }}
                 </div>
             	<p><strong>Для связи с вами укажите номер телефона, либо электронную почту</strong>:</p><br/>
+                {{ form.non_field_errors  }}
                 <div class="input">
                     <label>Телефон</label>
                     {{ form.phonenumber }}
@@ -146,11 +147,27 @@
     	</div>
 
         <div class="modal_block">
+
             <div class="input">
-                <label>Заявитель/представитель ФИО</label>
-                {{ form.agent_full_name }}
-                {{ form.agent_full_name.errors }}
+                <label>Заявитель/представитель</label>
             </div>
+
+            <div class="input">
+                <label>Фамилия</label>
+                {{ form.agent_last_name }}
+                {{ form.agent_last_name.errors }}
+            </div>
+            <div class="input">
+                <label>Имя</label>
+                {{ form.agent_first_name }}
+                {{ form.agent_first_name.errors }}
+            </div>
+            <div class="input">
+                <label>Отчество</label>
+                {{ form.agent_middle_name }}
+                {{ form.agent_middle_name.errors }}
+            </div>
+
             <div class="input">
                 <span class="modal_block_short_1">
                     <label>Доверенность №</label>
@@ -416,10 +433,25 @@
 
         <div class="modal_block">
             <div class="input">
-                <label>Заявитель/представитель ФИО</label>
-                {{ form.agent_full_name }}
-                {{ form.agent_full_name.errors }}
+                <label>Заявитель/представитель</label>
             </div>
+
+            <div class="input">
+                <label>Фамилия</label>
+                {{ form.agent_last_name }}
+                {{ form.agent_last_name.errors }}
+            </div>
+            <div class="input">
+                <label>Имя</label>
+                {{ form.agent_first_name }}
+                {{ form.agent_first_name.errors }}
+            </div>
+            <div class="input">
+                <label>Отчество</label>
+                {{ form.agent_middle_name }}
+                {{ form.agent_middle_name.errors }}
+            </div>
+
             <div class="input">
                 <span class="modal_block_short_1">
                     <label>Доверенность №</label>
@@ -651,10 +683,25 @@
 
         <div class="modal_block">
             <div class="input">
-                <label>Заявитель/представитель ФИО</label>
-                {{ form.agent_full_name }}
-                {{ form.agent_full_name.errors }}
+                <label>Заявитель/представитель</label>
             </div>
+
+            <div class="input">
+                <label>Фамилия</label>
+                {{ form.agent_last_name }}
+                {{ form.agent_last_name.errors }}
+            </div>
+            <div class="input">
+                <label>Имя</label>
+                {{ form.agent_first_name }}
+                {{ form.agent_first_name.errors }}
+            </div>
+            <div class="input">
+                <label>Отчество</label>
+                {{ form.agent_middle_name }}
+                {{ form.agent_middle_name.errors }}
+            </div>
+
             <div class="input">
                 <span class="modal_block_short_1">
                     <label>Доверенность №</label>
@@ -958,10 +1005,25 @@
 
         <div class="modal_block">
             <div class="input">
-                <label>Заявитель/представитель ФИО</label>
-                {{ form.agent_full_name }}
-                {{ form.agent_full_name.errors }}
+                <label>Заявитель/представитель</label>
             </div>
+
+            <div class="input">
+                <label>Фамилия</label>
+                {{ form.agent_last_name }}
+                {{ form.agent_last_name.errors }}
+            </div>
+            <div class="input">
+                <label>Имя</label>
+                {{ form.agent_first_name }}
+                {{ form.agent_first_name.errors }}
+            </div>
+            <div class="input">
+                <label>Отчество</label>
+                {{ form.agent_middle_name }}
+                {{ form.agent_middle_name.errors }}
+            </div>
+
             <div class="input">
                 <span class="modal_block_short_1">
                     <label>Доверенность №</label>
@@ -1323,10 +1385,25 @@
 
         <div class="modal_block">
             <div class="input">
-                <label>Заявитель/представитель ФИО</label>
-                {{ form.agent_full_name }}
-                {{ form.agent_full_name.errors }}
+                <label>Заявитель/представитель</label>
             </div>
+
+            <div class="input">
+                <label>Фамилия</label>
+                {{ form.agent_last_name }}
+                {{ form.agent_last_name.errors }}
+            </div>
+            <div class="input">
+                <label>Имя</label>
+                {{ form.agent_first_name }}
+                {{ form.agent_first_name.errors }}
+            </div>
+            <div class="input">
+                <label>Отчество</label>
+                {{ form.agent_middle_name }}
+                {{ form.agent_middle_name.errors }}
+            </div>
+
             <div class="input">
                 <span class="modal_block_short_1">
                     <label>Доверенность №</label>
@@ -1527,10 +1604,15 @@
                         {{ form.phonenumber.errors }}
     				</div>
     				<div class="input">
-    					<label>Дата приёма</label>
-                        {{ form.receptiontime }}
-                        {{ form.receptiontime.errors }}
+    					<label>День приёма</label>
+                        {{ form.weekday }}
+                        {{ form.weekday.errors }}
     				</div>
+                    <div class="input" title="{{ form.reception_time.help_text }}">
+                        <label>Время приёма</label>
+                        {{ form.reception_time }}
+                        {{ form.reception_time.errors }}
+                    </div>
     			</div>
     		</div>
     	</div>

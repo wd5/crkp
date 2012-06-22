@@ -22,8 +22,8 @@ class BlackList(models.Model):
 class TypicalRequest(models.Model):
     service = models.ForeignKey(Service,verbose_name = u'услуга')
     full_name = models.CharField(max_length=255, verbose_name=u'Ф.И.О.')
-    email = models.EmailField(verbose_name= u'электронная почта')
-    phonenumber = models.CharField(max_length=100, verbose_name=u'номер телефона')
+    email = models.EmailField(verbose_name= u'электронная почта', blank=True)
+    phonenumber = models.CharField(max_length=100, verbose_name=u'номер телефона', blank=True)
     date_create = models.DateTimeField(verbose_name = u'Дата', default=datetime.datetime.now)
 
     service.custom_filter_spec = True
@@ -36,47 +36,65 @@ class TypicalRequest(models.Model):
         verbose_name = _(u'typical_request')
         verbose_name_plural = _(u'typical_requests')
 
-def get_rus_weekday(date,type):
-    if date.strftime('%A')=='Monday': wd = u'пн'; wd_full = u'понедельник'
-    elif date.strftime('%A')=='Tuesday': wd = u'вт'; wd_full = u'вторник'
-    elif date.strftime('%A')=='Wednesday': wd = u'ср'; wd_full = u'среда'
-    elif date.strftime('%A')=='Thursday': wd = u'чт'; wd_full = u'четверг'
-    elif date.strftime('%A')=='Friday': wd = u'пт'; wd_full = u'пятница'
-    elif date.strftime('%A')=='Saturday': wd = u'сб'; wd_full = u'суббота'
-    elif date.strftime('%A')=='Sunday': wd = u'вс'; wd_full = u'воскресенье'
-    else: wd='';wd_full = ''
-    if type=='short':
-        return  wd
-    elif type=='full':
-        return  wd_full
-    else:
-        return ''
-
-#время приёма
-class ReceptionTime(models.Model):
-    reception_date = models.DateField(verbose_name=u'дата приёма')
-    reception_start_time = models.TimeField(verbose_name=u'время начала')
-    reception_end_time = models.TimeField(verbose_name=u'время окончания')
-
-    def __unicode__(self):
-        wd = get_rus_weekday(self.reception_date,'short')
-        return u'%s (%s): %s - %s' % (wd.upper(), self.reception_date.strftime('%d.%m.%Y'),self.reception_start_time.strftime('%H:%M'),self.reception_end_time.strftime('%H:%M'))
-
-    class Meta:
-        ordering = ['-reception_date','-reception_start_time',]
-        verbose_name = _(u'reception_time')
-        verbose_name_plural = _(u'reception_times')
-
-    def get_actual_dates(self):
-        return self.objects.filter(reception_date__gte=datetime.date.today())
+#def get_rus_weekday(date,type):
+#    if date.strftime('%A')=='Monday': wd = u'пн'; wd_full = u'понедельник'
+#    elif date.strftime('%A')=='Tuesday': wd = u'вт'; wd_full = u'вторник'
+#    elif date.strftime('%A')=='Wednesday': wd = u'ср'; wd_full = u'среда'
+#    elif date.strftime('%A')=='Thursday': wd = u'чт'; wd_full = u'четверг'
+#    elif date.strftime('%A')=='Friday': wd = u'пт'; wd_full = u'пятница'
+#    elif date.strftime('%A')=='Saturday': wd = u'сб'; wd_full = u'суббота'
+#    elif date.strftime('%A')=='Sunday': wd = u'вс'; wd_full = u'воскресенье'
+#    else: wd='';wd_full = ''
+#    if type=='short':
+#        return  wd
+#    elif type=='full':
+#        return  wd_full
+#    else:
+#        return ''
+#
+##время приёма
+#class ReceptionDays(models.Model):
+#    reception_date = models.DateField(verbose_name=u'дата приёма')
+#    reception_start_time = models.TimeField(verbose_name=u'время начала')
+#    reception_end_time = models.TimeField(verbose_name=u'время окончания')
+#
+#    def __unicode__(self):
+#        wd = get_rus_weekday(self.reception_date,'short')
+#        return u'%s (%s): %s - %s' % (wd.upper(), self.reception_date.strftime('%d.%m.%Y'),self.reception_start_time.strftime('%H:%M'),self.reception_end_time.strftime('%H:%M'))
+#
+#    class Meta:
+#        ordering = ['-reception_date','-reception_start_time',]
+#        verbose_name = _(u'reception_time')
+#        verbose_name_plural = _(u'reception_times')
+#
+#    def get_actual_dates(self):
+#        return self.objects.filter(reception_date__gte=datetime.date.today())
 
 # запись на приём
+
+class WeekDay(models.Model):
+    title = models.CharField(max_length=50, verbose_name=u'название')
+    order = models.IntegerField(u'порядок сортировки', help_text=u'Чем больше число, тем выше располагается элемент', default=10)
+    is_published = models.BooleanField(verbose_name=u'опубликовано', default=True)
+
+    objects = PublishedManager()
+
+    def __unicode__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['-order']
+        verbose_name = _(u'weekday')
+        verbose_name_plural = _(u'weekdays')
+
 class Reception(models.Model):
-    receptiontime = models.ForeignKey(ReceptionTime, verbose_name=u'дата и время приёма')
+    #receptiontime = models.ForeignKey(ReceptionTime, verbose_name=u'дата и время приёма')
+    weekday = models.ForeignKey(WeekDay, verbose_name=u'день приёма')
     last_name = models.CharField(max_length=50, verbose_name=u'фамилия')
     first_name = models.CharField(max_length=50, verbose_name=u'имя')
     middle_name = models.CharField(max_length=50, verbose_name=u'отчество')
     phonenumber = models.CharField(max_length=100, verbose_name=u'номер телефона')
+    reception_time = models.CharField(max_length=50, verbose_name=u'время приёма')
     date_create = models.DateTimeField(verbose_name = u'дата добавления', default=datetime.datetime.now)
 
     def __unicode__(self):
@@ -115,14 +133,17 @@ class FirstServRequest(models.Model):
     earlier_power_kVt = models.DecimalField(verbose_name=u'ранее присоединенная мощность кВт', max_digits=10, decimal_places=2)
     additional_power = models.DecimalField(verbose_name=u'вновь присоединяемая мощность (дополнительная)', max_digits=10, decimal_places=2)
     max_power = models.DecimalField(verbose_name=u'максимальная мощность (всего с учетом присоединенной мощности)', max_digits=10, decimal_places=2)
-    other_inf = models.TextField(verbose_name=u'прочая информация')
+    other_inf = models.TextField(verbose_name=u'прочая информация', blank=True)
 
-    agent_full_name = models.CharField(max_length=100, verbose_name=u'заявитель/представитель')
-    authority_number = models.CharField(max_length=100, verbose_name=u'доверенность №')
-    authority_date = models.CharField(max_length=50, verbose_name=u'дата доверенности')
+    agent_last_name = models.CharField(max_length=50, verbose_name=u'фамилия заявителя/представителя')
+    agent_first_name = models.CharField(max_length=50, verbose_name=u'имя заявителя/представителя')
+    agent_middle_name = models.CharField(max_length=50, verbose_name=u'отчество заявителя/представителя')
+
+    authority_number = models.CharField(max_length=100, verbose_name=u'доверенность №', blank=True)
+    authority_date = models.CharField(max_length=50, verbose_name=u'дата доверенности', blank=True, null=True)
     phone_number = models.CharField(max_length=100, verbose_name=u'телефон для связи')
-    fax = models.CharField(max_length=100, verbose_name=u'факс')
-    email = models.EmailField(verbose_name=u'e-mail')
+    fax = models.CharField(max_length=100, verbose_name=u'факс', blank=True)
+    email = models.EmailField(verbose_name=u'e-mail', blank=True)
 
     req_attachment1 = models.BooleanField(verbose_name = u'Копия документа, подтверждающего право собственности или иное предусмотренное законом основание на объект капитального строительства и (или) земельный участок, на котором расположены (будут располагаться) объекты заявителя либо право собственности или иное предусмотренное законом основание на энергопринимающие устройства.', default=False, blank=True)
     req_attachment2 = models.BooleanField(verbose_name = u'План расположения энергопринимающих устройств, которые необходимо присоединить к электрическим сетям сетевой организации (ситуационный план с привязкой к существующим улицам).', default=False, blank=True)
@@ -181,14 +202,17 @@ class SecondServRequest(models.Model):
     third_max_power = models.DecimalField(verbose_name=u'максимальная мощность (всего с учетом присоединенной мощности)', max_digits=10, decimal_places=2)
 
     load_type = models.CharField(max_length=255, verbose_name=u'характер нагрузки потребителя электрической энергии')
-    other_inf = models.TextField(verbose_name=u'прочая информация')
+    other_inf = models.TextField(verbose_name=u'прочая информация', blank=True)
 
-    agent_full_name = models.CharField(max_length=100, verbose_name=u'заявитель/представитель')
-    authority_number = models.CharField(max_length=100, verbose_name=u'доверенность №')
-    authority_date = models.CharField(max_length=50, verbose_name=u'дата доверенности')
+    agent_last_name = models.CharField(max_length=50, verbose_name=u'фамилия заявителя/представителя')
+    agent_first_name = models.CharField(max_length=50, verbose_name=u'имя заявителя/представителя')
+    agent_middle_name = models.CharField(max_length=50, verbose_name=u'отчество заявителя/представителя')
+
+    authority_number = models.CharField(max_length=100, verbose_name=u'доверенность №', blank=True)
+    authority_date = models.CharField(max_length=50, verbose_name=u'дата доверенности', blank=True, null=True)
     phone_number = models.CharField(max_length=100, verbose_name=u'телефон для связи')
-    fax = models.CharField(max_length=100, verbose_name=u'факс')
-    email = models.EmailField(verbose_name=u'e-mail')
+    fax = models.CharField(max_length=100, verbose_name=u'факс', blank=True)
+    email = models.EmailField(verbose_name=u'e-mail', blank=True)
 
     req_attachment1 = models.BooleanField(verbose_name = u'Копия документа, подтверждающего право собственности или иное предусмотренное законом основание на объект капитального строительства и (или) земельный участок, на котором расположены (будут располагаться) объекты заявителя либо право собственности или иное предусмотренное законом основание на энергопринимающие устройства.', default=False, blank=True)
     req_attachment2 = models.BooleanField(verbose_name = u'План расположения энергопринимающих устройств, которые необходимо присоединить к электрическим сетям сетевой организации (ситуационный план с привязкой к существующим улицам).', default=False, blank=True)
@@ -240,17 +264,20 @@ class ThirdServRequest(models.Model):
     third_max_power = models.DecimalField(verbose_name=u'максимальная мощность (всего с учетом присоединенной мощности)', max_digits=10, decimal_places=2)
 
     load_type = models.TextField(verbose_name=u'характер нагрузки потребителя электрической энергии')
-    other_inf = models.TextField(verbose_name=u'прочая информация')
+    other_inf = models.TextField(verbose_name=u'прочая информация', blank=True)
 
-    agent_full_name = models.CharField(max_length=100, verbose_name=u'заявитель/представитель')
-    authority_number = models.CharField(max_length=100, verbose_name=u'доверенность №')
-    authority_date = models.CharField(max_length=50, verbose_name=u'дата доверенности')
+    agent_last_name = models.CharField(max_length=50, verbose_name=u'фамилия заявителя/представителя')
+    agent_first_name = models.CharField(max_length=50, verbose_name=u'имя заявителя/представителя')
+    agent_middle_name = models.CharField(max_length=50, verbose_name=u'отчество заявителя/представителя')
+
+    authority_number = models.CharField(max_length=100, verbose_name=u'доверенность №', blank=True)
+    authority_date = models.CharField(max_length=50, verbose_name=u'дата доверенности', blank=True, null=True)
     phone_number = models.CharField(max_length=100, verbose_name=u'телефон для связи')
-    fax = models.CharField(max_length=100, verbose_name=u'факс')
-    email = models.EmailField(verbose_name=u'e-mail')
+    fax = models.CharField(max_length=100, verbose_name=u'факс', blank=True)
+    email = models.EmailField(verbose_name=u'e-mail', blank=True)
 
-    director_post = models.CharField(max_length=100, verbose_name=u'Должность руководителя')
-    director_full_name = models.CharField(max_length=100, verbose_name=u'ФИО руководителя')
+    director_post = models.CharField(max_length=100, verbose_name=u'Должность руководителя', blank=True)
+    director_full_name = models.CharField(max_length=100, verbose_name=u'ФИО руководителя', blank=True)
     agent_inn = models.CharField(max_length=12, verbose_name=u'ИНН')
     agent_kpp = models.CharField(max_length=9, verbose_name=u'КПП')
     agent_bik = models.CharField(max_length=9, verbose_name=u'БИК')
@@ -311,17 +338,20 @@ class FourthServRequest(models.Model):
     count_conn_points = models.CharField(max_length=255, verbose_name=u'количество точек присоединения с указанием технических параметров элементов энергопринимающих устройств')
     load_type = models.TextField(verbose_name=u'характер нагрузки потребителя электрической энергии (вид производственной деятельности)')
     power_distribution = models.CharField(max_length=255, verbose_name=u'Поэтапное распределение мощности, сроков ввода и сведения о категории надежности электроснабжения, при вводе энергопринимающих устройств по этапам и очередям')
-    other_inf = models.TextField(verbose_name=u'прочая информация')
+    other_inf = models.TextField(verbose_name=u'прочая информация', blank=True)
 
-    agent_full_name = models.CharField(max_length=100, verbose_name=u'заявитель/представитель')
-    authority_number = models.CharField(max_length=100, verbose_name=u'доверенность №')
-    authority_date = models.CharField(max_length=50, verbose_name=u'дата доверенности')
+    agent_last_name = models.CharField(max_length=50, verbose_name=u'фамилия заявителя/представителя')
+    agent_first_name = models.CharField(max_length=50, verbose_name=u'имя заявителя/представителя')
+    agent_middle_name = models.CharField(max_length=50, verbose_name=u'отчество заявителя/представителя')
+
+    authority_number = models.CharField(max_length=100, verbose_name=u'доверенность №', blank=True)
+    authority_date = models.CharField(max_length=50, verbose_name=u'дата доверенности', blank=True, null=True)
     phone_number = models.CharField(max_length=100, verbose_name=u'телефон для связи')
-    fax = models.CharField(max_length=100, verbose_name=u'факс')
-    email = models.EmailField(verbose_name=u'e-mail')
+    fax = models.CharField(max_length=100, verbose_name=u'факс', blank=True)
+    email = models.EmailField(verbose_name=u'e-mail', blank=True)
 
-    director_post = models.CharField(max_length=100, verbose_name=u'Должность руководителя')
-    director_full_name = models.CharField(max_length=100, verbose_name=u'ФИО руководителя')
+    director_post = models.CharField(max_length=100, verbose_name=u'Должность руководителя', blank=True)
+    director_full_name = models.CharField(max_length=100, verbose_name=u'ФИО руководителя', blank=True)
 
     agent_inn = models.CharField(max_length=12, verbose_name=u'ИНН')
     agent_kpp = models.CharField(max_length=9, verbose_name=u'КПП')
@@ -393,17 +423,20 @@ class FifthServRequest(models.Model):
     tech_emergency_armor_consumer = models.CharField(max_length=255, verbose_name=u'величина и обоснование величины аварийной брони (для потребителей электрической энергии)')
 
     power_distribution = models.CharField(max_length=255, verbose_name=u'поэтапное распределение мощности, сроков ввода и сведения о категории надежности электроснабжения, при вводе энергопринимающих устройств по этапам и очередям')
-    other_inf = models.TextField(verbose_name=u'прочая информация')
+    other_inf = models.TextField(verbose_name=u'прочая информация', blank=True)
 
-    agent_full_name = models.CharField(max_length=100, verbose_name=u'заявитель/представитель')
-    authority_number = models.CharField(max_length=100, verbose_name=u'доверенность №')
-    authority_date = models.CharField(max_length=50, verbose_name=u'дата доверенности')
+    agent_last_name = models.CharField(max_length=50, verbose_name=u'фамилия заявителя/представителя')
+    agent_first_name = models.CharField(max_length=50, verbose_name=u'имя заявителя/представителя')
+    agent_middle_name = models.CharField(max_length=50, verbose_name=u'отчество заявителя/представителя')
+
+    authority_number = models.CharField(max_length=100, verbose_name=u'доверенность №', blank=True)
+    authority_date = models.CharField(max_length=50, verbose_name=u'дата доверенности', blank=True, null=True)
     phone_number = models.CharField(max_length=100, verbose_name=u'телефон для связи')
-    fax = models.CharField(max_length=100, verbose_name=u'факс')
-    email = models.EmailField(verbose_name=u'e-mail')
+    fax = models.CharField(max_length=100, verbose_name=u'факс', blank=True)
+    email = models.EmailField(verbose_name=u'e-mail', blank=True)
 
-    director_post = models.CharField(max_length=100, verbose_name=u'Должность руководителя')
-    director_full_name = models.CharField(max_length=100, verbose_name=u'ФИО руководителя')
+    director_post = models.CharField(max_length=100, verbose_name=u'Должность руководителя', blank=True)
+    director_full_name = models.CharField(max_length=100, verbose_name=u'ФИО руководителя', blank=True)
 
     agent_inn = models.CharField(max_length=12, verbose_name=u'ИНН')
     agent_kpp = models.CharField(max_length=9, verbose_name=u'КПП')

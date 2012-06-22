@@ -273,7 +273,7 @@ table {
 <table class="moretable">
 	<tr>
 		<td style="width: 18cm;"><strong>Заявитель/представитель</strong>: подпись ____________________ ФИО</td>
-		<td class="input">{{ saved_object.agent_full_name }}</td>
+		<td class="input">{{ saved_object.agent_last_name }} {{ saved_object.agent_first_name }} {{ saved_object.agent_middle_name }}</td>
 	</tr>
 </table>
 
@@ -282,7 +282,7 @@ table {
 		<td style="width: 3.44cm;">Доверенность №</td>
 		<td class="input">{{ saved_object.authority_number }}</td>
 		<td style="width: 0.7cm;">&nbsp;&nbsp;от </td>
-		<td class="input">{{ saved_object.authority_date }}</td>
+		<td class="input">{% if saved_object.authority_date %}{{ saved_object.authority_date }}{% endif %}</td>
 	</tr>
 </table>
 
@@ -493,7 +493,7 @@ table {
 <table class="moretable">
 	<tr>
 		<td style="width: 18cm;"><strong>Заявитель/представитель</strong>: подпись ____________________ ФИО</td>
-		<td class="input">{{ saved_object.agent_full_name }}</td>
+		<td class="input">{{ saved_object.agent_last_name }} {{ saved_object.agent_first_name }} {{ saved_object.agent_middle_name }}</td>
 	</tr>
 </table>
 
@@ -502,7 +502,7 @@ table {
 		<td style="width: 3.44cm;">Доверенность №</td>
 		<td class="input">{{ saved_object.authority_number }}</td>
 		<td style="width: 0.7cm;">&nbsp;&nbsp;от </td>
-		<td class="input">{{ saved_object.authority_date }}</td>
+		<td class="input">{% if saved_object.authority_date %}{{ saved_object.authority_date }}{% endif %}</td>
 	</tr>
 </table>
 
@@ -691,7 +691,7 @@ table {
 <table class="moretable">
 	<tr>
 		<td style="width: 18cm;"><strong>Заявитель/представитель</strong>: подпись ____________________ ФИО</td>
-		<td class="input">{{ saved_object.agent_full_name }}</td>
+		<td class="input">{{ saved_object.agent_last_name }} {{ saved_object.agent_first_name }} {{ saved_object.agent_middle_name }}</td>
 	</tr>
 </table>
 
@@ -700,7 +700,7 @@ table {
 		<td style="width: 3.44cm;">Доверенность №</td>
 		<td class="input">{{ saved_object.authority_number }}</td>
 		<td style="width: 0.7cm;">&nbsp;&nbsp;от </td>
-		<td class="input">{{ saved_object.authority_date }}</td>
+		<td class="input">{% if saved_object.authority_date %}{{ saved_object.authority_date }}{% endif %}</td>
 	</tr>
 </table>
 
@@ -953,7 +953,7 @@ table {
 <table class="moretable">
 	<tr>
 		<td style="width: 18cm;"><strong>Заявитель/представитель</strong>: подпись ____________________ ФИО</td>
-		<td class="input">{{ saved_object.agent_full_name }}</td>
+		<td class="input">{{ saved_object.agent_last_name }} {{ saved_object.agent_first_name }} {{ saved_object.agent_middle_name }}</td>
 	</tr>
 </table>
 
@@ -962,7 +962,7 @@ table {
 		<td style="width: 3.44cm;">Доверенность №</td>
 		<td class="input">{{ saved_object.authority_number }}</td>
 		<td style="width: 0.7cm;">&nbsp;&nbsp;от </td>
-		<td class="input">{{ saved_object.authority_date }}</td>
+		<td class="input">{% if saved_object.authority_date %}{{ saved_object.authority_date }}{% endif %}</td>
 	</tr>
 </table>
 
@@ -1289,7 +1289,7 @@ table {
 <table class="moretable">
 	<tr>
 		<td style="width: 18cm;"><strong>Заявитель/представитель</strong>: подпись ____________________ ФИО</td>
-		<td class="input">{{ saved_object.agent_full_name }}</td>
+		<td class="input">{{ saved_object.agent_last_name }} {{ saved_object.agent_first_name }} {{ saved_object.agent_middle_name }}</td>
 	</tr>
 </table>
 
@@ -1298,7 +1298,7 @@ table {
 		<td style="width: 3.44cm;">Доверенность №</td>
 		<td class="input">{{ saved_object.authority_number }}</td>
 		<td style="width: 0.7cm;">&nbsp;&nbsp;от </td>
-		<td class="input">{{ saved_object.authority_date }}</td>
+		<td class="input">{% if saved_object.authority_date %}{{ saved_object.authority_date }}{% endif %}</td>
 	</tr>
 </table>
 

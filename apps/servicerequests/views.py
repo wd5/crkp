@@ -113,8 +113,19 @@ class ReqFormCheckView(View):
                 if form_type == 'typical':
                     form = TypicalRequestForm(data)
                     if form.is_valid():
+
+                        if form.cleaned_data['email']=='':
+                            email = '-'
+                        else:
+                            email = form.cleaned_data['email']
+
+                        if form.cleaned_data['phonenumber']=='':
+                            phonenumber = '-'
+                        else:
+                            phonenumber = form.cleaned_data['phonenumber']
+
                         # проверка по черному списку:
-                        check_result = CheckRequest(form.cleaned_data['full_name'], form.cleaned_data['phonenumber'], form.cleaned_data['email'])
+                        check_result = CheckRequest(form.cleaned_data['full_name'], phonenumber, email)
                         if check_result:
                             return HttpResponseBadRequest(
                                 "Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
@@ -139,7 +150,18 @@ class ReqFormCheckView(View):
                 elif form_type == 'first_serv':
                     form = FirstServRequestForm(data)
                     if form.is_valid():
-                        saved_object = form.save()
+
+                        if form.cleaned_data['email']=='':
+                            email = '-'
+                        else:
+                            email = form.cleaned_data['email']
+                        # проверка по черному списку:
+                        check_result = CheckRequest('%s %s %s' % (form.cleaned_data['agent_last_name'],form.cleaned_data['agent_first_name'],form.cleaned_data['agent_middle_name']), form.cleaned_data['phone_number'], email)
+                        if check_result:
+                            return HttpResponseBadRequest("Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
+                        else:
+                            saved_object = form.save()
+
                         path = render_to_pdf('services/pdf.html', 'first_serv_%s' % saved_object.pk, {
                             'title': u'Физические лица до 15 кВт (включительно) по 3 категории надежности электроснабжения',
                             'saved_object': saved_object,
@@ -165,7 +187,18 @@ class ReqFormCheckView(View):
                 elif form_type == 'second_serv':
                     form = SecondServRequestForm(data)
                     if form.is_valid():
-                        saved_object = form.save()
+
+                        if form.cleaned_data['email']=='':
+                            email = '-'
+                        else:
+                            email = form.cleaned_data['email']
+                        # проверка по черному списку:
+                        check_result = CheckRequest('%s %s %s' % (form.cleaned_data['agent_last_name'],form.cleaned_data['agent_first_name'],form.cleaned_data['agent_middle_name']), form.cleaned_data['phone_number'], email)
+                        if check_result:
+                            return HttpResponseBadRequest("Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
+                        else:
+                            saved_object = form.save()
+
                         path = render_to_pdf('services/pdf.html', 'second_serv_%s' % saved_object.pk, {
                             'title': u'Физические лица до 100 кВт (включительно) по 1,2,3 категории надежности электроснабжения ВРЕМЕННОЕ присоединение',
                             'saved_object': saved_object,
@@ -191,7 +224,18 @@ class ReqFormCheckView(View):
                 elif form_type == 'third_serv':
                     form = ThirdServRequestForm(data)
                     if form.is_valid():
-                        saved_object = form.save()
+
+                        if form.cleaned_data['email']=='':
+                            email = '-'
+                        else:
+                            email = form.cleaned_data['email']
+                        # проверка по черному списку:
+                        check_result = CheckRequest('%s %s %s' % (form.cleaned_data['agent_last_name'],form.cleaned_data['agent_first_name'],form.cleaned_data['agent_middle_name']), form.cleaned_data['phone_number'], email)
+                        if check_result:
+                            return HttpResponseBadRequest("Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
+                        else:
+                            saved_object = form.save()
+
                         path = render_to_pdf('services/pdf.html', 'third_serv_%s' % saved_object.pk, {
                             'title': u'Юридические лица и индивидуальные предприниматели до 100 кВт (включительно) по 1, 2, 3 категории надежности электроснабжения ВРЕМЕННОЕ присоединение',
                             'saved_object': saved_object,
@@ -217,7 +261,18 @@ class ReqFormCheckView(View):
                 elif form_type == 'fourth_serv':
                     form = FourthServRequestForm(data)
                     if form.is_valid():
-                        saved_object = form.save()
+
+                        if form.cleaned_data['email']=='':
+                            email = '-'
+                        else:
+                            email = form.cleaned_data['email']
+                        # проверка по черному списку:
+                        check_result = CheckRequest('%s %s %s' % (form.cleaned_data['agent_last_name'],form.cleaned_data['agent_first_name'],form.cleaned_data['agent_middle_name']), form.cleaned_data['phone_number'], email)
+                        if check_result:
+                            return HttpResponseBadRequest("Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
+                        else:
+                            saved_object = form.save()
+
                         path = render_to_pdf('services/pdf.html', 'fourth_serv_%s' % saved_object.pk, {
                             'title': u'Юридические лица и индивидуальные предприниматели до 750 кВА (включительно) по 1, 2, 3 категории надежности электроснабжения',
                             'saved_object': saved_object,
@@ -243,7 +298,18 @@ class ReqFormCheckView(View):
                 elif form_type == 'fifth_serv':
                     form = FifthServRequestForm(data)
                     if form.is_valid():
-                        saved_object = form.save()
+
+                        if form.cleaned_data['email']=='':
+                            email = '-'
+                        else:
+                            email = form.cleaned_data['email']
+                        # проверка по черному списку:
+                        check_result = CheckRequest('%s %s %s' % (form.cleaned_data['agent_last_name'],form.cleaned_data['agent_first_name'],form.cleaned_data['agent_middle_name']), form.cleaned_data['phone_number'], email)
+                        if check_result:
+                            return HttpResponseBadRequest("Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
+                        else:
+                            saved_object = form.save()
+
                         path = render_to_pdf('services/pdf.html', 'fifth_serv_%s' % saved_object.pk, {
                             'title': u'Юридические лица и индивидуальные предприниматели свыше 750 кВА по 1,2,3 категории надежности электроснабжения',
                             'saved_object': saved_object,
@@ -269,28 +335,6 @@ class ReqFormCheckView(View):
                 elif form_type == 'reception_form':
                     form = ReceptionForm(data)
                     if form.is_valid():
-                        # проверка по черному списку:
-                        check_result = CheckRequest('%s %s %s' % (form.cleaned_data['last_name'],form.cleaned_data['first_name'],form.cleaned_data['middle_name']), form.cleaned_data['phonenumber'], '-')
-                        if check_result:
-                            try:
-                                id_serv = int(request.POST['id_serv'])
-                            except:
-                                return HttpResponseBadRequest("Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
-                            if request.POST['serv_type'] == 'first_serv':
-                                serv = FirstServRequest.objects.get(pk=id_serv)
-                            elif request.POST['serv_type'] == 'second_serv':
-                                serv = SecondServRequest.objects.get(pk=id_serv)
-                            elif request.POST['serv_type'] == 'third_serv':
-                                serv = ThirdServRequest.objects.get(pk=id_serv)
-                            elif request.POST['serv_type'] == 'fourth_serv':
-                                serv = FourthServRequest.objects.get(pk=id_serv)
-                            elif request.POST['serv_type'] == 'fifth_serv':
-                                serv = FifthServRequest.objects.get(pk=id_serv)
-                            serv.delete()
-                            return HttpResponseBadRequest("Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
-                        else:
-                            form.save()
-
                         saved_object = form.save()
                         try:
                             id_serv = int(request.POST['id_serv'])

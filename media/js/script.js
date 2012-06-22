@@ -121,7 +121,10 @@ $(function(){
             max_power:$('#id_max_power').val(),
             other_inf:$('#id_other_inf').val(),
 
-            agent_full_name:$('#id_agent_full_name').val(),
+            agent_last_name:$('#id_agent_last_name').val(),
+            agent_first_name:$('#id_agent_first_name').val(),
+            agent_middle_name:$('#id_agent_middle_name').val(),
+
             authority_number:$('#id_authority_number').val(),
             authority_date:$('#id_authority_date').val(),
             phone_number:$('#id_phone_number').val(),
@@ -177,7 +180,10 @@ $(function(){
             load_type:$('#id_load_type').val(),
             other_inf:$('#id_other_inf').val(),
 
-            agent_full_name:$('#id_agent_full_name').val(),
+            agent_last_name:$('#id_agent_last_name').val(),
+            agent_first_name:$('#id_agent_first_name').val(),
+            agent_middle_name:$('#id_agent_middle_name').val(),
+
             authority_number:$('#id_authority_number').val(),
             authority_date:$('#id_authority_date').val(),
             phone_number:$('#id_phone_number').val(),
@@ -228,7 +234,10 @@ $(function(){
             load_type:$('#id_load_type').val(),
             other_inf:$('#id_other_inf').val(),
 
-            agent_full_name:$('#id_agent_full_name').val(),
+            agent_last_name:$('#id_agent_last_name').val(),
+            agent_first_name:$('#id_agent_first_name').val(),
+            agent_middle_name:$('#id_agent_middle_name').val(),
+
             authority_number:$('#id_authority_number').val(),
             authority_date:$('#id_authority_date').val(),
             phone_number:$('#id_phone_number').val(),
@@ -293,7 +302,10 @@ $(function(){
             power_distribution:$('#id_power_distribution').val(),
             other_inf:$('#id_other_inf').val(),
 
-            agent_full_name:$('#id_agent_full_name').val(),
+            agent_last_name:$('#id_agent_last_name').val(),
+            agent_first_name:$('#id_agent_first_name').val(),
+            agent_middle_name:$('#id_agent_middle_name').val(),
+
             authority_number:$('#id_authority_number').val(),
             authority_date:$('#id_authority_date').val(),
             phone_number:$('#id_phone_number').val(),
@@ -369,7 +381,10 @@ $(function(){
             power_distribution:$('#id_power_distribution').val(),
             other_inf:$('#id_other_inf').val(),
 
-            agent_full_name:$('#id_agent_full_name').val(),
+            agent_last_name:$('#id_agent_last_name').val(),
+            agent_first_name:$('#id_agent_first_name').val(),
+            agent_middle_name:$('#id_agent_middle_name').val(),
+
             authority_number:$('#id_authority_number').val(),
             authority_date:$('#id_authority_date').val(),
             phone_number:$('#id_phone_number').val(),
@@ -412,7 +427,8 @@ $(function(){
             first_name:$('#id_first_name').val(),
             middle_name:$('#id_middle_name').val(),
             phonenumber:$('#id_phonenumber').val(),
-            receptiontime:$('#id_receptiontime').val(),
+            weekday:$('#id_weekday').val(),
+            reception_time:$('#id_reception_time').val(),
 
             form_type:$('#form_type').val(),
             id_serv:$('#id_serv').val(),
@@ -446,6 +462,7 @@ function CheckForm(data_fields,type){
         },
         error:function(jqXHR,textStatus,errorThrown) {
             $('.modal_in').replaceWith(jqXHR.responseText);
+            $('body,html,document').animate({scrollTop:0},"slow");
         }
     });
 }

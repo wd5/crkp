@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
 from django import forms
-from apps.servicerequests.models import TypicalRequest, FirstServRequest, ReceptionTime, Reception, SecondServRequest, ThirdServRequest, FourthServRequest, FifthServRequest
+from apps.servicerequests.models import TypicalRequest, FirstServRequest, Reception, SecondServRequest, ThirdServRequest, FourthServRequest, FifthServRequest, WeekDay
 
 class TypicalRequestForm(forms.ModelForm):
     full_name = forms.CharField(
@@ -9,15 +9,25 @@ class TypicalRequestForm(forms.ModelForm):
     )
     email = forms.EmailField(
         widget=forms.TextInput(),
-        required=True
+        required=False
     )
     phonenumber = forms.CharField(
-        required=True
+        required=False
     )
 
     class Meta:
         model = TypicalRequest
         exclude = ('date_create',)
+
+    def clean(self):
+        cleaned_data = super(TypicalRequestForm, self).clean()
+        email = cleaned_data.get("email")
+        phonenumber = cleaned_data.get("phonenumber")
+
+        if email == '' and phonenumber == '':
+            raise forms.ValidationError("Заполните хотябы одно из следующих полей")
+
+        return cleaned_data
 
 class FirstServRequestForm(forms.ModelForm):
     last_name = forms.CharField(required=True)
@@ -35,14 +45,17 @@ class FirstServRequestForm(forms.ModelForm):
     earlier_power_kVt = forms.DecimalField(required=True)
     additional_power = forms.DecimalField(required=True)
     max_power = forms.DecimalField(required=True)
-    other_inf = forms.CharField(widget=forms.Textarea, required=True)
+    other_inf = forms.CharField(widget=forms.Textarea, required=False)
 
-    agent_full_name = forms.CharField(required=True)
-    authority_number = forms.CharField(required=True)
-    authority_date = forms.DateField(widget=forms.DateInput, required=True, help_text='в формате "ДД.ММ.ГГГГ"')
+    agent_last_name = forms.CharField(required=True)
+    agent_first_name = forms.CharField(required=True)
+    agent_middle_name = forms.CharField(required=True)
+
+    authority_number = forms.CharField(required=False)
+    authority_date = forms.DateField(widget=forms.DateInput, help_text='в формате "ДД.ММ.ГГГГ"', required=False)
     phone_number = forms.CharField(required=True)
-    fax = forms.CharField(required=True)
-    email = forms.EmailField(required=True)
+    fax = forms.CharField(required=False)
+    email = forms.EmailField(required=False)
 
     req_attachment1 = forms.BooleanField(required=False, label=FirstServRequest._meta.get_field_by_name('req_attachment1')[0].verbose_name)
     req_attachment2 = forms.BooleanField(required=False, label=FirstServRequest._meta.get_field_by_name('req_attachment2')[0].verbose_name)
@@ -122,14 +135,17 @@ class SecondServRequestForm(forms.ModelForm):
     third_max_power = forms.DecimalField(required=True)
 
     load_type = forms.CharField(required=True)
-    other_inf = forms.CharField(widget=forms.Textarea, required=True)
+    other_inf = forms.CharField(widget=forms.Textarea, required=False)
 
-    agent_full_name = forms.CharField(required=True)
-    authority_number = forms.CharField(required=True)
-    authority_date = forms.DateField(widget=forms.DateInput, required=True, help_text='в формате "ДД.ММ.ГГГГ"')
+    agent_last_name = forms.CharField(required=True)
+    agent_first_name = forms.CharField(required=True)
+    agent_middle_name = forms.CharField(required=True)
+
+    authority_number = forms.CharField(required=False)
+    authority_date = forms.DateField(widget=forms.DateInput, help_text='в формате "ДД.ММ.ГГГГ"', required=False)
     phone_number = forms.CharField(required=True)
-    fax = forms.CharField(required=True)
-    email = forms.EmailField(required=True)
+    fax = forms.CharField(required=False)
+    email = forms.EmailField(required=False)
 
     req_attachment1 = forms.BooleanField(required=False, label=SecondServRequest._meta.get_field_by_name('req_attachment1')[0].verbose_name)
     req_attachment2 = forms.BooleanField(required=False, label=SecondServRequest._meta.get_field_by_name('req_attachment2')[0].verbose_name)
@@ -203,17 +219,20 @@ class ThirdServRequestForm(forms.ModelForm):
     third_max_power = forms.DecimalField(required=True)
 
     load_type = forms.CharField(widget=forms.Textarea, required=True)
-    other_inf = forms.CharField(widget=forms.Textarea, required=True)
+    other_inf = forms.CharField(widget=forms.Textarea, required=False)
 
-    agent_full_name = forms.CharField(required=True)
-    authority_number = forms.CharField(required=True)
-    authority_date = forms.DateField(widget=forms.DateInput, required=True, help_text='в формате "ДД.ММ.ГГГГ"')
+    agent_last_name = forms.CharField(required=True)
+    agent_first_name = forms.CharField(required=True)
+    agent_middle_name = forms.CharField(required=True)
+
+    authority_number = forms.CharField(required=False)
+    authority_date = forms.DateField(widget=forms.DateInput, help_text='в формате "ДД.ММ.ГГГГ"', required=False)
     phone_number = forms.CharField(required=True)
-    fax = forms.CharField(required=True)
-    email = forms.EmailField(required=True)
+    fax = forms.CharField(required=False)
+    email = forms.EmailField(required=False)
 
-    director_post = forms.CharField(required=True, label=ThirdServRequest._meta.get_field_by_name('director_post')[0].verbose_name)
-    director_full_name = forms.CharField(required=True, label=ThirdServRequest._meta.get_field_by_name('director_full_name')[0].verbose_name)
+    director_post = forms.CharField(label=ThirdServRequest._meta.get_field_by_name('director_post')[0].verbose_name)
+    director_full_name = forms.CharField(label=ThirdServRequest._meta.get_field_by_name('director_full_name')[0].verbose_name)
 
     agent_inn = forms.CharField(required=True, label=ThirdServRequest._meta.get_field_by_name('agent_inn')[0].verbose_name)
     agent_kpp = forms.CharField(required=True, label=ThirdServRequest._meta.get_field_by_name('agent_kpp')[0].verbose_name)
@@ -320,17 +339,20 @@ class FourthServRequestForm(forms.ModelForm):
     count_conn_points = forms.CharField(widget=forms.Textarea, required=True)
     load_type = forms.CharField(widget=forms.Textarea, required=True)
     power_distribution = forms.CharField(widget=forms.Textarea, required=True)
-    other_inf = forms.CharField(widget=forms.Textarea, required=True)
+    other_inf = forms.CharField(widget=forms.Textarea, required=False)
 
-    agent_full_name = forms.CharField(required=True)
-    authority_number = forms.CharField(required=True)
-    authority_date = forms.DateField(widget=forms.DateInput, required=True, help_text='в формате "ДД.ММ.ГГГГ"')
+    agent_last_name = forms.CharField(required=True)
+    agent_first_name = forms.CharField(required=True)
+    agent_middle_name = forms.CharField(required=True)
+
+    authority_number = forms.CharField(required=False)
+    authority_date = forms.DateField(widget=forms.DateInput, help_text='в формате "ДД.ММ.ГГГГ"', required=False)
     phone_number = forms.CharField(required=True)
-    fax = forms.CharField(required=True)
-    email = forms.EmailField(required=True)
+    fax = forms.CharField(required=False)
+    email = forms.EmailField(required=False)
 
-    director_post = forms.CharField(required=True, label=FourthServRequest._meta.get_field_by_name('director_post')[0].verbose_name)
-    director_full_name = forms.CharField(required=True, label=FourthServRequest._meta.get_field_by_name('director_full_name')[0].verbose_name)
+    director_post = forms.CharField(label=ThirdServRequest._meta.get_field_by_name('director_post')[0].verbose_name)
+    director_full_name = forms.CharField(label=ThirdServRequest._meta.get_field_by_name('director_full_name')[0].verbose_name)
 
     agent_inn = forms.CharField(required=True, label=FourthServRequest._meta.get_field_by_name('agent_inn')[0].verbose_name)
     agent_kpp = forms.CharField(required=True, label=FourthServRequest._meta.get_field_by_name('agent_kpp')[0].verbose_name)
@@ -447,17 +469,20 @@ class FifthServRequestForm(forms.ModelForm):
     tech_emergency_armor_consumer = forms.CharField(widget=forms.Textarea, required=True)
 
     power_distribution = forms.CharField(widget=forms.Textarea, required=True)
-    other_inf = forms.CharField(widget=forms.Textarea, required=True)
+    other_inf = forms.CharField(widget=forms.Textarea, required=False)
 
-    agent_full_name = forms.CharField(required=True)
-    authority_number = forms.CharField(required=True)
-    authority_date = forms.DateField(widget=forms.DateInput, required=True, help_text='в формате "ДД.ММ.ГГГГ"')
+    agent_last_name = forms.CharField(required=True)
+    agent_first_name = forms.CharField(required=True)
+    agent_middle_name = forms.CharField(required=True)
+
+    authority_number = forms.CharField(required=False)
+    authority_date = forms.DateField(widget=forms.DateInput, help_text='в формате "ДД.ММ.ГГГГ"', required=False)
     phone_number = forms.CharField(required=True)
-    fax = forms.CharField(required=True)
-    email = forms.EmailField(required=True)
+    fax = forms.CharField(required=False)
+    email = forms.EmailField(required=False)
 
-    director_post = forms.CharField(required=True, label=FifthServRequest._meta.get_field_by_name('director_post')[0].verbose_name)
-    director_full_name = forms.CharField(required=True, label=FifthServRequest._meta.get_field_by_name('director_full_name')[0].verbose_name)
+    director_post = forms.CharField(label=ThirdServRequest._meta.get_field_by_name('director_post')[0].verbose_name)
+    director_full_name = forms.CharField(label=ThirdServRequest._meta.get_field_by_name('director_full_name')[0].verbose_name)
 
     agent_inn = forms.CharField(required=True, label=FifthServRequest._meta.get_field_by_name('agent_inn')[0].verbose_name)
     agent_kpp = forms.CharField(required=True, label=FifthServRequest._meta.get_field_by_name('agent_kpp')[0].verbose_name)
@@ -540,11 +565,13 @@ class FifthServRequestForm(forms.ModelForm):
         return agent_correspond_account
 
 class ReceptionForm(forms.ModelForm):
-    receptiontime = forms.ModelChoiceField(queryset=ReceptionTime.objects.filter(reception_date__gte=datetime.date.today()), label='Дата и время приёма', required=True)
+    #receptiontime = forms.ModelChoiceField(queryset=ReceptionTime.objects.filter(reception_date__gte=datetime.date.today()), label='Дата и время приёма', required=True)
+    weekday = forms.ModelChoiceField(queryset=WeekDay.objects.published(), label='День приёма', required=True)
     last_name = forms.CharField(required=True)
     first_name = forms.CharField(required=True)
     middle_name = forms.CharField(required=True)
     phonenumber = forms.CharField(required=True)
+    reception_time = forms.TimeField(required=True, help_text='в формате "ЧЧ:ММ')
 
     class Meta:
         model = Reception
