@@ -14,7 +14,8 @@
 
         <div class="connect_menu">
             <ul>
-                <li class="curr"><a href="#" name="1" class="load_srv_link"><img src="/media/img/connect_menu_ic_1.png" alt="до 15 кВт" width="79" height="79" /><span>до 15 кВт</span></a></li>
+{#                class="curr" #}
+                <li ><a href="#" name="1" class="load_srv_link"><img src="/media/img/connect_menu_ic_1.png" alt="до 15 кВт" width="79" height="79" /><span>до 15 кВт</span></a></li>
                 <li><a href="#" name="serv_2_3"><img src="/media/img/connect_menu_ic_2.png" alt="от 15 кВт до 100 кВт" width="79" height="79" /><span>от&nbsp;15&nbsp;кВт до&nbsp;100&nbsp;кВт</span></a></li>
                 <li><a href="#" name="serv_4_5"><img src="/media/img/connect_menu_ic_3.png" alt="от 100 кВт" width="79" height="79" /><span>от 100 кВт</span></a></li>
             </ul>
@@ -37,36 +38,40 @@
     {% endif %}
 
 <div class="doc_serv_block">
-    {% if service.get_published_docs %}
-        <div class="docs_zl">
-            <h2>Вам потребуются следующие документы:</h2>
-            {% if service.get_docs_zl %}
-                {% for doc in service.get_docs_zl %}
-                    <div class="doc_zl">
-                        {{ doc.description|safe }}
-                    </div>
-                {% endfor %}
+    {% if service.id == 1 %}
+        Выберите интересующий вас вариант из списка сверху
+    {% else %}
+        {% if service.get_published_docs %}
+            <div class="docs_zl">
+                <h2>Вам потребуются следующие документы:</h2>
+                {% if service.get_docs_zl %}
+                    {% for doc in service.get_docs_zl %}
+                        <div class="doc_zl">
+                            {{ doc.description|safe }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div><!--/docs_zl-->
+
+            {% if service.get_docs_zs %}
+                <div class="docs_zs">
+                    {% for doc in service.get_docs_zs %}
+                        <div class="doc_zs">
+                            {{ doc.description|safe }}
+                        </div>
+                    {% endfor %}
+                </div>
             {% endif %}
-        </div><!--/docs_zl-->
-
-        {% if service.get_docs_zs %}
-            <div class="docs_zs">
-                {% for doc in service.get_docs_zs %}
-                    <div class="doc_zs">
-                        {{ doc.description|safe }}
-                    </div>
-                {% endfor %}
-            </div>
         {% endif %}
-    {% endif %}
 
-    <div class="pl">
-        <div class="text">
-            {{ service.result|safe }}
+        <div class="pl">
+            <div class="text">
+                {{ service.result|safe }}
+            </div>
         </div>
-    </div>
 
-    <div class="btn"><div class="btn_in"><a href="/services/requestform/{{ service.id }}/" class="{% if service.id != 1 %}fancybox{% else %}fancybox-big{% endif %}">{{ service.button_title }}</a></div></div>
+        <div class="btn"><div class="btn_in"><a href="/services/requestform/{{ service.id }}/" class="{% if service.id != 1 %}fancybox{% else %}fancybox-big{% endif %}">{{ service.button_title }}</a></div></div>
+    {% endif %}
 </div>
 
 {% endblock %}

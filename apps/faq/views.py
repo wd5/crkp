@@ -5,8 +5,13 @@ from django.shortcuts import render_to_response
 from django.template.loader import render_to_string
 from django.template import RequestContext
 from apps.pages.models import Page
+import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView,FormView,DetailView, ListView
+from django.core.mail.message import EmailMessage
+from apps.siteblocks.models import Settings
+
+
 
 from forms import QuestionForm
 from models import Question#,QuestionCategory
@@ -49,7 +54,26 @@ def SaveQuestionForm(request):
         data = request.POST.copy()
         faq_form = QuestionForm(data)
         if faq_form.is_valid():
-            faq_form.save()
+            saved_object = faq_form.save()
+
+            subject = u'ООО ЦРКП - Новый вопрос.'
+            subject = u''.join(subject.splitlines())
+            message = render_to_string(
+                'faq/admin_message_template.html',
+                    {
+                    'saved_object': saved_object,
+                }
+            )
+            try:
+                emailto = Settings.objects.get(name='workemail').value
+            except Settings.DoesNotExist:
+                emailto = False
+
+            if emailto:
+                msg = EmailMessage(subject, message, settings.DEFAULT_FROM_EMAIL, [emailto])
+                msg.content_subtype = "html"
+                msg.send()
+
             return HttpResponse('success')
         else:
             faq_form_html = render_to_string(

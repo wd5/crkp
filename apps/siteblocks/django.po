@@ -16,4 +16,12 @@ msgstr "параметр"
 msgid "site_settings"
 msgstr "настройки сайта"
 
+msgid "main_teaser"
+msgstr "тизер"
+
+msgid "main_teasers"
+msgstr "тизеры на главной"
+
+
+
 

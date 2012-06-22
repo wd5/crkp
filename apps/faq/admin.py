@@ -18,7 +18,7 @@ class QuestionAdmin(admin.ModelAdmin):
     list_editable = ('is_published',)
     search_fields = ('email', 'question', 'answer',)
     list_filter = ('pub_date','is_published',)
-    fields = ('pub_date', 'email', 'question', 'answer', 'is_published')
+    fields = ('pub_date', 'email', 'question', 'answer', 'send_answer', 'is_published',)
     form = QuestionAdminForm
 
 #class QuestionCategoryAdmin(admin.ModelAdmin):

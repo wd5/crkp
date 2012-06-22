@@ -1,5 +1,5 @@
 <div class="faq_teaser {{ type }}">
-    <p class="faq_teaser_text">Ответы на многие&nbsp;вопросы есть&nbsp;в&nbsp;нашей базе</p>
+    <p class="faq_teaser_text">{{ faq_teaser_text|safe }}</p>
     <p><a href="/faq/">Вопрос-Ответ</a></p>
     {% comment %}<p><a href="{% url questions_list %}">Вопрос-Ответ</a></p>{% endcomment %}
 </div>

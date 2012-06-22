@@ -4,7 +4,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.contrib.sites.models import Site
 from django.http import HttpResponse
 from django.db import models
-from apps.siteblocks.models import Settings
+#from apps.siteblocks.models import Settings
 from django.template.loader import get_template
 from django.template import Context
 from sorl.thumbnail import ImageField as sorl_ImageField
@@ -50,36 +50,36 @@ def render_to_pdf(template_src, id_guest, context_dict):
     return u'%s' % path_name
 
 
-def send_emails(m, file):
-    admin_email = Settings.objects.get(name = 'email_notification').value
-    email_list = [u'%s' % admin_email,]
-    subject = u'Новый зарегистрированный гость'
-    html_content = u'''
-        <p style="font-size: 12px;">Здравствуйте.<br /><br />Новый зарегистрированный гость.</p>
-        <p style="padding-left: 10px; font-style: italic; font-size: 12px;
-        border-left: 2px solid #666;">
-        <b>Номер п/п:</b> %s<br />
-        <b>ФИО:</b> %s<br />
-        <b>E-mail:</b> %s<br />
-        <b>Телефон:</b> %s<br />
-        <b>Уникальный ключ:</b> %s</p>
-        <p><a href="http://3dxopen.ru/admin/members/guests/%s/">перейти к просмотру</a></p>''' % \
-           (m.id, m.name, m.email, m.phone, m.key, m.id)
-
-    send_order_email(subject, html_content, email_list, file)
-
-    email_list = [u'%s' % m.email,]
-    subject = u'Приглашение на 3DX Moscow Open'
-    html_content = u'''
-        <p style="font-size: 12px;">Здравствуйте.<br /><br />Пропуск успешно выписан(см. прикрепления).</p>
-        <p style="padding-left: 10px; font-style: italic; font-size: 12px;
-        border-left: 2px solid #666;">
-        <b>Номер п/п:</b> %s<br />
-        <b>ФИО:</b> %s<br />
-        <b>E-mail:</b> %s<br />
-        <b>Телефон:</b> %s<br /></p>''' % \
-           (m.id, m.name, m.email, m.phone)
-
-    send_order_email(subject, html_content, email_list, file)
+#def send_emails(m, file):
+#    admin_email = Settings.objects.get(name = 'email_notification').value
+#    email_list = [u'%s' % admin_email,]
+#    subject = u'Новый зарегистрированный гость'
+#    html_content = u'''
+#        <p style="font-size: 12px;">Здравствуйте.<br /><br />Новый зарегистрированный гость.</p>
+#        <p style="padding-left: 10px; font-style: italic; font-size: 12px;
+#        border-left: 2px solid #666;">
+#        <b>Номер п/п:</b> %s<br />
+#        <b>ФИО:</b> %s<br />
+#        <b>E-mail:</b> %s<br />
+#        <b>Телефон:</b> %s<br />
+#        <b>Уникальный ключ:</b> %s</p>
+#        <p><a href="http://3dxopen.ru/admin/members/guests/%s/">перейти к просмотру</a></p>''' % \
+#           (m.id, m.name, m.email, m.phone, m.key, m.id)
+#
+#    send_order_email(subject, html_content, email_list, file)
+#
+#    email_list = [u'%s' % m.email,]
+#    subject = u'Приглашение на 3DX Moscow Open'
+#    html_content = u'''
+#        <p style="font-size: 12px;">Здравствуйте.<br /><br />Пропуск успешно выписан(см. прикрепления).</p>
+#        <p style="padding-left: 10px; font-style: italic; font-size: 12px;
+#        border-left: 2px solid #666;">
+#        <b>Номер п/п:</b> %s<br />
+#        <b>ФИО:</b> %s<br />
+#        <b>E-mail:</b> %s<br />
+#        <b>Телефон:</b> %s<br /></p>''' % \
+#           (m.id, m.name, m.email, m.phone)
+#
+#    send_order_email(subject, html_content, email_list, file)
 
 

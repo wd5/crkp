@@ -9,7 +9,11 @@
 {% endif %}
 
 {% block paper_content %}
+    <div class="index_lead text">
+        <img class="logo_len" src="/media/img/logo_len.png" alt="" unselectable="on" style="cursor: default; ">
     {{ maintxt_first.value|safe }}
+    </div>
+
     <div class="index_img"><img src="/media/img/index_img.png" alt="" /></div>
 
     <div class="connect_lnk">
@@ -24,21 +28,15 @@
     </div>
 
     <div class="service_teasers">
-        <div class="service_teaser">
-            <div class="service_teaser_img"><img src="/media/img/service_teaser_1.png" alt="Расчет характеристик подключения" /></div>
-            <h3><a href="/techconnection/techcalc/">Расчет характеристик подключения</a></h3>
-            <p>Посчитать нагрузку и сформировать документ сразу на сайте</p>
-        </div>
-        <div class="service_teaser">
-            <div class="service_teaser_img"><img src="/media/img/service_teaser_2.png" alt="Тарифы на технологическое подключение" /></div>
-            <h3><a href="/techconnection/rates/">Тарифы на технологическое подключение</a></h3>
-            <p>Определить район и стоимость подключения на карте</p>
-        </div>
-        <div class="service_teaser">
-            <div class="service_teaser_img"><img src="/media/img/service_teaser_3.png" alt="Договор на подключение и технические условия" /></div>
-            <h3><a href="/services/1/">Договор на подключение и технические условия</a></h3>
-            <p>Оформление заявки онлайн</p>
-        </div>
+        {% for teaser in teasers %}
+            <div class="service_teaser">
+                <div class="service_teaser_img">
+                    <img src="{{ teaser.get_src_image }}" alt="{{ teaser.title }}" />
+                </div>
+                <h3><a href="{{ teaser.url }}">{{ teaser.title }}</a></h3>
+                <p>{{ teaser.description }}</p>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}
 
