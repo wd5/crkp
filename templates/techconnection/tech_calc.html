@@ -31,37 +31,54 @@
                     </td>
                     <td class="calc_qty_col">
                         <div class="calc_qty">
-                            <input class="calc_qty_btn" type="button" value="1" />
+                            <input class="calc_qty_btn" type="button" value="0" />
+                            <div class="calc_qty_modal" style="display: none;">
+                                <input class="calc_qty_input" type="text" value="10" />
+                                <input class="btn_save" type="button" value="Сохранить" />
+                                <input class="btn_cancel" type="button" value="Отменить" />
+                            </div>
                         </div>
                     </td>
                 </tr>
             {% endfor %}
-
-            <tr>
-                <td class="calc_img_col">
-                    <img src="/media/img/tech_calc_4.png" alt="" />
-                </td>
-                <td class="calc_name_col">
-                    <div>Розетки для подключения компьютеров</div>
-                </td>
-                <td class="calc_qty_col">
-                    <div class="calc_qty">
-                        <input class="calc_qty_btn" type="button" value="12" />
-                        <div class="calc_qty_modal">
-                            <input class="calc_qty_input" type="text" value="10" />
-                            <input class="btn_save" type="button" value="Сохранить" />
-                            <input class="btn_cancel" type="button" value="Отменить" />
-                        </div>
-                    </div>
-                </td>
-            </tr>
-
         </table>
     </div><!--/tech_calc-->
 
+    <div style="display: none;">
+        <input type="hidden" name="parameters" value="{{ parameters }}">
+        <div class="modal faq_modal" id="add_form">
+            <div class="modal_in">
+                <h2 class="modal_h">Добавить другой электропотребитель</h2>
+                <div class="modal_simple">
+                    <div class="input">
+                        <label>Название</label>
+                        <input class="add_calc_qty_title" type="text" value="" />
+                    </div>
+                    <div class="input">
+                        <label>Коэффициент мощности (P)</label>
+                        <input class="add_calc_qty_power" type="text" value="" />
+                    </div>
+                    <div class="input">
+                        <label>Коэффициент спроса</label>
+                        <input class="add_calc_qty_kc" type="text" value="" />
+                    </div>
+                    <div class="input">
+                        <label>Коэффициент cosф</label>
+                        <input class="add_calc_qty_cos" type="text" value="" />
+                    </div>
+                    <div class="input">
+                        <label>Количество</label>
+                        <input class="add_calc_qty_count" type="text" value="0" />
+                    </div>
+                </div>
+                <div class="modal_btn"><div class="btn"><div class="btn_in"><input type="button" id="add_calc_qty" value="Добавить" /></div></div></div>
+            </div>
+        </div>
+    </div>
+
     <div class="calc_submit">
         <div class="btn"><div class="btn_in"><input type="submit" value="Расчитать нагрузки" /></div></div>
-        <div class="calc_add"><span>Добавить другой электропотребитель</span></div>
+        <div class="calc_add"><a href="#add_form" class="fancybox">Добавить другой электропотребитель</a></div>
     </div>
 {% endblock %}
 

@@ -29,6 +29,119 @@ $(function(){
       }
     );
 
+    /////
+
+    $('.calc_qty_btn').live('click',function(){
+        var el = $(this)
+        var parent = el.parent()
+        var curr_modal = parent.find('.calc_qty_modal')
+        curr_modal.find('.calc_qty_input').val(el.val());
+        curr_modal.show();
+        $('.calc_qty_btn').attr('disabled', true);
+    });
+
+    $('.calc_qty_input').live('keypress',function(e){
+        var parent = $(this).parent();
+        if(e.which == 13)
+            parent.find('.btn_save').trigger("click");
+        else
+            if( e.which!=8 && e.which!=0 && (e.which<48 || e.which>57))
+            {
+                alert("Только цифры");
+                return false;
+            }
+    });
+
+    $('.calc_qty_input').live('keyup',function(){
+        var count = $(this).val();
+        if (count){
+            count = parseInt(count);
+            if (count > 9999){
+                $('.calc_qty_input').val('9999');
+            }else
+            {
+                $('.calc_qty_input').val(count);
+            }
+        }
+    });
+
+    $('.btn_cancel').live('click',function(){
+        $(this).parent().hide();
+        $('.calc_qty_btn').attr('disabled', false);
+    });
+
+    $('.btn_save').live('click',function(){
+        var parent = $(this).parent();
+        parent.parent().find('.calc_qty_btn').val(parent.find('.calc_qty_input').val());
+        parent.hide();
+        $('.calc_qty_btn').attr('disabled', false);
+    });
+
+    $('.add_calc_qty_count').live('keypress',function(e){
+        if( e.which!=8 && e.which!=0 && (e.which<48 || e.which>57))
+        {
+            alert("Только цифры");
+            return false;
+        }
+    });
+    $('.add_calc_qty_power, .add_calc_qty_kc, .add_calc_qty_cos').live('keypress',function(e){
+        if( e.which!=46 && e.which!=8 && e.which!=0 && (e.which<48 || e.which>57))
+        {
+            alert("Только цифры");
+            return false;
+        }
+    });
+
+    $('.add_calc_qty_count').live('keyup',function(){
+        var count = $(this).val();
+        if (count){
+            count = parseInt(count);
+            if (count > 9999){
+                $('.add_calc_qty_count').val('9999');
+            }else
+            {
+                $('.add_calc_qty_count').val(count);
+            }
+        }
+    });
+
+    $('#add_calc_qty').live('click',function(){
+        var title = $('.add_calc_qty_title').val()
+        var power = $('.add_calc_qty_power').val()
+        var kc = $('.add_calc_qty_kc').val()
+        var cos = $('.add_calc_qty_cos').val()
+        var count = $('.add_calc_qty_count').val()
+        if ((title=="") || (power=="") || (kc=="") || (cos=="") || (count==""))
+            {if (title=="")
+                {alert('Введите название!')}
+            if (power=="")
+                {alert('Введите коэффициент мощности!')}
+            if (kc=="")
+                {alert('Введите коэффициент спроса')}
+            if (cos=="")
+                {alert('Введите коэффициент cosФ!')}
+            if (count=="")
+                {alert('Введите количество!')}
+            }
+        else
+            {
+            $('.tech_calc_table').append(
+                '<tr class="added"><td class="calc_img_col"></td><td class="calc_name_col"><div>'+title+'</div>' +
+                    '<input type="hidden" name="added_power" value="'+power+'">' +
+                    '<input type="hidden" name="added_kc" value="'+kc+'">' +
+                    '<input type="hidden" name="added_cos" value="'+cos+'"></td>'
+                + '<td class="calc_qty_col"><div class="calc_qty"><input class="calc_qty_btn" type="button" value="'+count+'" />' +
+                        '<div class="calc_qty_modal" style="display: none;">'+
+                            '<input class="calc_qty_input" type="text" value="10" />'+
+                            '<input class="btn_save" type="button" value="Сохранить" />'+
+                            '<input class="btn_cancel" type="button" value="Отменить" />'+
+                        '</div></div></td></tr>')
+            $.fancybox.close()
+            }
+    });
+
+    /////
+
     $('#send_question').live('click',function(){
         $.ajax({
             url: "/faq/checkform/",
