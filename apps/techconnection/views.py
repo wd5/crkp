@@ -38,10 +38,8 @@ class ShowTechCalcView(ListView):
     def get_context_data(self, **kwargs):
         context = super(ShowTechCalcView,self).get_context_data(**kwargs)
         context['page'] = Page.objects.get(pk=14)
-        counter = 0
         parameters = ''
         for item in self.object_list:
-            counter = counter + 1
             parameters = u'%s,%s,%s|' % (parameters, item.id,0)
         if parameters.startswith(',') or parameters.startswith('|'):
             parameters = parameters[1:]

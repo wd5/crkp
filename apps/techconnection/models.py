@@ -32,6 +32,10 @@ class Electroload(models.Model):
     def get_src_image(self):
         return self.icon.url
 
+    def delete(self, **kwargs):
+        if self.id != 1:
+            super(Electroload, self).delete(**kwargs)
+
 count_choices = (
     (u'single',u'фиксированное количество'),
     (u'interval',u'интервал'),
@@ -44,7 +48,6 @@ class Parameter(models.Model):
     end_count_interval = models.PositiveIntegerField(verbose_name = u'до', blank=True, null=True)
     count = models.PositiveIntegerField(verbose_name = u'фиксированное количество', blank=True, null=True)
     parameter_demand = models.DecimalField(max_digits=6, decimal_places=4, verbose_name=u'коэффициент спроса')
-    parameter_cos = models.DecimalField(max_digits=6, decimal_places=4, verbose_name=u'коэффициент cosф')
 
     def __unicode__(self):
         return u'параметр №%s для электропотребителя "%s"' % (self.id, self.electroload.title)

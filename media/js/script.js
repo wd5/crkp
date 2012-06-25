@@ -72,7 +72,28 @@ $(function(){
 
     $('.btn_save').live('click',function(){
         var parent = $(this).parent();
-        parent.parent().find('.calc_qty_btn').val(parent.find('.calc_qty_input').val());
+        var id = $(this).parent().parent().find('.calc_qty_id').val();
+        var parameters = $('#parameters').val();
+        var curr_count = parent.find('.calc_qty_input').val()
+        parent.parent().find('.calc_qty_btn').val(curr_count);
+        parameters_array = parameters.split('|');
+        length = parameters_array.length
+        for (var i = 0; i <= length-1; i++)
+            {
+                part = parameters_array[i].split(',')
+                if (part[0]==id)
+                    {
+                        if (id=='added')
+                            {var added_id = $(this).parent().parent().find('.calc_qty_added_id').val();
+                            if (part[1]==added_id)
+                                {part[2]=curr_count}
+                            }
+                        else
+                            {part[1]=curr_count}
+                    }
+                parameters_array[i] = part.join(',')
+            }
+        $('#parameters').val(parameters_array.join('|'))
         parent.hide();
         $('.calc_qty_btn').attr('disabled', false);
     });
@@ -84,13 +105,25 @@ $(function(){
             return false;
         }
     });
-    $('.add_calc_qty_power, .add_calc_qty_kc, .add_calc_qty_cos').live('keypress',function(e){
+    $('.add_calc_qty_power, .add_calc_qty_kc').live('keypress',function(e){
         if( e.which!=46 && e.which!=8 && e.which!=0 && (e.which<48 || e.which>57))
         {
             alert("Только цифры");
             return false;
         }
     });
+
+//    $('.add_calc_qty_power').live('keyup',function(e){
+//        var value = $(this).val();
+//        value = parseFloat(value);
+//        $('.add_calc_qty_power').val(value);
+//    });
+//
+//    $('.add_calc_qty_kc').live('keyup',function(e){
+//        var value = $(this).val();
+//        value = parseFloat(value);
+//        $('.add_calc_qty_kc').val(value);
+//    });
 
     $('.add_calc_qty_count').live('keyup',function(){
         var count = $(this).val();
@@ -109,29 +142,34 @@ $(function(){
         var title = $('.add_calc_qty_title').val()
         var power = $('.add_calc_qty_power').val()
         var kc = $('.add_calc_qty_kc').val()
-        var cos = $('.add_calc_qty_cos').val()
         var count = $('.add_calc_qty_count').val()
-        if ((title=="") || (power=="") || (kc=="") || (cos=="") || (count==""))
+        if ((title=="") || (power=="") || (kc=="") || (count==""))
             {if (title=="")
                 {alert('Введите название!')}
             if (power=="")
                 {alert('Введите коэффициент мощности!')}
             if (kc=="")
                 {alert('Введите коэффициент спроса')}
-            if (cos=="")
-                {alert('Введите коэффициент cosФ!')}
             if (count=="")
                 {alert('Введите количество!')}
             }
         else
-            {
+            {var parameters = $('#parameters').val();
+            add_count = $('#added_count').val();
+            $('#added_count').val(++add_count)
+            parameters_array = parameters.split('|');
+            parameters_array.push('added,'+add_count+','+count+','+power+','+kc)
+            $('#parameters').val(parameters_array.join('|'))
+
             $('.tech_calc_table').append(
                 '<tr class="added"><td class="calc_img_col"></td><td class="calc_name_col"><div>'+title+'</div>' +
                     '<input type="hidden" name="added_power" value="'+power+'">' +
-                    '<input type="hidden" name="added_kc" value="'+kc+'">' +
-                    '<input type="hidden" name="added_cos" value="'+cos+'"></td>'
-                + '<td class="calc_qty_col"><div class="calc_qty"><input class="calc_qty_btn" type="button" value="'+count+'" />' +
-                        '<div class="calc_qty_modal" style="display: none;">'+
+                    '<input type="hidden" name="added_kc" value="'+kc+'"></td>'
+                + '<td class="calc_qty_col"><div class="calc_qty">' +
+                    '<input class="calc_qty_btn" type="button" value="'+count+'" />' +
+                    '<input class="calc_qty_id" type="hidden" value="added" />'+
+                    '<input class="calc_qty_added_id" type="hidden" value="'+add_count+'" />'+
+                        '<div class="calc_qty_modal" style="display: none;">' +
                             '<input class="calc_qty_input" type="text" value="10" />'+
                             '<input class="btn_save" type="button" value="Сохранить" />'+
                             '<input class="btn_cancel" type="button" value="Отменить" />'+

@@ -32,6 +32,7 @@
                     <td class="calc_qty_col">
                         <div class="calc_qty">
                             <input class="calc_qty_btn" type="button" value="0" />
+                            <input class="calc_qty_id" type="hidden" value="{{ electroload.id }}" />
                             <div class="calc_qty_modal" style="display: none;">
                                 <input class="calc_qty_input" type="text" value="10" />
                                 <input class="btn_save" type="button" value="Сохранить" />
@@ -45,7 +46,8 @@
     </div><!--/tech_calc-->
 
     <div style="display: none;">
-        <input type="hidden" name="parameters" value="{{ parameters }}">
+        <input type="hidden" id="parameters" value="{{ parameters }}">
+        <input type="hidden" id="added_count" value="0">
         <div class="modal faq_modal" id="add_form">
             <div class="modal_in">
                 <h2 class="modal_h">Добавить другой электропотребитель</h2>
@@ -61,10 +63,6 @@
                     <div class="input">
                         <label>Коэффициент спроса</label>
                         <input class="add_calc_qty_kc" type="text" value="" />
-                    </div>
-                    <div class="input">
-                        <label>Коэффициент cosф</label>
-                        <input class="add_calc_qty_cos" type="text" value="" />
                     </div>
                     <div class="input">
                         <label>Количество</label>
