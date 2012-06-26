@@ -75,6 +75,9 @@ $(function(){
         var id = $(this).parent().parent().find('.calc_qty_id').val();
         var parameters = $('#parameters').val();
         var curr_count = parent.find('.calc_qty_input').val()
+        var max_count = parent.parent().find('.calc_qty_max_count').val()
+        if ((curr_count>max_count) && (max_count!=""))
+            {curr_count=max_count;}
         parent.parent().find('.calc_qty_btn').val(curr_count);
         parameters_array = parameters.split('|');
         length = parameters_array.length

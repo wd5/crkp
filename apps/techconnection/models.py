@@ -29,6 +29,20 @@ class Electroload(models.Model):
     def get_parameters(self):
         return self.parameter_set.all()
 
+    def get_parameters_max_count(self):
+        max_count = 0
+        parameters = self.parameter_set.all()
+        for item in parameters:
+            if item.count_type == 'single':
+                if item.count>max_count:
+                    max_count = item.count
+            elif item.count_type == 'interval':
+                if item.end_count_interval>max_count:
+                    max_count = item.end_count_interval
+        if max_count == 0:
+            max_count = ''
+        return max_count
+
     def get_src_image(self):
         return self.icon.url
 
