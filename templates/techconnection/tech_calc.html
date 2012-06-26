@@ -48,6 +48,10 @@
     <div style="display: none;">
         <input type="hidden" id="parameters" value="{{ parameters }}">
         <input type="hidden" id="added_count" value="0">
+        <div class="modal faq_modal" id="calc_result">
+            <div class="modal_in">
+            </div>
+        </div>
         <div class="modal faq_modal" id="add_form">
             <div class="modal_in">
                 <h2 class="modal_h">Добавить другой электропотребитель</h2>
@@ -75,7 +79,7 @@
     </div>
 
     <div class="calc_submit">
-        <div class="btn"><div class="btn_in"><input type="submit" value="Расчитать нагрузки" /></div></div>
+        <div class="btn"><div class="btn_in"><a id="calculate" class="fancybox" href="#calc_result">Расчитать нагрузки</a></div></div>
         <div class="calc_add"><a href="#add_form" class="fancybox">Добавить другой электропотребитель</a></div>
     </div>
 {% endblock %}

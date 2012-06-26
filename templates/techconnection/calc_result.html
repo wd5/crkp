@@ -1,0 +1,19 @@
+<div class="modal_in">
+    {% if result %}
+        Расчетная нагрузка питающих линий и вводов в рабочем и аварийном режимах при совместном питании силовых электроприёмников и освещения, составляет:
+        {{ result|floatformat:-5 }} кВт.
+    {% else %}
+        Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.
+    {% endif %}
+<div style="display: none;"><br>K: {{ K|floatformat:-5 }}<br>
+PpO: {{ PpO|floatformat:-5 }}<br>
+PpO/PpC: {{ div|floatformat:-5 }}<br>
+&nbsp;&nbsp;Ppo: {{ Ppo|floatformat:-5 }}<br>
+&nbsp;&nbsp;Ppb: {{ Ppb|floatformat:-5 }}<br>
+PpC: {{ PpC|floatformat:-5 }}<br>
+&nbsp;&nbsp;Ppc1: {{ Ppc1|floatformat:-5 }}<br>
+&nbsp;&nbsp;Ppc2: {{ Ppc2|floatformat:-5 }}<br>
+&nbsp;&nbsp;Ppc3: {{ Ppc3|floatformat:-5 }}<br>
+&nbsp;&nbsp;Ppc4: {{ Ppc4|floatformat:-5 }}<br>
+&nbsp;&nbsp;PpcAdded: {{ PpcAdded|floatformat:-5 }}<br></div>
+</div>

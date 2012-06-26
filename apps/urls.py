@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     (r'^techconnection/$', 'apps.techconnection.views.show_tech_item', {'slug':'/order/'}),
     (r'^techconnection/rates/$', 'apps.techconnection.views.show_rates_map'),
     (r'^techconnection/techcalc/$', 'apps.techconnection.views.show_techcalc'),
+    (r'^techconnection/techcalc/calculate/$', 'apps.techconnection.views.calculate'),
     (r'^techconnection/(?P<slug>[^/]+)/$', 'apps.techconnection.views.show_tech_item'),
     (r'^showratestable/(?P<slug>[^/]+)/$', 'apps.techconnection.views.show_rates_table'),
 

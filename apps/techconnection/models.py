@@ -33,7 +33,7 @@ class Electroload(models.Model):
         return self.icon.url
 
     def delete(self, **kwargs):
-        if self.id != 1:
+        if self.id != 7:
             super(Electroload, self).delete(**kwargs)
 
 count_choices = (

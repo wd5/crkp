@@ -178,6 +178,24 @@ $(function(){
             }
     });
 
+    $('#calculate').live('click',function(){
+        $('#calc_result .modal_in').html('')
+        $.ajax({
+            url: "/techconnection/techcalc/calculate/",
+            data: {
+                parameters:$('#parameters').val()
+            },
+            type: "POST",
+            success: function(data) {
+                $('#calc_result .modal_in').replaceWith(data);
+            },
+            error:function(jqXHR,textStatus,errorThrown) {
+                $('#calc_result .modal_in').replaceWith(jqXHR.responseText);
+            }
+        });
+        return false;
+    });
+
     /////
 
     $('#send_question').live('click',function(){

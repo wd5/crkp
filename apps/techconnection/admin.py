@@ -25,6 +25,21 @@ class ElectroloadAdmin(AdminImageMixin, admin.ModelAdmin):
     inlines = [
         ParameterAdminInline,
     ]
+    actions=['really_delete_selected']
+
+    def get_actions(self, request):
+        actions = super(ElectroloadAdmin, self).get_actions(request)
+        del actions['delete_selected']
+        return actions
+
+    def really_delete_selected(self, request, queryset):
+        for obj in queryset:
+            if obj.id != 7:
+                obj.delete()
+
+        message_bit = u"%s электропотребителя было" % queryset.count()
+        self.message_user(request, u"%s успешно удалёно." % message_bit)
+    really_delete_selected.short_description = u"Удалить выбранные электропотребители"
 
 class MapPolygonAdminForm(forms.ModelForm):
     table_rates = forms.CharField(
