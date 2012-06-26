@@ -129,7 +129,7 @@ class CalculateView(View):
             else:
                 return HttpResponseBadRequest(
                     "Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
-            PpcAdded = Decimal(PpcAdded)
+            PpcAdded = Decimal('%s' % PpcAdded)
             PpO = Ppo + Ppb
             PpC = Ppc1 + Ppc2 + Ppc3 + Ppc4 + PpcAdded
             if PpO!=0 and PpC!=0:
