@@ -132,7 +132,7 @@ class CalculateView(View):
             PpcAdded = Decimal(PpcAdded)
             PpO = Ppo + Ppb
             PpC = Ppc1 + Ppc2 + Ppc3 + Ppc4 + PpcAdded
-            if PpO!=0 or PpC!=0:
+            if PpO!=0 and PpC!=0:
                 div = PpO/PpC
                 if div>0.2 and div<0.75:
                     if Ppc4==0: K = 0.9
