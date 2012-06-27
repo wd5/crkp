@@ -157,10 +157,12 @@ class ReqFormCheckView(View):
                             email = form.cleaned_data['email']
                         # проверка по черному списку:
                         check_result = CheckRequest('%s %s %s' % (form.cleaned_data['agent_last_name'],form.cleaned_data['agent_first_name'],form.cleaned_data['agent_middle_name']), form.cleaned_data['phone_number'], email)
-                        if check_result:
-                            return HttpResponseBadRequest("Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
-                        else:
-                            saved_object = form.save()
+
+#                        if check_result:
+#                            return HttpResponseBadRequest("Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
+#                        else:
+
+                        saved_object = form.save()
 
                         path = render_to_pdf('services/pdf.html', 'first_serv_%s' % saved_object.pk, {
                             'title': u'Физические лица до 15 кВт (включительно) по 3 категории надежности электроснабжения',
@@ -172,11 +174,19 @@ class ReqFormCheckView(View):
                         saved_object.save()
 
                         RecForm = ReceptionForm()
-                        items_html = render_to_string(
-                            'services/form_load_template.html',
-                                {'form': RecForm, 'case': 'reception_form', 'pdf_path': saved_object.generated_pdf,
-                                 'id_serv': saved_object.pk, 'serv_type': 'first_serv',}
-                        )
+
+                        if check_result:
+                            items_html = render_to_string(
+                                'services/form_load_template.html',
+                                    {'case': 'reception_form', 'pdf_path': saved_object.generated_pdf,}
+                            )
+                            saved_object.delete()
+                        else:
+                            items_html = render_to_string(
+                                'services/form_load_template.html',
+                                    {'form': RecForm, 'case': 'reception_form', 'pdf_path': saved_object.generated_pdf,
+                                     'id_serv': saved_object.pk, 'serv_type': 'first_serv',}
+                            )
                         return HttpResponse(items_html)
                     else:
                         items_html = render_to_string(
@@ -194,10 +204,10 @@ class ReqFormCheckView(View):
                             email = form.cleaned_data['email']
                         # проверка по черному списку:
                         check_result = CheckRequest('%s %s %s' % (form.cleaned_data['agent_last_name'],form.cleaned_data['agent_first_name'],form.cleaned_data['agent_middle_name']), form.cleaned_data['phone_number'], email)
-                        if check_result:
-                            return HttpResponseBadRequest("Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
-                        else:
-                            saved_object = form.save()
+#                        if check_result:
+#                            return HttpResponseBadRequest("Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
+#                        else:
+                        saved_object = form.save()
 
                         path = render_to_pdf('services/pdf.html', 'second_serv_%s' % saved_object.pk, {
                             'title': u'Физические лица до 100 кВт (включительно) по 1,2,3 категории надежности электроснабжения ВРЕМЕННОЕ присоединение',
@@ -209,11 +219,19 @@ class ReqFormCheckView(View):
                         saved_object.save()
 
                         RecForm = ReceptionForm()
-                        items_html = render_to_string(
-                            'services/form_load_template.html',
-                                {'form': RecForm, 'case': 'reception_form', 'pdf_path': saved_object.generated_pdf,
-                                 'id_serv': saved_object.pk, 'serv_type': 'second_serv'}
-                        )
+
+                        if check_result:
+                            items_html = render_to_string(
+                                'services/form_load_template.html',
+                                    {'case': 'reception_form', 'pdf_path': saved_object.generated_pdf,}
+                            )
+                            saved_object.delete()
+                        else:
+                            items_html = render_to_string(
+                                'services/form_load_template.html',
+                                    {'form': RecForm, 'case': 'reception_form', 'pdf_path': saved_object.generated_pdf,
+                                     'id_serv': saved_object.pk, 'serv_type': 'second_serv'}
+                            )
                         return HttpResponse(items_html)
                     else:
                         items_html = render_to_string(
@@ -231,10 +249,10 @@ class ReqFormCheckView(View):
                             email = form.cleaned_data['email']
                         # проверка по черному списку:
                         check_result = CheckRequest('%s %s %s' % (form.cleaned_data['agent_last_name'],form.cleaned_data['agent_first_name'],form.cleaned_data['agent_middle_name']), form.cleaned_data['phone_number'], email)
-                        if check_result:
-                            return HttpResponseBadRequest("Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
-                        else:
-                            saved_object = form.save()
+#                        if check_result:
+#                            return HttpResponseBadRequest("Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
+#                        else:
+                        saved_object = form.save()
 
                         path = render_to_pdf('services/pdf.html', 'third_serv_%s' % saved_object.pk, {
                             'title': u'Юридические лица и индивидуальные предприниматели до 100 кВт (включительно) по 1, 2, 3 категории надежности электроснабжения ВРЕМЕННОЕ присоединение',
@@ -246,11 +264,19 @@ class ReqFormCheckView(View):
                         saved_object.save()
 
                         RecForm = ReceptionForm()
-                        items_html = render_to_string(
-                            'services/form_load_template.html',
-                                {'form': RecForm, 'case': 'reception_form', 'pdf_path': saved_object.generated_pdf,
-                                 'id_serv': saved_object.pk, 'serv_type': 'third_serv'}
-                        )
+
+                        if check_result:
+                            items_html = render_to_string(
+                                'services/form_load_template.html',
+                                    {'case': 'reception_form', 'pdf_path': saved_object.generated_pdf,}
+                            )
+                            saved_object.delete()
+                        else:
+                            items_html = render_to_string(
+                                'services/form_load_template.html',
+                                    {'form': RecForm, 'case': 'reception_form', 'pdf_path': saved_object.generated_pdf,
+                                     'id_serv': saved_object.pk, 'serv_type': 'third_serv'}
+                            )
                         return HttpResponse(items_html)
                     else:
                         items_html = render_to_string(
@@ -268,10 +294,10 @@ class ReqFormCheckView(View):
                             email = form.cleaned_data['email']
                         # проверка по черному списку:
                         check_result = CheckRequest('%s %s %s' % (form.cleaned_data['agent_last_name'],form.cleaned_data['agent_first_name'],form.cleaned_data['agent_middle_name']), form.cleaned_data['phone_number'], email)
-                        if check_result:
-                            return HttpResponseBadRequest("Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
-                        else:
-                            saved_object = form.save()
+#                        if check_result:
+#                            return HttpResponseBadRequest("Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
+#                        else:
+                        saved_object = form.save()
 
                         path = render_to_pdf('services/pdf.html', 'fourth_serv_%s' % saved_object.pk, {
                             'title': u'Юридические лица и индивидуальные предприниматели до 750 кВА (включительно) по 1, 2, 3 категории надежности электроснабжения',
@@ -283,11 +309,19 @@ class ReqFormCheckView(View):
                         saved_object.save()
 
                         RecForm = ReceptionForm()
-                        items_html = render_to_string(
-                            'services/form_load_template.html',
-                                {'form': RecForm, 'case': 'reception_form', 'pdf_path': saved_object.generated_pdf,
-                                 'id_serv': saved_object.pk, 'serv_type': 'fourth_serv'}
-                        )
+
+                        if check_result:
+                            items_html = render_to_string(
+                                'services/form_load_template.html',
+                                    {'case': 'reception_form', 'pdf_path': saved_object.generated_pdf,}
+                            )
+                            saved_object.delete()
+                        else:
+                            items_html = render_to_string(
+                                'services/form_load_template.html',
+                                    {'form': RecForm, 'case': 'reception_form', 'pdf_path': saved_object.generated_pdf,
+                                     'id_serv': saved_object.pk, 'serv_type': 'fourth_serv'}
+                            )
                         return HttpResponse(items_html)
                     else:
                         items_html = render_to_string(
@@ -305,10 +339,10 @@ class ReqFormCheckView(View):
                             email = form.cleaned_data['email']
                         # проверка по черному списку:
                         check_result = CheckRequest('%s %s %s' % (form.cleaned_data['agent_last_name'],form.cleaned_data['agent_first_name'],form.cleaned_data['agent_middle_name']), form.cleaned_data['phone_number'], email)
-                        if check_result:
-                            return HttpResponseBadRequest("Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
-                        else:
-                            saved_object = form.save()
+#                        if check_result:
+#                            return HttpResponseBadRequest("Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
+#                        else:
+                        saved_object = form.save()
 
                         path = render_to_pdf('services/pdf.html', 'fifth_serv_%s' % saved_object.pk, {
                             'title': u'Юридические лица и индивидуальные предприниматели свыше 750 кВА по 1,2,3 категории надежности электроснабжения',
@@ -320,11 +354,19 @@ class ReqFormCheckView(View):
                         saved_object.save()
 
                         RecForm = ReceptionForm()
-                        items_html = render_to_string(
-                            'services/form_load_template.html',
-                                {'form': RecForm, 'case': 'reception_form', 'pdf_path': saved_object.generated_pdf,
-                                 'id_serv': saved_object.pk, 'serv_type': 'fifth_serv'}
-                        )
+
+                        if check_result:
+                            items_html = render_to_string(
+                                'services/form_load_template.html',
+                                    {'case': 'reception_form', 'pdf_path': saved_object.generated_pdf,}
+                            )
+                            saved_object.delete()
+                        else:
+                            items_html = render_to_string(
+                                'services/form_load_template.html',
+                                    {'form': RecForm, 'case': 'reception_form', 'pdf_path': saved_object.generated_pdf,
+                                     'id_serv': saved_object.pk, 'serv_type': 'fifth_serv'}
+                            )
                         return HttpResponse(items_html)
                     else:
                         items_html = render_to_string(

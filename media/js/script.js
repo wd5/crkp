@@ -150,9 +150,9 @@ $(function(){
             {if (title=="")
                 {alert('Введите название!')}
             if (power=="")
-                {alert('Введите коэффициент мощности!')}
+                {alert('Введите мощность (P)!')}
             if (kc=="")
-                {alert('Введите коэффициент спроса')}
+                {alert('Введите коэффициент спроса (К.с.)')}
             if (count=="")
                 {alert('Введите количество!')}
             }
@@ -211,7 +211,7 @@ $(function(){
             type: "POST",
             success: function(data) {
                 if (data=='success')
-                    {$('.modal').replaceWith("Спасибо за вопрос, мы постараемся ответить на него в самое ближайшее время!");}
+                    {$('.modal').replaceWith("<div style='height: 150px;text-align: center;padding-top: 75px;'>Спасибо за вопрос, мы постараемся ответить на него в самое ближайшее время!</div>");}
                 else{
                     $('.modal').replaceWith(data);
                 }

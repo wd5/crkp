@@ -1577,7 +1577,8 @@
     		<p>Вы можете ее <a href="/media/{{ pdf_path }}">скачать или распечатать</a>.</p>
     	</div>
 
-    	<div class="modal_pl">
+    {% if form %}
+        <div class="modal_pl">
     		<h2>Запись на приём</h2>
     		<div>
     			<div class="modal_2col">
@@ -1623,6 +1624,8 @@
             <input type="hidden" value="{{ serv_type }}" id="serv_type">
         </div>
     	<div class="modal_btn"><div class="btn"><div class="btn_in"><input type="submit" value="Записаться на приём" id="save_reception" /></div></div></div>
+    {% endif %}
+
 {% endifequal %}
 </div>
 </div>

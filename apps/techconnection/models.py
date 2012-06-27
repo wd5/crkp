@@ -12,7 +12,7 @@ def image_path_electroload_icon(instance, filename):
 class Electroload(models.Model):
     icon = ImageField(upload_to=image_path_electroload_icon, verbose_name=u'иконка', blank=True)
     title = models.CharField(max_length=255, verbose_name=u'название')
-    power_parameter = models.DecimalField(max_digits=9, decimal_places=6, verbose_name=u'коэффициент мощности (P)')
+    power_parameter = models.DecimalField(max_digits=9, decimal_places=6, verbose_name=u'Мощность (P)')
     order = models.IntegerField(u'порядок сортировки', help_text=u'Чем больше число, тем выше располагается элемент', default=10)
     is_published = models.BooleanField(verbose_name=u'опубликовано', default=True)
 
@@ -61,7 +61,7 @@ class Parameter(models.Model):
     start_count_interval = models.PositiveIntegerField(verbose_name = u'от', blank=True, null=True)
     end_count_interval = models.PositiveIntegerField(verbose_name = u'до', blank=True, null=True)
     count = models.PositiveIntegerField(verbose_name = u'фиксированное количество', blank=True, null=True)
-    parameter_demand = models.DecimalField(max_digits=6, decimal_places=4, verbose_name=u'коэффициент спроса')
+    parameter_demand = models.DecimalField(max_digits=6, decimal_places=4, verbose_name=u'Коэффициент спроса (К.с.)')
 
     def __unicode__(self):
         return u'параметр №%s для электропотребителя "%s"' % (self.id, self.electroload.title)
