@@ -1173,6 +1173,12 @@ div.faq_modal {
 .modal_block .check label {
 	width: auto;
 }
+
+.neob {
+	/*display: block;
+	font: 11px/16px Arial, Helvetica, Geneva, sans-serif;*/
+	color: #aaa;
+}
 /*/modal*/
 /*-----------------PAGE-END-----------------*/
 
