@@ -103,17 +103,17 @@ class CalculateView(View):
                                         parameter_demand = 0
 
                             if id_el==1 or id_el==2:
-                                Ppo=Ppo+(parameter_demand*power)
+                                Ppo=Ppo+(parameter_demand*power*count_el)
                             elif id_el==3:
-                                Ppb=parameter_demand*power
+                                Ppb=parameter_demand*power*count_el
                             elif id_el==4:
-                                Ppc2=parameter_demand*power
+                                Ppc2=parameter_demand*power*count_el
                             elif id_el==5:
-                                Ppc1=parameter_demand*power
+                                Ppc1=parameter_demand*power*count_el
                             elif id_el==6:
-                                Ppc3=parameter_demand*power
+                                Ppc3=parameter_demand*power*count_el
                             elif id_el==7:
-                                Ppc4=parameter_demand*power
+                                Ppc4=parameter_demand*power*count_el
                     else:
                         power = 0
                         parameter_demand = 0
@@ -125,14 +125,14 @@ class CalculateView(View):
                             return HttpResponseBadRequest(
                                 "Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
                         if count_el!=0:
-                            PpcAdded = PpcAdded+(power*parameter_demand)
+                            PpcAdded = PpcAdded+(power*parameter_demand*count_el)
             else:
                 return HttpResponseBadRequest(
                     "Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
             PpcAdded = Decimal('%s' % PpcAdded)
             PpO = Ppo + Ppb
             PpC = Ppc1 + Ppc2 + Ppc3 + Ppc4 + PpcAdded
-            if PpO!=0 and PpC!=0:
+            if PpC!=0:
                 div = PpO/PpC
                 if div>0.2 and div<0.75:
                     if Ppc4==0: K = 0.9
@@ -145,17 +145,18 @@ class CalculateView(View):
                     else: K = 0.85
                 else:
                     K = 1
-                K = Decimal(K)
-                result = K*(PpO+PpC)
             else:
-                result = False
-                K = False
+                K = 1
                 div = False
+
+            K = Decimal(K)
+            result = K*(PpO+PpC)
 
             items_html = render_to_string(
                 'techconnection/calc_result.html',
                     {'result': result,
                      'K':K,
+                     'SUMM':PpO+PpC,
                      'div':div,
                      'PpO':PpO,
                      'Ppo':Ppo,

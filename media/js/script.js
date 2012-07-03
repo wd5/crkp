@@ -76,7 +76,9 @@ $(function(){
         var parameters = $('#parameters').val();
         var curr_count = parent.find('.calc_qty_input').val()
         var max_count = parent.parent().find('.calc_qty_max_count').val()
-        if ((curr_count>max_count) && (max_count!=""))
+        max_count = parseInt(max_count);
+        curr_count = parseInt(curr_count);
+        if ((curr_count>max_count) && (max_count!=NaN))
             {curr_count=max_count;}
         parent.parent().find('.calc_qty_btn').val(curr_count);
         parameters_array = parameters.split('|');
@@ -621,7 +623,7 @@ function CheckForm(data_fields,type){
         success: function(data) {
             if (type==1)
                 {if (data=='success')
-                    {$('.modal').replaceWith("<div align='center'>Заявка отправлена. Мы свяжемся с вами в ближайшее время!</div>");}
+                    {$('.modal').replaceWith("<div style='height: 150px;text-align: center;padding-top: 75px;'>Заявка отправлена. Мы свяжемся с вами в ближайшее время!</div>");}
                 else
                     {$('.modal').replaceWith(data);}
                 }
@@ -634,7 +636,10 @@ function CheckForm(data_fields,type){
         },
         error:function(jqXHR,textStatus,errorThrown) {
             $('.modal_in').replaceWith(jqXHR.responseText);
-            $('body,html,document').animate({scrollTop:0},"slow");
+            if (type==2)
+                {
+                    $('body,html,document').animate({scrollTop:0},"slow");
+                }
         }
     });
 }

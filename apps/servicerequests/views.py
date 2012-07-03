@@ -19,13 +19,13 @@ class ReqFormLoaderView(View):
             id = int(id)
         except ValueError:
             return HttpResponseBadRequest(
-                "Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
+                "<div style='height: 150px;text-align: center;padding-top: 75px;'>Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.</div>")
         try:
             service_curr = Service.objects.get(pk=id)
             service_title = service_curr.title
         except Service.DoesNotExist:
             return HttpResponseBadRequest(
-                "Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
+                "<div style='height: 150px;text-align: center;padding-top: 75px;'>Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.</div>")
 
         if id in [1, 2, 3, 4, 5]:
             if id == 1:
@@ -107,7 +107,7 @@ class ReqFormCheckView(View):
             data = request.POST.copy()
             if 'form_type' not in request.POST:
                 return HttpResponseBadRequest(
-                    "Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
+                    "<div style='height: 150px;text-align: center;padding-top: 75px;'>Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.</div>")
             else:
                 form_type = request.POST['form_type']
                 if form_type == 'typical':
@@ -128,9 +128,27 @@ class ReqFormCheckView(View):
                         check_result = CheckRequest(form.cleaned_data['full_name'], phonenumber, email)
                         if check_result:
                             return HttpResponseBadRequest(
-                                "Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
+                                "<div style='height: 150px;text-align: center;padding-top: 75px;'>Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.</div>")
                         else:
-                            form.save()
+                            saved_object = form.save()
+
+                            subject = u'ООО ЦРКП - Информация о добавлении заявки.'
+                            subject = u''.join(subject.splitlines())
+                            message = render_to_string(
+                                'services/message_template_2.html',
+                                    {
+                                    'saved_object': saved_object,
+                                    }
+                            )
+                            try:
+                                emailto = Settings.objects.get(name='workemail').value
+                            except Settings.DoesNotExist:
+                                emailto = False
+
+                            if emailto:
+                                msg = EmailMessage(subject, message, settings.DEFAULT_FROM_EMAIL, [emailto])
+                                msg.content_subtype = "html"
+                                msg.send()
                             return HttpResponse('success')
                     else:
                         id = request.POST['service']
@@ -138,7 +156,7 @@ class ReqFormCheckView(View):
                             id = int(id)
                         except ValueError:
                             return HttpResponseBadRequest(
-                                "Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
+                                "<div style='height: 150px;text-align: center;padding-top: 75px;'>Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.</div>")
                         service_set = Service.objects.filter(pk=id)
                         form.fields['service'].queryset = service_set
                         service_title = Service.objects.get(pk=id).title
@@ -159,7 +177,7 @@ class ReqFormCheckView(View):
                         check_result = CheckRequest('%s %s %s' % (form.cleaned_data['agent_last_name'],form.cleaned_data['agent_first_name'],form.cleaned_data['agent_middle_name']), form.cleaned_data['phone_number'], email)
 
 #                        if check_result:
-#                            return HttpResponseBadRequest("Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
+#                            return HttpResponseBadRequest("<div style='height: 150px;text-align: center;padding-top: 75px;'>Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.</div>")
 #                        else:
 
                         saved_object = form.save()
@@ -205,7 +223,7 @@ class ReqFormCheckView(View):
                         # проверка по черному списку:
                         check_result = CheckRequest('%s %s %s' % (form.cleaned_data['agent_last_name'],form.cleaned_data['agent_first_name'],form.cleaned_data['agent_middle_name']), form.cleaned_data['phone_number'], email)
 #                        if check_result:
-#                            return HttpResponseBadRequest("Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
+#                            return HttpResponseBadRequest("<div style='height: 150px;text-align: center;padding-top: 75px;'>Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.</div>")
 #                        else:
                         saved_object = form.save()
 
@@ -250,7 +268,7 @@ class ReqFormCheckView(View):
                         # проверка по черному списку:
                         check_result = CheckRequest('%s %s %s' % (form.cleaned_data['agent_last_name'],form.cleaned_data['agent_first_name'],form.cleaned_data['agent_middle_name']), form.cleaned_data['phone_number'], email)
 #                        if check_result:
-#                            return HttpResponseBadRequest("Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
+#                            return HttpResponseBadRequest("<div style='height: 150px;text-align: center;padding-top: 75px;'>Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.</div>")
 #                        else:
                         saved_object = form.save()
 
@@ -295,7 +313,7 @@ class ReqFormCheckView(View):
                         # проверка по черному списку:
                         check_result = CheckRequest('%s %s %s' % (form.cleaned_data['agent_last_name'],form.cleaned_data['agent_first_name'],form.cleaned_data['agent_middle_name']), form.cleaned_data['phone_number'], email)
 #                        if check_result:
-#                            return HttpResponseBadRequest("Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
+#                            return HttpResponseBadRequest("<div style='height: 150px;text-align: center;padding-top: 75px;'>Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.</div>")
 #                        else:
                         saved_object = form.save()
 
@@ -340,7 +358,7 @@ class ReqFormCheckView(View):
                         # проверка по черному списку:
                         check_result = CheckRequest('%s %s %s' % (form.cleaned_data['agent_last_name'],form.cleaned_data['agent_first_name'],form.cleaned_data['agent_middle_name']), form.cleaned_data['phone_number'], email)
 #                        if check_result:
-#                            return HttpResponseBadRequest("Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
+#                            return HttpResponseBadRequest("<div style='height: 150px;text-align: center;padding-top: 75px;'>Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.</div>")
 #                        else:
                         saved_object = form.save()
 
@@ -382,7 +400,7 @@ class ReqFormCheckView(View):
                             id_serv = int(request.POST['id_serv'])
                         except:
                             return HttpResponseBadRequest(
-                                "Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
+                                "<div style='height: 150px;text-align: center;padding-top: 75px;'>Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.</div>")
 
                         if request.POST['serv_type'] == 'first_serv':
                             try:
@@ -390,7 +408,7 @@ class ReqFormCheckView(View):
                                 related_serv = FirstServRequest.objects.get(pk=id_serv)
                             except FirstServRequest.DoesNotExist:
                                 return HttpResponseBadRequest(
-                                    "Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
+                                    "<div style='height: 150px;text-align: center;padding-top: 75px;'>Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.</div>")
 
                         if request.POST['serv_type'] == 'second_serv':
                             try:
@@ -398,7 +416,7 @@ class ReqFormCheckView(View):
                                 related_serv = SecondServRequest.objects.get(pk=id_serv)
                             except SecondServRequest.DoesNotExist:
                                 return HttpResponseBadRequest(
-                                    "Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
+                                    "<div style='height: 150px;text-align: center;padding-top: 75px;'>Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.</div>")
 
                         if request.POST['serv_type'] == 'third_serv':
                             try:
@@ -406,7 +424,7 @@ class ReqFormCheckView(View):
                                 related_serv = ThirdServRequest.objects.get(pk=id_serv)
                             except ThirdServRequest.DoesNotExist:
                                 return HttpResponseBadRequest(
-                                    "Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
+                                    "<div style='height: 150px;text-align: center;padding-top: 75px;'>Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.</div>")
 
                         if request.POST['serv_type'] == 'fourth_serv':
                             try:
@@ -414,7 +432,7 @@ class ReqFormCheckView(View):
                                 related_serv = FourthServRequest.objects.get(pk=id_serv)
                             except FourthServRequest.DoesNotExist:
                                 return HttpResponseBadRequest(
-                                    "Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
+                                    "<div style='height: 150px;text-align: center;padding-top: 75px;'>Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.</div>")
 
                         if request.POST['serv_type'] == 'fifth_serv':
                             try:
@@ -422,7 +440,7 @@ class ReqFormCheckView(View):
                                 related_serv = FifthServRequest.objects.get(pk=id_serv)
                             except FifthServRequest.DoesNotExist:
                                 return HttpResponseBadRequest(
-                                    "Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
+                                    "<div style='height: 150px;text-align: center;padding-top: 75px;'>Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.</div>")
 
                         related_serv.connection_request = saved_object
                         related_serv.save()
@@ -455,6 +473,6 @@ class ReqFormCheckView(View):
                         return HttpResponse(items_html)
         else:
             return HttpResponseBadRequest(
-                "Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.")
+                "<div style='height: 150px;text-align: center;padding-top: 75px;'>Произошла непредвиденная ошибка во время обработки данных. Приносим наши извинения.</div>")
 
 check_request_form = ReqFormCheckView.as_view()
