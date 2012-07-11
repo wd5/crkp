@@ -1,5 +1,17 @@
 <div class="modal">
 <div class="modal_in">
+
+<script type="text/javascript">
+    jQuery(function($){
+        $("#id_phone_number").mask("+7 (999) 999-9999");
+        $("#id_phonenumber").mask("+7 (999) 999-9999");
+        $("#id_reception_time").mask("99:99");
+        $("#id_passport_issued_date").mask("99.99.9999");
+        $("#id_authority_date").mask("99.99.9999");
+        $("#id_egrul_date").mask("99.99.9999");
+    });
+</script>
+
 {% ifequal case 'typical' %}
         <h2 class="modal_h">Заявка на {{ service_title|lower }}</h2>
         <form action="" class="modal_form" method="post">
@@ -411,12 +423,13 @@
                 <div class="input">{{ form.third_max_power }}
                 кВт {{ form.third_max_power.errors }}</div>
             </div>
+            {{ form.non_field_errors }}
     	</div>
 
         <div class="modal_block">
        		<div class="modal_block_num">8</div>
        		<div class="input">
-       			<label>Характер нагрузки потребителя электрической энергии</label>
+       			<label class="neob">Характер нагрузки потребителя электрической энергии</label>
                    {{ form.load_type }}
                    {{ form.load_type.errors }}
        		</div>
@@ -661,12 +674,13 @@
                 <div class="input">{{ form.third_max_power }}
                 кВт {{ form.third_max_power.errors }}</div>
             </div>
-    	</div>
+            {{ form.non_field_errors  }}
+        </div>
 
         <div class="modal_block">
        		<div class="modal_block_num">7</div>
        		<div class="input">
-       			<label>Характер нагрузки потребителя электрической энергии</label>
+       			<label class="neob">Характер нагрузки потребителя электрической энергии</label>
                    {{ form.load_type }}
                    {{ form.load_type.errors }}
        		</div>
@@ -704,12 +718,12 @@
 
             <div class="input">
                 <span class="modal_block_short_1">
-                    <label class="neob">Доверенность №</label>
+                    <label>Доверенность №</label>
                     {{ form.authority_number }}
                     {{ form.authority_number.errors }}
                 </span>
                 <span class="modal_block_short_2" title="{{ form.authority_date.help_text }}">
-                    <label class="neob">от</label>
+                    <label>от</label>
                     {{ form.authority_date }}
                     {{ form.authority_date.errors }}
                 </span>
@@ -721,23 +735,23 @@
                     {{ form.phone_number.errors }}
                 </span>
                 <span class="modal_block_short_2">
-                    <label class="neob">Факс</label>
+                    <label>Факс</label>
                     {{ form.fax }}
                     {{ form.fax.errors }}
                 </span>
             </div>
             <div class="input">
-                <label class="neob">E-mail</label>
+                <label>E-mail</label>
                 {{ form.email }}
                 {{ form.email.errors }}
             </div>
             <div class="input">
-                <label class="neob">{{ form.director_post.label }}</label>
+                <label>{{ form.director_post.label }}</label>
                 {{ form.director_post }}
                 {{ form.director_post.errors }}
             </div>
             <div class="input">
-                <label class="neob">{{ form.director_full_name.label }}</label>
+                <label>{{ form.director_full_name.label }}</label>
                 {{ form.director_full_name }}
                 {{ form.director_full_name.errors }}
             </div>
@@ -965,12 +979,13 @@
                 <div class="input">{{ form.third_max_power }}
                 кВт {{ form.third_max_power.errors }}</div>
             </div>
-    	</div>
+            {{ form.non_field_errors  }}
+        </div>
 
         <div class="modal_block">
             <div class="modal_block_num">6</div>
             <div class="input">
-                <label>Количество точек присоединения с указанием технических параметров элементов энергопринимающих устройств</label>
+                <label class="neob">Количество точек присоединения с указанием технических параметров элементов энергопринимающих устройств</label>
                    {{ form.count_conn_points }}
                    {{ form.count_conn_points.errors }}
             </div>
@@ -979,7 +994,7 @@
         <div class="modal_block">
        		<div class="modal_block_num">7</div>
        		<div class="input">
-       			<label>Характер нагрузки потребителя электрической энергии (вид производственной деятельности)</label>
+       			<label class="neob">Характер нагрузки потребителя электрической энергии (вид производственной деятельности)</label>
                    {{ form.load_type }}
                    {{ form.load_type.errors }}
        		</div>
@@ -988,7 +1003,7 @@
         <div class="modal_block">
             <div class="modal_block_num">8</div>
             <div class="input">
-                <label>Поэтапное распределение мощности, сроков ввода и сведения о категории надежности электроснабжения, при вводе энергопринимающих устройств по этапам и очередям</label>
+                <label class="neob">Поэтапное распределение мощности, сроков ввода и сведения о категории надежности электроснабжения, при вводе энергопринимающих устройств по этапам и очередям</label>
                 {{ form.power_distribution }}
                 {{ form.power_distribution.errors }}
             </div>
@@ -1026,12 +1041,12 @@
 
             <div class="input">
                 <span class="modal_block_short_1">
-                    <label class="neob">Доверенность №</label>
+                    <label>Доверенность №</label>
                     {{ form.authority_number }}
                     {{ form.authority_number.errors }}
                 </span>
                 <span class="modal_block_short_2" title="{{ form.authority_date.help_text }}">
-                    <label class="neob">от</label>
+                    <label>от</label>
                     {{ form.authority_date }}
                     {{ form.authority_date.errors }}
                 </span>
@@ -1043,23 +1058,23 @@
                     {{ form.phone_number.errors }}
                 </span>
                 <span class="modal_block_short_2">
-                    <label class="neob">Факс</label>
+                    <label>Факс</label>
                     {{ form.fax }}
                     {{ form.fax.errors }}
                 </span>
             </div>
             <div class="input">
-                <label class="neob">E-mail</label>
+                <label>E-mail</label>
                 {{ form.email }}
                 {{ form.email.errors }}
             </div>
             <div class="input">
-                <label class="neob">{{ form.director_post.label }}</label>
+                <label>{{ form.director_post.label }}</label>
                 {{ form.director_post }}
                 {{ form.director_post.errors }}
             </div>
             <div class="input">
-                <label class="neob">{{ form.director_full_name.label }}</label>
+                <label>{{ form.director_full_name.label }}</label>
                 {{ form.director_full_name }}
                 {{ form.director_full_name.errors }}
             </div>
@@ -1300,12 +1315,13 @@
                 <div class="input">{{ form.third_max_power }}
                 кВт {{ form.third_max_power.errors }}</div>
             </div>
+            {{ form.non_field_errors  }}
     	</div>
 
         <div class="modal_block">
             <div class="modal_block_num">6</div>
             <div class="input">
-                <label>Количество и мощность присоединяемых к сети трансформаторов</label>
+                <label class="neob">Количество и мощность присоединяемых к сети трансформаторов</label>
                    {{ form.cnt_pwr_transformers }}
                    {{ form.cnt_pwr_transformers.errors }}
             </div>
@@ -1314,7 +1330,7 @@
         <div class="modal_block">
             <div class="modal_block_num">7</div>
             <div class="input">
-                <label>Количество и мощность присоединяемых к сети генераторов</label>
+                <label class="neob">Количество и мощность присоединяемых к сети генераторов</label>
                    {{ form.cnt_pwr_generators }}
                    {{ form.cnt_pwr_generators.errors }}
             </div>
@@ -1323,7 +1339,7 @@
         <div class="modal_block">
             <div class="modal_block_num">8</div>
             <div class="input">
-                <label>Количество точек присоединения с указанием технических параметров элементов энергопринимающих устройств</label>
+                <label class="neob">Количество точек присоединения с указанием технических параметров элементов энергопринимающих устройств</label>
                    {{ form.count_conn_points }}
                    {{ form.count_conn_points.errors }}
             </div>
@@ -1332,7 +1348,7 @@
         <div class="modal_block">
        		<div class="modal_block_num">9</div>
        		<div class="input">
-       			<label>Характер нагрузки потребителя электрической энергии (вид производственной деятельности)</label>
+       			<label class="neob">Характер нагрузки потребителя электрической энергии (вид производственной деятельности)</label>
                    {{ form.load_type }}
                    {{ form.load_type.errors }}
        		</div>
@@ -1341,7 +1357,7 @@
         <div class="modal_block">
             <div class="modal_block_num">10</div>
             <div class="input">
-                <label>Величина и обоснование величины технологического минимума (для генераторов)</label>
+                <label class="neob">Величина и обоснование величины технологического минимума (для генераторов)</label>
                 {{ form.tech_min_generators }}
                 {{ form.tech_min_generators.errors }}
             </div>
@@ -1350,7 +1366,7 @@
         <div class="modal_block">
             <div class="modal_block_num">11</div>
             <div class="input">
-                <label>Величина и обоснование величины технологической брони (для потребителей электрической энергии)</label>
+                <label class="neob">Величина и обоснование величины технологической брони (для потребителей электрической энергии)</label>
                 {{ form.tech_armor_consumer }}
                 {{ form.tech_armor_consumer.errors }}
             </div>
@@ -1359,7 +1375,7 @@
         <div class="modal_block">
             <div class="modal_block_num">12</div>
             <div class="input">
-                <label>Величина и обоснование величины аварийной брони (для потребителей электрической энергии)</label>
+                <label class="neob">Величина и обоснование величины аварийной брони (для потребителей электрической энергии)</label>
                 {{ form.tech_emergency_armor_consumer }}
                 {{ form.tech_emergency_armor_consumer.errors }}
             </div>
@@ -1368,7 +1384,7 @@
         <div class="modal_block">
             <div class="modal_block_num">13</div>
             <div class="input">
-                <label>Поэтапное распределение мощности, сроков ввода и сведения о категории надежности электроснабжения, при вводе энергопринимающих устройств по этапам и очередям</label>
+                <label class="neob">Поэтапное распределение мощности, сроков ввода и сведения о категории надежности электроснабжения, при вводе энергопринимающих устройств по этапам и очередям</label>
                 {{ form.power_distribution }}
                 {{ form.power_distribution.errors }}
             </div>
@@ -1406,12 +1422,12 @@
 
             <div class="input">
                 <span class="modal_block_short_1">
-                    <label class="neob">Доверенность №</label>
+                    <label>Доверенность №</label>
                     {{ form.authority_number }}
                     {{ form.authority_number.errors }}
                 </span>
                 <span class="modal_block_short_2" title="{{ form.authority_date.help_text }}">
-                    <label class="neob">от</label>
+                    <label>от</label>
                     {{ form.authority_date }}
                     {{ form.authority_date.errors }}
                 </span>
@@ -1423,23 +1439,23 @@
                     {{ form.phone_number.errors }}
                 </span>
                 <span class="modal_block_short_2">
-                    <label class="neob">Факс</label>
+                    <label>Факс</label>
                     {{ form.fax }}
                     {{ form.fax.errors }}
                 </span>
             </div>
             <div class="input">
-                <label class="neob">E-mail</label>
+                <label>E-mail</label>
                 {{ form.email }}
                 {{ form.email.errors }}
             </div>
             <div class="input">
-                <label class="neob">{{ form.director_post.label }}</label>
+                <label>{{ form.director_post.label }}</label>
                 {{ form.director_post }}
                 {{ form.director_post.errors }}
             </div>
             <div class="input">
-                <label class="neob">{{ form.director_full_name.label }}</label>
+                <label>{{ form.director_full_name.label }}</label>
                 {{ form.director_full_name }}
                 {{ form.director_full_name.errors }}
             </div>

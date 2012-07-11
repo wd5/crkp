@@ -191,7 +191,8 @@ class ReqFormCheckView(View):
                         saved_object.generated_pdf = 'uploads/files/guests/guest_first_serv_%s.pdf' % saved_object.pk
                         saved_object.save()
 
-                        RecForm = ReceptionForm()
+                        RecForm = ReceptionForm(initial={'last_name':saved_object.agent_last_name, 'first_name':saved_object.agent_first_name,
+                                                         'middle_name':saved_object.agent_middle_name, 'phonenumber':saved_object.phone_number,})
 
                         if check_result:
                             items_html = render_to_string(
@@ -236,7 +237,8 @@ class ReqFormCheckView(View):
                         saved_object.generated_pdf = 'uploads/files/guests/guest_second_serv_%s.pdf' % saved_object.pk
                         saved_object.save()
 
-                        RecForm = ReceptionForm()
+                        RecForm = ReceptionForm(initial={'last_name':saved_object.agent_last_name, 'first_name':saved_object.agent_first_name,
+                                                         'middle_name':saved_object.agent_middle_name, 'phonenumber':saved_object.phone_number,})
 
                         if check_result:
                             items_html = render_to_string(
@@ -281,7 +283,8 @@ class ReqFormCheckView(View):
                         saved_object.generated_pdf = 'uploads/files/guests/guest_third_serv_%s.pdf' % saved_object.pk
                         saved_object.save()
 
-                        RecForm = ReceptionForm()
+                        RecForm = ReceptionForm(initial={'last_name':saved_object.agent_last_name, 'first_name':saved_object.agent_first_name,
+                                                         'middle_name':saved_object.agent_middle_name, 'phonenumber':saved_object.phone_number,})
 
                         if check_result:
                             items_html = render_to_string(
@@ -326,7 +329,8 @@ class ReqFormCheckView(View):
                         saved_object.generated_pdf = 'uploads/files/guests/guest_fourth_serv_%s.pdf' % saved_object.pk
                         saved_object.save()
 
-                        RecForm = ReceptionForm()
+                        RecForm = ReceptionForm(initial={'last_name':saved_object.agent_last_name, 'first_name':saved_object.agent_first_name,
+                                                         'middle_name':saved_object.agent_middle_name, 'phonenumber':saved_object.phone_number,})
 
                         if check_result:
                             items_html = render_to_string(
@@ -371,7 +375,8 @@ class ReqFormCheckView(View):
                         saved_object.generated_pdf = 'uploads/files/guests/guest_fifth_serv_%s.pdf' % saved_object.pk
                         saved_object.save()
 
-                        RecForm = ReceptionForm()
+                        RecForm = ReceptionForm(initial={'last_name':saved_object.agent_last_name, 'first_name':saved_object.agent_first_name,
+                                                         'middle_name':saved_object.agent_middle_name, 'phonenumber':saved_object.phone_number,})
 
                         if check_result:
                             items_html = render_to_string(

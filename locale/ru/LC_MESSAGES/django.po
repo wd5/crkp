@@ -229,6 +229,12 @@ msgstr "документ"
 msgid "documents"
 msgstr "документы для услуг"
 
+msgid "doc_image"
+msgstr "изображение"
+
+msgid "doc_images"
+msgstr "изображения к документу"
+
 #: apps/siteblocks/__init__.py:2
 msgid "siteblocks"
 msgstr "блоки сайта"

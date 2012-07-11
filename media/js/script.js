@@ -658,15 +658,17 @@ function AjaxLoadSrv(id_srv){
 }
 
 function SetFancy(){
-    $('.fancybox').fancybox();
-    $('.fancybox-big').fancybox({
-        'centerOnScroll':true,
-        'onComplete': function() {
-            var dh = $('body').height();
-            $('#fancybox-overlay').height(dh);
-            $('#fancybox-wrap').animate({top:"10px"},"slow");
 
-            $('body,html,document').animate({scrollTop:0},"slow");
+    $('.fancybox').fancybox({helpers: {overlay : {opacity: 0.5}}});
+
+    $('.fancybox-big').fancybox({
+        helpers: {overlay : {opacity: 0.5}},
+        fitToView:false,
+        afterLoad: function() {
+            var dh = $('body').height();
+            //$('#fancybox-overlay').height(dh);
+            //$('#fancybox-wrap').animate({top:'10px'},"slow");
+            $('body,html,document').animate({scrollTop:0},"fast");
 
             if ($('.wrapper').height()<$('.modal').height())
                 {

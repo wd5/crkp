@@ -15,3 +15,9 @@ msgstr "документ"
 
 msgid "documents"
 msgstr "документы для услуг"
+
+msgid "doc_image"
+msgstr "изображение"
+
+msgid "doc_images"
+msgstr "изображения к документу"

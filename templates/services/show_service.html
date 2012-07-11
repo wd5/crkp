@@ -57,7 +57,21 @@
                 <div class="docs_zs">
                     {% for doc in service.get_docs_zs %}
                         <div class="doc_zs">
-                            {{ doc.description|safe }}
+
+                            {% if doc.get_images and not doc.is_link %}
+                                {% for doc_image in doc.get_images %}
+                                    {% thumbnail doc_image.image "1000" upscale=0 as big %}
+                                        {% if forloop.first %}
+                                            <a href="{{ big.url }}" rel="{{ doc.id }}" class="fancybox">{{ doc.description|safe }}</a>
+                                        {% else %}
+                                            <a href="{{ big.url }}" style="display: none;" rel="{{ doc.id }}" class="fancybox">{{ doc_image.id }}</a>
+                                        {% endif %}
+                                    {% endthumbnail %}
+                                {% endfor %}
+                            {% else %}
+                                {{ doc.description|safe }}
+                            {% endif %}
+
                         </div>
                     {% endfor %}
                 </div>
@@ -70,7 +84,7 @@
             </div>
         </div>
 
-        <div class="btn"><div class="btn_in"><a href="/services/requestform/{{ service.id }}/" class="{% if service.id != 1 %}fancybox{% else %}fancybox-big{% endif %}">{{ service.button_title }}</a></div></div>
+        <div class="btn"><div class="btn_in"><a href="/services/requestform/{{ service.id }}/" class="{% if service.id != 1 %}fancybox{% else %}fancybox-big {% endif %} fancybox.ajax">{{ service.button_title }}</a></div></div>
     {% endif %}
 </div>
 

@@ -14,12 +14,12 @@
         <img src="/media/img/connect_map.png" width="463" height="542" alt="" usemap="#connect_map" />
         <map name="connect_map" class="connect_map">
             {% for polygon in polygons %}
-                <area shape="poly" alt="{{ polygon.number }}" title="{{ polygon.title }}" coords="{{ polygon.polygon }}" class="fancybox-big" href="/showratestable/{{ polygon.number }}/" />
+                <area shape="poly" alt="{{ polygon.number }}" title="{{ polygon.title }}" coords="{{ polygon.polygon }}" class="fancybox-big fancybox.ajax" href="/showratestable/{{ polygon.number }}/" />
             {% endfor %}
         </map>
         <div class="map_labels">
             {% for polygon in polygons %}
-                <a id="cm_{{ polygon.number }}" href="/showratestable/{{ polygon.number }}/" class="fancybox-big">{{ polygon.number }}</a>
+                <a id="cm_{{ polygon.number }}" href="/showratestable/{{ polygon.number }}/" class="fancybox-big fancybox.ajax">{{ polygon.number }}</a>
             {% endfor %}
         </div>
     </div>

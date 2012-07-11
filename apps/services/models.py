@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-import datetime
+import datetime, os
+from apps.utils.utils import ImageField
 from django.utils.translation import ugettext_lazy as _
 from apps.utils.managers import PublishedManager
+from pytils.translit import translify
 
 class Service(models.Model):
     title = models.CharField(max_length=255, verbose_name=u'название услуги')
@@ -56,3 +58,25 @@ class Document(models.Model):
         return u'документ для услуги №%s "%s..."' % (self.service.id,self.service.title[:40])
     doc_title.allow_tags = True
     doc_title.short_description = 'Название'
+
+    def get_images(self):
+        return self.documentimage_set.all()
+
+def file_path_Documents_Images(instance, filename):
+    return os.path.join('images','DocImages',  translify(filename).replace(' ', '_') )
+
+class DocumentImage(models.Model):
+    document = models.ForeignKey(Document, verbose_name=u'документ')
+    image = ImageField(upload_to=file_path_Documents_Images, verbose_name=u'изображение')
+    order = models.IntegerField(u'порядок сортировки', help_text=u'Чем больше число, тем выше располагается элемент', default=10)
+
+    def __unicode__(self):
+        return u'изображение к документу №%s' % self.document.id
+
+    class Meta:
+        ordering = ['-order']
+        verbose_name = _(u'doc_image')
+        verbose_name_plural = _(u'doc_images')
+
+    def get_src_image(self):
+        return self.image.url

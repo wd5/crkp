@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 from django import forms
-from apps.services.models import Service, Document
+from apps.services.models import Service, Document, DocumentImage
 from apps.utils.widgets import Redactor
+from sorl.thumbnail.admin import AdminImageMixin
 
 class DocumentsAdminForm(forms.ModelForm):
     description = forms.CharField(
@@ -22,6 +23,9 @@ class DocumentsAdminForm(forms.ModelForm):
 #    #form = DocumentsAdminForm
 #    extra = 0
 
+class DocumentImageInline(AdminImageMixin, admin.TabularInline):
+    model = DocumentImage
+    extra = 0
 
 class DocumentsAdmin(admin.ModelAdmin):
     list_display = ('id', 'doc_title', 'is_link', 'order', 'is_published',)
@@ -30,6 +34,9 @@ class DocumentsAdmin(admin.ModelAdmin):
     search_fields = ('description',)
     list_filter = ('service',)
     form = DocumentsAdminForm
+    inlines = [
+        DocumentImageInline,
+    ]
 
 class ServiceAdminForm(forms.ModelForm):
     result = forms.CharField(

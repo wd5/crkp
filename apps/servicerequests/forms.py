@@ -41,7 +41,7 @@ class FirstServRequestForm(forms.ModelForm):
     actual_address_with_index = forms.CharField(widget=forms.Textarea, required=True)
     object_title = forms.CharField(required=True)
     object_location = forms.CharField(widget=forms.Textarea, required=True)
-    earlier_power_kVA = forms.DecimalField(required=True)
+    earlier_power_kVA = forms.DecimalField(required=False)
     earlier_power_kVt = forms.DecimalField(required=True)
     additional_power = forms.DecimalField(required=True)
     max_power = forms.DecimalField(required=True)
@@ -119,22 +119,22 @@ class SecondServRequestForm(forms.ModelForm):
 
     temp_period = forms.CharField(required=True)
 
-    first_earlier_power_kVA = forms.DecimalField(required=True)
-    first_earlier_power_kVt = forms.DecimalField(required=True)
-    first_additional_power = forms.DecimalField(required=True)
-    first_max_power = forms.DecimalField(required=True)
+    first_earlier_power_kVA = forms.DecimalField(required=False)
+    first_earlier_power_kVt = forms.DecimalField(required=False)
+    first_additional_power = forms.DecimalField(required=False)
+    first_max_power = forms.DecimalField(required=False)
 
-    second_earlier_power_kVA = forms.DecimalField(required=True)
-    second_earlier_power_kVt = forms.DecimalField(required=True)
-    second_additional_power = forms.DecimalField(required=True)
-    second_max_power = forms.DecimalField(required=True)
+    second_earlier_power_kVA = forms.DecimalField(required=False)
+    second_earlier_power_kVt = forms.DecimalField(required=False)
+    second_additional_power = forms.DecimalField(required=False)
+    second_max_power = forms.DecimalField(required=False)
 
-    third_earlier_power_kVA = forms.DecimalField(required=True)
-    third_earlier_power_kVt = forms.DecimalField(required=True)
-    third_additional_power = forms.DecimalField(required=True)
-    third_max_power = forms.DecimalField(required=True)
+    third_earlier_power_kVA = forms.DecimalField(required=False)
+    third_earlier_power_kVt = forms.DecimalField(required=False)
+    third_additional_power = forms.DecimalField(required=False)
+    third_max_power = forms.DecimalField(required=False)
 
-    load_type = forms.CharField(required=True)
+    load_type = forms.CharField(required=False)
     other_inf = forms.CharField(widget=forms.Textarea, required=False)
 
     agent_last_name = forms.CharField(required=True)
@@ -194,6 +194,28 @@ class SecondServRequestForm(forms.ModelForm):
             raise forms.ValidationError("ИНН содержит 10 или 12 цифр (сейчас %s)"%len(inn))
         return inn
 
+    def clean(self):
+        cleaned_data = super(SecondServRequestForm, self).clean()
+        first_earlier_power_kVt = cleaned_data.get("first_earlier_power_kVt")
+        first_additional_power = cleaned_data.get("first_additional_power")
+        first_max_power = cleaned_data.get("first_max_power")
+
+        second_earlier_power_kVt = cleaned_data.get("second_earlier_power_kVt")
+        second_additional_power = cleaned_data.get("second_additional_power")
+        second_max_power = cleaned_data.get("second_max_power")
+
+        third_earlier_power_kVt = cleaned_data.get("third_earlier_power_kVt")
+        third_additional_power = cleaned_data.get("third_additional_power")
+        third_max_power = cleaned_data.get("third_max_power")
+
+        if not(first_earlier_power_kVt and first_additional_power and first_max_power) and \
+           not(second_earlier_power_kVt and second_additional_power and second_max_power) and \
+           not(third_earlier_power_kVt and third_additional_power and third_max_power):
+            #self._errors['first_earlier_power_kVt'] = self.error_class(["Заполните хотябы одну из Категорий надежности электроснабжения"])
+            raise forms.ValidationError("Заполните хотябы одну из Категорий надежности электроснабжения")
+
+        return cleaned_data
+
 class ThirdServRequestForm(forms.ModelForm):
     org_title = forms.CharField(widget=forms.Textarea, required=True)
     egrul_number = forms.CharField(widget=forms.Textarea, required=True)
@@ -203,36 +225,36 @@ class ThirdServRequestForm(forms.ModelForm):
 
     temp_period = forms.CharField(required=True)
 
-    first_earlier_power_kVA = forms.DecimalField(required=True)
-    first_earlier_power_kVt = forms.DecimalField(required=True)
-    first_additional_power = forms.DecimalField(required=True)
-    first_max_power = forms.DecimalField(required=True)
+    first_earlier_power_kVA = forms.DecimalField(required=False)
+    first_earlier_power_kVt = forms.DecimalField(required=False)
+    first_additional_power = forms.DecimalField(required=False)
+    first_max_power = forms.DecimalField(required=False)
 
-    second_earlier_power_kVA = forms.DecimalField(required=True)
-    second_earlier_power_kVt = forms.DecimalField(required=True)
-    second_additional_power = forms.DecimalField(required=True)
-    second_max_power = forms.DecimalField(required=True)
+    second_earlier_power_kVA = forms.DecimalField(required=False)
+    second_earlier_power_kVt = forms.DecimalField(required=False)
+    second_additional_power = forms.DecimalField(required=False)
+    second_max_power = forms.DecimalField(required=False)
 
-    third_earlier_power_kVA = forms.DecimalField(required=True)
-    third_earlier_power_kVt = forms.DecimalField(required=True)
-    third_additional_power = forms.DecimalField(required=True)
-    third_max_power = forms.DecimalField(required=True)
+    third_earlier_power_kVA = forms.DecimalField(required=False)
+    third_earlier_power_kVt = forms.DecimalField(required=False)
+    third_additional_power = forms.DecimalField(required=False)
+    third_max_power = forms.DecimalField(required=False)
 
-    load_type = forms.CharField(widget=forms.Textarea, required=True)
+    load_type = forms.CharField(widget=forms.Textarea, required=False)
     other_inf = forms.CharField(widget=forms.Textarea, required=False)
 
     agent_last_name = forms.CharField(required=True)
     agent_first_name = forms.CharField(required=True)
     agent_middle_name = forms.CharField(required=True)
 
-    authority_number = forms.CharField(required=False)
-    authority_date = forms.DateField(widget=forms.DateInput, help_text='в формате "ДД.ММ.ГГГГ"', required=False)
+    authority_number = forms.CharField(required=True)
+    authority_date = forms.DateField(widget=forms.DateInput, help_text='в формате "ДД.ММ.ГГГГ"', required=True)
     phone_number = forms.CharField(required=True)
-    fax = forms.CharField(required=False)
-    email = forms.EmailField(required=False)
+    fax = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
 
-    director_post = forms.CharField(label=ThirdServRequest._meta.get_field_by_name('director_post')[0].verbose_name)
-    director_full_name = forms.CharField(label=ThirdServRequest._meta.get_field_by_name('director_full_name')[0].verbose_name)
+    director_post = forms.CharField(label=ThirdServRequest._meta.get_field_by_name('director_post')[0].verbose_name, required=True)
+    director_full_name = forms.CharField(label=ThirdServRequest._meta.get_field_by_name('director_full_name')[0].verbose_name, required=True)
 
     agent_inn = forms.CharField(required=True, label=ThirdServRequest._meta.get_field_by_name('agent_inn')[0].verbose_name)
     agent_kpp = forms.CharField(required=True, label=ThirdServRequest._meta.get_field_by_name('agent_kpp')[0].verbose_name)
@@ -312,6 +334,28 @@ class ThirdServRequestForm(forms.ModelForm):
             raise forms.ValidationError("Корреспондентский счет содержит 20 цифр (сейчас %s)"%len(agent_correspond_account))
         return agent_correspond_account
 
+    def clean(self):
+        cleaned_data = super(ThirdServRequestForm, self).clean()
+        first_earlier_power_kVt = cleaned_data.get("first_earlier_power_kVt")
+        first_additional_power = cleaned_data.get("first_additional_power")
+        first_max_power = cleaned_data.get("first_max_power")
+
+        second_earlier_power_kVt = cleaned_data.get("second_earlier_power_kVt")
+        second_additional_power = cleaned_data.get("second_additional_power")
+        second_max_power = cleaned_data.get("second_max_power")
+
+        third_earlier_power_kVt = cleaned_data.get("third_earlier_power_kVt")
+        third_additional_power = cleaned_data.get("third_additional_power")
+        third_max_power = cleaned_data.get("third_max_power")
+
+        if not(first_earlier_power_kVt and first_additional_power and first_max_power) and \
+           not(second_earlier_power_kVt and second_additional_power and second_max_power) and \
+           not(third_earlier_power_kVt and third_additional_power and third_max_power):
+            #self._errors['first_earlier_power_kVt'] = self.error_class(["Заполните хотябы одну из Категорий надежности электроснабжения"])
+            raise forms.ValidationError("Заполните хотябы одну из Категорий надежности электроснабжения")
+
+        return cleaned_data
+
 class FourthServRequestForm(forms.ModelForm):
     org_title = forms.CharField(widget=forms.Textarea, required=True)
     egrul_number = forms.CharField(widget=forms.Textarea, required=True)
@@ -321,38 +365,38 @@ class FourthServRequestForm(forms.ModelForm):
     object_title = forms.CharField(required=True)
     object_location = forms.CharField(widget=forms.Textarea, required=True)
 
-    first_earlier_power_kVA = forms.DecimalField(required=True)
-    first_earlier_power_kVt = forms.DecimalField(required=True)
-    first_additional_power = forms.DecimalField(required=True)
-    first_max_power = forms.DecimalField(required=True)
+    first_earlier_power_kVA = forms.DecimalField(required=False)
+    first_earlier_power_kVt = forms.DecimalField(required=False)
+    first_additional_power = forms.DecimalField(required=False)
+    first_max_power = forms.DecimalField(required=False)
 
-    second_earlier_power_kVA = forms.DecimalField(required=True)
-    second_earlier_power_kVt = forms.DecimalField(required=True)
-    second_additional_power = forms.DecimalField(required=True)
-    second_max_power = forms.DecimalField(required=True)
+    second_earlier_power_kVA = forms.DecimalField(required=False)
+    second_earlier_power_kVt = forms.DecimalField(required=False)
+    second_additional_power = forms.DecimalField(required=False)
+    second_max_power = forms.DecimalField(required=False)
 
-    third_earlier_power_kVA = forms.DecimalField(required=True)
-    third_earlier_power_kVt = forms.DecimalField(required=True)
-    third_additional_power = forms.DecimalField(required=True)
-    third_max_power = forms.DecimalField(required=True)
+    third_earlier_power_kVA = forms.DecimalField(required=False)
+    third_earlier_power_kVt = forms.DecimalField(required=False)
+    third_additional_power = forms.DecimalField(required=False)
+    third_max_power = forms.DecimalField(required=False)
 
-    count_conn_points = forms.CharField(widget=forms.Textarea, required=True)
-    load_type = forms.CharField(widget=forms.Textarea, required=True)
-    power_distribution = forms.CharField(widget=forms.Textarea, required=True)
+    count_conn_points = forms.CharField(widget=forms.Textarea, required=False)
+    load_type = forms.CharField(widget=forms.Textarea, required=False)
+    power_distribution = forms.CharField(widget=forms.Textarea, required=False)
     other_inf = forms.CharField(widget=forms.Textarea, required=False)
 
     agent_last_name = forms.CharField(required=True)
     agent_first_name = forms.CharField(required=True)
     agent_middle_name = forms.CharField(required=True)
 
-    authority_number = forms.CharField(required=False)
-    authority_date = forms.DateField(widget=forms.DateInput, help_text='в формате "ДД.ММ.ГГГГ"', required=False)
+    authority_number = forms.CharField(required=True)
+    authority_date = forms.DateField(widget=forms.DateInput, help_text='в формате "ДД.ММ.ГГГГ"', required=True)
     phone_number = forms.CharField(required=True)
-    fax = forms.CharField(required=False)
-    email = forms.EmailField(required=False)
+    fax = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
 
-    director_post = forms.CharField(label=ThirdServRequest._meta.get_field_by_name('director_post')[0].verbose_name)
-    director_full_name = forms.CharField(label=ThirdServRequest._meta.get_field_by_name('director_full_name')[0].verbose_name)
+    director_post = forms.CharField(label=ThirdServRequest._meta.get_field_by_name('director_post')[0].verbose_name, required=True)
+    director_full_name = forms.CharField(label=ThirdServRequest._meta.get_field_by_name('director_full_name')[0].verbose_name, required=True)
 
     agent_inn = forms.CharField(required=True, label=FourthServRequest._meta.get_field_by_name('agent_inn')[0].verbose_name)
     agent_kpp = forms.CharField(required=True, label=FourthServRequest._meta.get_field_by_name('agent_kpp')[0].verbose_name)
@@ -434,6 +478,28 @@ class FourthServRequestForm(forms.ModelForm):
             raise forms.ValidationError("Корреспондентский счет содержит 20 цифр (сейчас %s)"%len(agent_correspond_account))
         return agent_correspond_account
 
+    def clean(self):
+        cleaned_data = super(FourthServRequestForm, self).clean()
+        first_earlier_power_kVt = cleaned_data.get("first_earlier_power_kVt")
+        first_additional_power = cleaned_data.get("first_additional_power")
+        first_max_power = cleaned_data.get("first_max_power")
+
+        second_earlier_power_kVt = cleaned_data.get("second_earlier_power_kVt")
+        second_additional_power = cleaned_data.get("second_additional_power")
+        second_max_power = cleaned_data.get("second_max_power")
+
+        third_earlier_power_kVt = cleaned_data.get("third_earlier_power_kVt")
+        third_additional_power = cleaned_data.get("third_additional_power")
+        third_max_power = cleaned_data.get("third_max_power")
+
+        if not(first_earlier_power_kVt and first_additional_power and first_max_power) and \
+           not(second_earlier_power_kVt and second_additional_power and second_max_power) and \
+           not(third_earlier_power_kVt and third_additional_power and third_max_power):
+            #self._errors['first_earlier_power_kVt'] = self.error_class(["Заполните хотябы одну из Категорий надежности электроснабжения"])
+            raise forms.ValidationError("Заполните хотябы одну из Категорий надежности электроснабжения")
+
+        return cleaned_data
+
 class FifthServRequestForm(forms.ModelForm):
     org_title = forms.CharField(widget=forms.Textarea, required=True)
     egrul_number = forms.CharField(widget=forms.Textarea, required=True)
@@ -443,46 +509,46 @@ class FifthServRequestForm(forms.ModelForm):
     object_title = forms.CharField(required=True)
     object_location = forms.CharField(widget=forms.Textarea, required=True)
 
-    first_earlier_power_kVA = forms.DecimalField(required=True)
-    first_earlier_power_kVt = forms.DecimalField(required=True)
-    first_additional_power = forms.DecimalField(required=True)
-    first_max_power = forms.DecimalField(required=True)
+    first_earlier_power_kVA = forms.DecimalField(required=False)
+    first_earlier_power_kVt = forms.DecimalField(required=False)
+    first_additional_power = forms.DecimalField(required=False)
+    first_max_power = forms.DecimalField(required=False)
 
-    second_earlier_power_kVA = forms.DecimalField(required=True)
-    second_earlier_power_kVt = forms.DecimalField(required=True)
-    second_additional_power = forms.DecimalField(required=True)
-    second_max_power = forms.DecimalField(required=True)
+    second_earlier_power_kVA = forms.DecimalField(required=False)
+    second_earlier_power_kVt = forms.DecimalField(required=False)
+    second_additional_power = forms.DecimalField(required=False)
+    second_max_power = forms.DecimalField(required=False)
 
-    third_earlier_power_kVA = forms.DecimalField(required=True)
-    third_earlier_power_kVt = forms.DecimalField(required=True)
-    third_additional_power = forms.DecimalField(required=True)
-    third_max_power = forms.DecimalField(required=True)
+    third_earlier_power_kVA = forms.DecimalField(required=False)
+    third_earlier_power_kVt = forms.DecimalField(required=False)
+    third_additional_power = forms.DecimalField(required=False)
+    third_max_power = forms.DecimalField(required=False)
 
-    cnt_pwr_transformers = forms.CharField(widget=forms.Textarea, required=True)
-    cnt_pwr_generators = forms.CharField(widget=forms.Textarea, required=True)
+    cnt_pwr_transformers = forms.CharField(widget=forms.Textarea, required=False)
+    cnt_pwr_generators = forms.CharField(widget=forms.Textarea, required=False)
 
-    count_conn_points = forms.CharField(widget=forms.Textarea, required=True)
-    load_type = forms.CharField(widget=forms.Textarea, required=True)
+    count_conn_points = forms.CharField(widget=forms.Textarea, required=False)
+    load_type = forms.CharField(widget=forms.Textarea, required=False)
 
-    tech_min_generators = forms.CharField(widget=forms.Textarea, required=True)
-    tech_armor_consumer = forms.CharField(widget=forms.Textarea, required=True)
-    tech_emergency_armor_consumer = forms.CharField(widget=forms.Textarea, required=True)
+    tech_min_generators = forms.CharField(widget=forms.Textarea, required=False)
+    tech_armor_consumer = forms.CharField(widget=forms.Textarea, required=False)
+    tech_emergency_armor_consumer = forms.CharField(widget=forms.Textarea, required=False)
 
-    power_distribution = forms.CharField(widget=forms.Textarea, required=True)
+    power_distribution = forms.CharField(widget=forms.Textarea, required=False)
     other_inf = forms.CharField(widget=forms.Textarea, required=False)
 
     agent_last_name = forms.CharField(required=True)
     agent_first_name = forms.CharField(required=True)
     agent_middle_name = forms.CharField(required=True)
 
-    authority_number = forms.CharField(required=False)
-    authority_date = forms.DateField(widget=forms.DateInput, help_text='в формате "ДД.ММ.ГГГГ"', required=False)
+    authority_number = forms.CharField(required=True)
+    authority_date = forms.DateField(widget=forms.DateInput, help_text='в формате "ДД.ММ.ГГГГ"', required=True)
     phone_number = forms.CharField(required=True)
-    fax = forms.CharField(required=False)
-    email = forms.EmailField(required=False)
+    fax = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
 
-    director_post = forms.CharField(label=ThirdServRequest._meta.get_field_by_name('director_post')[0].verbose_name)
-    director_full_name = forms.CharField(label=ThirdServRequest._meta.get_field_by_name('director_full_name')[0].verbose_name)
+    director_post = forms.CharField(label=ThirdServRequest._meta.get_field_by_name('director_post')[0].verbose_name, required=True)
+    director_full_name = forms.CharField(label=ThirdServRequest._meta.get_field_by_name('director_full_name')[0].verbose_name, required=True)
 
     agent_inn = forms.CharField(required=True, label=FifthServRequest._meta.get_field_by_name('agent_inn')[0].verbose_name)
     agent_kpp = forms.CharField(required=True, label=FifthServRequest._meta.get_field_by_name('agent_kpp')[0].verbose_name)
@@ -564,13 +630,35 @@ class FifthServRequestForm(forms.ModelForm):
             raise forms.ValidationError("Корреспондентский счет содержит 20 цифр (сейчас %s)"%len(agent_correspond_account))
         return agent_correspond_account
 
+    def clean(self):
+        cleaned_data = super(FifthServRequestForm, self).clean()
+        first_earlier_power_kVt = cleaned_data.get("first_earlier_power_kVt")
+        first_additional_power = cleaned_data.get("first_additional_power")
+        first_max_power = cleaned_data.get("first_max_power")
+
+        second_earlier_power_kVt = cleaned_data.get("second_earlier_power_kVt")
+        second_additional_power = cleaned_data.get("second_additional_power")
+        second_max_power = cleaned_data.get("second_max_power")
+
+        third_earlier_power_kVt = cleaned_data.get("third_earlier_power_kVt")
+        third_additional_power = cleaned_data.get("third_additional_power")
+        third_max_power = cleaned_data.get("third_max_power")
+
+        if not(first_earlier_power_kVt and first_additional_power and first_max_power) and \
+           not(second_earlier_power_kVt and second_additional_power and second_max_power) and \
+           not(third_earlier_power_kVt and third_additional_power and third_max_power):
+            #self._errors['first_earlier_power_kVt'] = self.error_class(["Заполните хотябы одну из Категорий надежности электроснабжения"])
+            raise forms.ValidationError("Заполните хотябы одну из Категорий надежности электроснабжения")
+
+        return cleaned_data
+
 class ReceptionForm(forms.ModelForm):
     #receptiontime = forms.ModelChoiceField(queryset=ReceptionTime.objects.filter(reception_date__gte=datetime.date.today()), label='Дата и время приёма', required=True)
     weekday = forms.ModelChoiceField(queryset=WeekDay.objects.published(), label='День приёма', required=True)
-    last_name = forms.CharField(required=True)
-    first_name = forms.CharField(required=True)
-    middle_name = forms.CharField(required=True)
-    phonenumber = forms.CharField(required=True)
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'readonly':'readonly',}),required=True,)
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'readonly':'readonly',}),required=True,)
+    middle_name = forms.CharField(widget=forms.TextInput(attrs={'readonly':'readonly',}),required=True,)
+    phonenumber = forms.CharField(widget=forms.TextInput(attrs={'readonly':'readonly',}),required=True,)
     reception_time = forms.TimeField(required=True, help_text='в формате "ЧЧ:ММ')
 
     class Meta:
