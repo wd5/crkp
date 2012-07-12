@@ -321,7 +321,7 @@ class ReqFormCheckView(View):
                         saved_object = form.save()
 
                         path = render_to_pdf('services/pdf.html', 'fourth_serv_%s' % saved_object.pk, {
-                            'title': u'Юридические лица и индивидуальные предприниматели до 750 кВА (включительно) по 1, 2, 3 категории надежности электроснабжения',
+                            'title': u'Юридические лица и индивидуальные предприниматели до 670 кВт (включительно) по 1, 2, 3 категории надежности электроснабжения',
                             'saved_object': saved_object,
                             'case': request.POST['form_type'],
                             'MEDIA_ROOT': settings.ROOT_PATH
@@ -367,7 +367,7 @@ class ReqFormCheckView(View):
                         saved_object = form.save()
 
                         path = render_to_pdf('services/pdf.html', 'fifth_serv_%s' % saved_object.pk, {
-                            'title': u'Юридические лица и индивидуальные предприниматели свыше 750 кВА по 1,2,3 категории надежности электроснабжения',
+                            'title': u'Юридические лица и индивидуальные предприниматели свыше 670 кВт по 1,2,3 категории надежности электроснабжения',
                             'saved_object': saved_object,
                             'case': request.POST['form_type'],
                             'MEDIA_ROOT': settings.ROOT_PATH
@@ -433,7 +433,7 @@ class ReqFormCheckView(View):
 
                         if request.POST['serv_type'] == 'fourth_serv':
                             try:
-                                serv_type=u'Юридические лица и индивидуальные предприниматели до 750 кВА (включительно) по 1, 2, 3 категории надежности электроснабжения'
+                                serv_type=u'Юридические лица и индивидуальные предприниматели до 670 кВт (включительно) по 1, 2, 3 категории надежности электроснабжения'
                                 related_serv = FourthServRequest.objects.get(pk=id_serv)
                             except FourthServRequest.DoesNotExist:
                                 return HttpResponseBadRequest(
@@ -441,7 +441,7 @@ class ReqFormCheckView(View):
 
                         if request.POST['serv_type'] == 'fifth_serv':
                             try:
-                                serv_type=u'Юридические лица и индивидуальные предприниматели свыше 750 кВА по 1,2,3 категории надежности электроснабжения'
+                                serv_type=u'Юридические лица и индивидуальные предприниматели свыше 670 кВт по 1,2,3 категории надежности электроснабжения'
                                 related_serv = FifthServRequest.objects.get(pk=id_serv)
                             except FifthServRequest.DoesNotExist:
                                 return HttpResponseBadRequest(

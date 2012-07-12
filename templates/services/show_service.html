@@ -27,8 +27,8 @@
                 <li><a class="load_srv_link" name="3" href="#">юр. лицо</a></li>
             </ul>
             <ul class="ul_4_5" style="display: none;">
-                <li class="curr"><a class="load_srv_link" name="4" href="#">≤ 750 кВА</a></li>
-                <li><a class="load_srv_link" name="5" href="#">> 750 кВА</a></li>
+                <li class="curr"><a class="load_srv_link" name="4" href="#">≤ 670 кВт</a></li>
+                <li><a class="load_srv_link" name="5" href="#">> 670 кВт</a></li>
             </ul>
         </div>
     {% else %}
@@ -58,6 +58,7 @@
                     {% for doc in service.get_docs_zs %}
 
                             {% if doc.get_images and not doc.is_link %}
+                                1
                                 {% for doc_image in doc.get_images %}
                                     {% thumbnail doc_image.image "1000" upscale=0 as big %}
                                         {% if forloop.first %}
@@ -72,6 +73,7 @@
                                     {% endthumbnail %}
                                 {% endfor %}
                             {% else %}
+                                2
                                 <div class="doc_zs">
                                     {{ doc.description|safe }}
                                 </div>

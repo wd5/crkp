@@ -570,6 +570,7 @@ class FifthServRequestForm(forms.ModelForm):
     req_attachment11 = forms.BooleanField(required=False, label=FifthServRequest._meta.get_field_by_name('req_attachment11')[0].verbose_name)
     req_attachment12 = forms.BooleanField(required=False, label=FifthServRequest._meta.get_field_by_name('req_attachment12')[0].verbose_name)
     req_attachment13 = forms.BooleanField(required=False, label=FifthServRequest._meta.get_field_by_name('req_attachment13')[0].verbose_name)
+    req_attachment14 = forms.BooleanField(required=False, label=FifthServRequest._meta.get_field_by_name('req_attachment14')[0].verbose_name)
 
     class Meta:
         model = FifthServRequest

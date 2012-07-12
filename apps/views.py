@@ -58,7 +58,7 @@ class GP(TemplateView):
 
         s_object = FourthServRequest.objects.get(id=1)
         path = render_to_pdf('services/pdf.html', '44444', {
-            'title': u'Юридические лица и индивидуальные предприниматели до 750 кВА (включительно) по 1, 2, 3 категории надежности электроснабжения'
+            'title': u'Юридические лица и индивидуальные предприниматели до 670 кВт (включительно) по 1, 2, 3 категории надежности электроснабжения'
             ,
             'saved_object': s_object,
             'case': 'fourth_serv',
@@ -67,7 +67,7 @@ class GP(TemplateView):
 
         s_object = FifthServRequest.objects.get(id=1)
         path = render_to_pdf('services/pdf.html', '55555', {
-            'title': u'Юридические лица и индивидуальные предприниматели свыше 750 кВА по 1,2,3 категории надежности электроснабжения'
+            'title': u'Юридические лица и индивидуальные предприниматели свыше 670 кВт по 1,2,3 категории надежности электроснабжения'
             ,
             'saved_object': s_object,
             'case': 'fifth_serv',

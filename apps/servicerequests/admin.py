@@ -273,7 +273,7 @@ fifth_field_sets = (
         ('Приложения к заявке', {
             'classes': ('collapse',),
             'fields': ('req_attachment1','req_attachment2','req_attachment3','req_attachment4','req_attachment5','req_attachment6','req_attachment7',
-                       'req_attachment8','req_attachment9','req_attachment10','req_attachment11','req_attachment12','req_attachment13',)
+                       'req_attachment8','req_attachment9','req_attachment10','req_attachment14','req_attachment11','req_attachment12','req_attachment13',)
         }),
         (None, {
             'fields': ('date_create',)

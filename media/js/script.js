@@ -588,6 +588,7 @@ $(function(){
             req_attachment11:$('#id_req_attachment11').prop("checked"),
             req_attachment12:$('#id_req_attachment12').prop("checked"),
             req_attachment13:$('#id_req_attachment13').prop("checked"),
+            req_attachment14:$('#id_req_attachment14').prop("checked"),
 
             form_type:$('#form_type').val()
             }
