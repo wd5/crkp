@@ -1,3 +1,5 @@
+{% load thumbnail %}
+
 <div class="doc_serv_block">
 {% if service %}
     {% if service.get_published_docs %}
@@ -15,9 +17,27 @@
         {% if service.get_docs_zs %}
             <div class="docs_zs">
                 {% for doc in service.get_docs_zs %}
-                    <div class="doc_zs">
-                        {{ doc.description|safe }}
-                    </div>
+
+                    {% if doc.get_images and not doc.is_link %}
+                        {% for doc_image in doc.get_images %}
+                            {% thumbnail doc_image.image "1000" upscale=0 as big %}
+                                {% if forloop.first %}
+                                    <a href="{{ big.url }}" rel="{{ doc.id }}" class="fancybox-thumb">
+                                        <div class="doc_zs">
+                                            {{ doc.description|safe }}
+                                        </div>
+                                    </a>
+                                {% else %}
+                                    <a href="{{ big.url }}" style="display: none;" rel="{{ doc.id }}" class="fancybox-thumb">{{ doc_image.id }}</a>
+                                {% endif %}
+                            {% endthumbnail %}
+                        {% endfor %}
+                    {% else %}
+                        <div class="doc_zs">
+                            {{ doc.description|safe }}
+                        </div>
+                    {% endif %}
+
                 {% endfor %}
             </div>
         {% endif %}

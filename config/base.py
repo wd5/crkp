@@ -25,6 +25,10 @@ STATIC_URL = '/static/'
 ADMIN_MEDIA_PREFIX = '/static/admin/'
 ADMIN_MEDIA_ROOT = os.path.join(ROOT_PATH, 'static/admin')
 
+MARK_IMG_S = os.path.join(MEDIA_ROOT, 'uploads/wm_sample.png')
+MARK_IMG_DC = os.path.join(MEDIA_ROOT, 'uploads/wm_copy.png')
+MARK_PADDING = 20
+
 STATICFILES_DIRS = (
     #os.path.join(ROOT_PATH, 'static'),
 )

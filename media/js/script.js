@@ -661,6 +661,28 @@ function SetFancy(){
 
     $('.fancybox').fancybox({helpers: {overlay : {opacity: 0.5}}});
 
+    $(".fancybox-thumb").fancybox({
+        prevEffect	: 'none',
+        nextEffect	: 'none',
+        helpers	: {
+            title	: {
+                type: 'outside'
+            },
+            overlay	: {
+                opacity : 0.8,
+                css : {
+                    'background-color' : '#000'
+                }
+            },
+            thumbs	: {
+                width	: 50,
+                height	: 50
+            }
+        }
+    });
+
+
+
     $('.fancybox-big').fancybox({
         helpers: {overlay : {opacity: 0.5}},
         fitToView:false,

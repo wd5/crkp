@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 import datetime, os
+from django.db.models.signals import post_save
 from apps.utils.utils import ImageField
 from django.utils.translation import ugettext_lazy as _
 from apps.utils.managers import PublishedManager
@@ -80,3 +81,14 @@ class DocumentImage(models.Model):
 
     def get_src_image(self):
         return self.image.url
+
+def watermark(sender, instance, created, **kwargs):
+    from apps.utils.views import watermark
+    from django.conf import settings
+    path = "%s%s" % (settings.ROOT_PATH, instance.image.url)
+    try:
+        watermark(path,settings.MARK_IMG_S,'cross',opacity=0.1).save(path,quality=100)
+    except:
+        pass
+
+post_save.connect(watermark, sender=DocumentImage)

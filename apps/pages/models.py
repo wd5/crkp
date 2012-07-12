@@ -7,6 +7,7 @@ from apps.utils.utils import ImageField
 from apps.utils.models import BaseDoc, BasePic
 from apps.utils.managers import PublishedManager
 from mptt.models import MPTTModel, TreeForeignKey, TreeManager
+from django.db.models.signals import post_save, pre_delete
 
 class Page(MPTTModel):
     date_add = models.DateTimeField(verbose_name=u'Дата создания', editable=False, auto_now_add=True)
@@ -175,3 +176,14 @@ class License(models.Model):
         return u'лицензия для категории %s' % self.category.title
     lic_title.allow_tags = True
     lic_title.short_description = 'Лицензия'
+
+def watermark(sender, instance, created, **kwargs):
+    from apps.utils.views import watermark
+    from django.conf import settings
+    path = "%s%s" % (settings.ROOT_PATH, instance.image.url)
+    try:
+        watermark(path,settings.MARK_IMG_DC,'cross',opacity=0.2).save(path,quality=100)
+    except:
+        pass
+
+post_save.connect(watermark, sender=License)

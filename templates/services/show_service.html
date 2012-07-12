@@ -56,23 +56,27 @@
             {% if service.get_docs_zs %}
                 <div class="docs_zs">
                     {% for doc in service.get_docs_zs %}
-                        <div class="doc_zs">
 
                             {% if doc.get_images and not doc.is_link %}
                                 {% for doc_image in doc.get_images %}
                                     {% thumbnail doc_image.image "1000" upscale=0 as big %}
                                         {% if forloop.first %}
-                                            <a href="{{ big.url }}" rel="{{ doc.id }}" class="fancybox">{{ doc.description|safe }}</a>
+                                            <a href="{{ big.url }}" rel="{{ doc.id }}" class="fancybox-thumb">
+                                                <div class="doc_zs">
+                                                    {{ doc.description|safe }}
+                                                </div>
+                                            </a>
                                         {% else %}
-                                            <a href="{{ big.url }}" style="display: none;" rel="{{ doc.id }}" class="fancybox">{{ doc_image.id }}</a>
+                                            <a href="{{ big.url }}" style="display: none;" rel="{{ doc.id }}" class="fancybox-thumb">{{ doc_image.id }}</a>
                                         {% endif %}
                                     {% endthumbnail %}
                                 {% endfor %}
                             {% else %}
-                                {{ doc.description|safe }}
+                                <div class="doc_zs">
+                                    {{ doc.description|safe }}
+                                </div>
                             {% endif %}
 
-                        </div>
                     {% endfor %}
                 </div>
             {% endif %}
