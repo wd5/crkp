@@ -29,7 +29,8 @@ class SettingsAdminForm(forms.ModelForm):
 #--Виджеты jquery Редактора
 
 class SettingsAdmin(admin.ModelAdmin):
-    list_display = ('title','name','value',)
+    list_display = ('title','value',)
+    fields = ('title','value',)
     form = SettingsAdminForm
 admin.site.register(Settings, SettingsAdmin)
 

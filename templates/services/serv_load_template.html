@@ -17,7 +17,6 @@
         {% if service.get_docs_zs %}
             <div class="docs_zs">
                 {% for doc in service.get_docs_zs %}
-
                     {% if doc.get_images and not doc.is_link %}
                         {% for doc_image in doc.get_images %}
                             {% thumbnail doc_image.image "1000" upscale=0 as big %}
