@@ -43,6 +43,10 @@ class ServiceAdminForm(forms.ModelForm):
         widget=Redactor(attrs={'cols': 170, 'rows': 20}),
         label = u'Результат',
     )
+    description = forms.CharField(
+        widget=Redactor(attrs={'cols': 170, 'rows': 20}),
+        label = u'Описание',
+    )
     class Meta:
         model = Service
 
