@@ -80,6 +80,6 @@ class MapPolygon(models.Model):
         return u'полигон № %s' % self.number
 
     class Meta:
-        ordering = ['number']
+        ordering = ['id']
         verbose_name = _(u'polygon')
         verbose_name_plural = _(u'polygons')

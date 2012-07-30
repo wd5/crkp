@@ -19,7 +19,8 @@
         </map>
         <div class="map_labels">
             {% for polygon in polygons %}
-                <a id="cm_{{ polygon.number }}" href="/showratestable/{{ polygon.number }}/" class="fancybox-big fancybox.ajax">{{ polygon.number }}</a>
+                {% comment %}<a id="cm_{{ polygon.number }}" href="/showratestable/{{ polygon.number }}/" class="fancybox-big fancybox.ajax">{{ polygon.number }}</a>{% endcomment %}
+                <a id="cm_{{ forloop.counter0 }}" href="/showratestable/{{ polygon.number }}/" class="fancybox-big fancybox.ajax">{{ polygon.number }}</a>
             {% endfor %}
         </div>
     </div>
