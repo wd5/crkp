@@ -17,6 +17,7 @@ class ShowRatesMapView(ListView):
     model = MapPolygon
     template_name = 'techconnection/map_rates.html'
     context_object_name = 'polygons'
+    queryset = model.objects.published()
 
     def get_context_data(self, **kwargs):
         context = super(ShowRatesMapView, self).get_context_data(**kwargs)

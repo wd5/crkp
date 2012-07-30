@@ -75,6 +75,9 @@ class MapPolygon(models.Model):
     title = models.CharField(max_length=100, verbose_name=u'территориальная зона')
     number = models.PositiveSmallIntegerField(verbose_name = u'номер полигона')
     table_rates = models.TextField(verbose_name = u'таблица ставок')
+    is_published = models.BooleanField(verbose_name=u'опубликовано', default=True)
+
+    objects = PublishedManager()
 
     def __unicode__(self):
         return u'полигон № %s' % self.number

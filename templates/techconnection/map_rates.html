@@ -14,13 +14,14 @@
         <img src="/media/img/connect_map.png" width="463" height="542" alt="" usemap="#connect_map" />
         <map name="connect_map" class="connect_map">
             {% for polygon in polygons %}
-                <area shape="poly" alt="{{ polygon.number }}" title="{{ polygon.title }}" coords="{{ polygon.polygon }}" class="fancybox-big fancybox.ajax" href="/showratestable/{{ polygon.number }}/" />
+                {% comment %}<area shape="poly" alt="{{ polygon.number }}" title="{{ polygon.title }}" coords="{{ polygon.polygon }}" class="fancybox-big fancybox.ajax" href="/showratestable/{{ polygon.number }}/" />{% endcomment %}
+                <area shape="poly" alt="{{ polygon.id|add:-1 }}" title="{{ polygon.title }}" coords="{{ polygon.polygon }}" class="fancybox-big fancybox.ajax" href="/showratestable/{{ polygon.number }}/" />
             {% endfor %}
         </map>
         <div class="map_labels">
             {% for polygon in polygons %}
                 {% comment %}<a id="cm_{{ polygon.number }}" href="/showratestable/{{ polygon.number }}/" class="fancybox-big fancybox.ajax">{{ polygon.number }}</a>{% endcomment %}
-                <a id="cm_{{ forloop.counter0 }}" href="/showratestable/{{ polygon.number }}/" class="fancybox-big fancybox.ajax">{{ polygon.number }}</a>
+                <a id="cm_{{ polygon.id|add:-1 }}" href="/showratestable/{{ polygon.number }}/" class="fancybox-big fancybox.ajax">{{ polygon.number }}</a>
             {% endfor %}
         </div>
     </div>
