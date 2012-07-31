@@ -430,15 +430,15 @@ h3 {
 	margin: 0 0 0 5%;
 }
 .connect_menu .curr {
-	background-position: 0 -96px;
+	background-position: 0 -86px;
 }
 .connect_menu a {
 	color: #785818;
 	display: block;
 	width: 126px;
-	height: 50px;
+	height: 46px;
 	text-decoration: none;
-	padding: 36px 0 0 0;
+	padding: 40px 0 0 0;
 	position: relative;
 }
 .connect_menu img {
@@ -894,6 +894,10 @@ div.faq_modal {
 #cm_34 {
 	top: 496px;
 	left: 273px;
+}
+#cm_35 {
+	top: 0px;
+	left: 240px;
 }
 /*/connect_map*/
 
