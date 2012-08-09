@@ -738,7 +738,7 @@ div.faq_modal {
 }
 .connect_map_page {
 	position: relative;
-	
+	margin: 0 0 0 -40px;
 }
 .map_labels a {
 	font: bold 10px/20px Arial, serif;
@@ -755,149 +755,167 @@ div.faq_modal {
 .map_labels .curr {
 	background-position: -27px 0;
 }
-#cm_0 {
-	top: 34px;
-	left: 176px;
-}
+
 #cm_1 {
-	top: 46px;
-	left: 216px;
+	top: 184px;
+	left: 267px;
 }
 #cm_2 {
-	top: 33px;
-	left: 235px;
+	top: 132px;
+	left: 314px;
 }
 #cm_3 {
-	top: 13px;
-	left: 269px;
+	top: 190px;
+	left: 310px;
 }
 #cm_4 {
-	top: 50px;
-	left: 109px;
+	top: 212px;
+	left: 250px;
 }
 #cm_5 {
-	top: 90px;
-	left: 196px;
+	top: 210px;
+	left: 380px;
 }
 #cm_6 {
-	top: 140px;
-	left: 174px;
+	top: 260px;
+	left: 274px;
 }
 #cm_7 {
-	top: 123px;
-	left: 82px;
+	top: 250px;
+	left: 350px;
 }
 #cm_8 {
-	top: 186px;
-	left: 178px;
+	top: 275px;
+	left: 395px;
 }
 #cm_9 {
-	top: 192px;
-	left: 152px;
+	top: 307px;
+	left: 296px;
 }
 #cm_10 {
-	top: 200px;
-	left: 210px;
+	top: 284px;
+	left: 240px;
 }
 #cm_11 {
-	top: 255px;
-	left: 228px;
+	top: 355px;
+	left: 230px;
 }
 #cm_12 {
-	top: 280px;
-	left: 194px;
+	top: 405px;
+	left: 296px;
 }
 #cm_13 {
-	top: 240px;
-	left: 156px;
+	top: 390px;
+	left: 330px;
 }
 #cm_14 {
-	top: 246px;
-	left: 280px;
+	top: 390px;
+	left: 380px;
 }
 #cm_15 {
-	top: 274px;
-	left: 253px;
+	top: 395px;
+	left: 240px;
 }
 #cm_16 {
-	top: 100px;
-	left: 290px;
+	top: 148px;
+	left: 288px;
 }
 #cm_17 {
-	top: 130px;
-	left: 374px;
+	top: 248px;
+	left: 254px;
 }
 #cm_18 {
-	top: 190px;
-	left: 315px;
+	top: 310px;
+	left: 260px;
 }
 #cm_19 {
-	top: 223px;
-	left: 390px;
+	top: 340px;
+	left: 300px;
 }
 #cm_20 {
-	top: 330px;
-	left: 130px;
+	top: 355px;
+	left: 265px;
 }
 #cm_21 {
-	top: 344px;
-	left: 193px;
+	top: 115px;
+	left: 270px;
 }
 #cm_22 {
-	top: 360px;
-	left: 236px;
+	top: 290px;
+	left: 286px;
 }
 #cm_23 {
-	top: 324px;
-	left: 315px;
+	top: 325px;
+	left: 385px;
 }
 #cm_24 {
-	top: 306px;
-	left: 371px;
+	top: 466px;
+	left: 429px;
 }
 #cm_25 {
-	top: 460px;
-	left: 418px;
+	top: 415px;
+	left: 100px;
 }
 #cm_26 {
-	top: 380px;
-	left: 291px;
-}
-#cm_27 {
 	top: 390px;
-	left: 91px;
+	left: 190px;
+}
+
+#cm_27 {
+	top: 340px;
+	left: 344px;
 }
 #cm_28 {
-	top: 425px;
-	left: 55px;
+	top: 435px;
+	left: 155px;
 }
 #cm_29 {
-	top: 405px;
-	left: 160px;
+	top: 480px;
+	left: 290px;
 }
 #cm_30 {
-	top: 486px;
-	left: 70px;
+	top: 500px;
+	left: 490px;
 }
 #cm_31 {
-	top: 440px;
-	left: 246px;
+	top: 288px;
+	left: 316px;
 }
 #cm_32 {
-	top: 480px;
-	left: 180px;
+	top: 246px;
+	left: 232px;
 }
 #cm_33 {
-	top: 490px;
-	left: 360px;
+	top: 455px;
+	left: 375px;
 }
 #cm_34 {
-	top: 496px;
-	left: 273px;
+	top: 190px;
+	left: 155px;
 }
 #cm_35 {
-	top: 0px;
-	left: 240px;
+	top: 90px;
+	left: 140px;
+}
+#cm_36 {
+	top: 158px;
+	left: 210px;
+}
+#cm_37 {
+	top: 135px;
+	left: 245px;
+}
+#cm_38 {
+	top: 35px;
+	left: 60px;
+}
+#cm_39 {
+	top: 580px;
+	left: 330px;
+}
+#cm_40 {
+	top: 240px;
+	left: 15px;
 }
 /*/connect_map*/
 

@@ -27,7 +27,7 @@ class ShowRatesMapView(ListView):
 show_rates_map = ShowRatesMapView.as_view()
 
 class ShowRatesTableView(DetailView):
-    slug_field = 'number'
+    slug_field = 'id'
     model = MapPolygon
     template_name = 'techconnection/map_modal.html'
     context_object_name = 'polygon'

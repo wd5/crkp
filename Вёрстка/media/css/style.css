@@ -275,6 +275,13 @@ h3 {
 
 
 /*submenu*/
+.submenu_h {
+	font-size: 16px;
+	font-weight: normal;
+	color: #785818;
+	text-align: center;
+	margin: 5px 0 48px 0;
+}
 .submenu {
 	text-align: center;
 	position: relative;
@@ -334,6 +341,10 @@ h3 {
 
 
 /*index*/
+.logo_len {
+	float: right;
+	margin: -8px -170px 0 0;
+}
 .index_lead, .index_text {
 	width: 74%;
 }
@@ -389,12 +400,12 @@ h3 {
 }
 .connect_lnk a {
 	display: block;
-	background: url('../img/tumbler.png') no-repeat -31px 0;
-	padding-left: 36px;
+	background: url('../img/tumbler.png') no-repeat -48px 0;
+	padding-left: 40px;
 	text-decoration: none;
 }
 .connect_lnk a:hover {
-	background-position: 0 -41px;
+	background-position: 0 -43px;
 }
 .connect_lnk span {
 	text-decoration: underline;
@@ -419,15 +430,15 @@ h3 {
 	margin: 0 0 0 5%;
 }
 .connect_menu .curr {
-	background-position: 0 -96px;
+	background-position: 0 -86px;
 }
 .connect_menu a {
 	color: #785818;
 	display: block;
 	width: 126px;
-	height: 50px;
+	height: 46px;
 	text-decoration: none;
-	padding: 36px 0 0 0;
+	padding: 40px 0 0 0;
 	position: relative;
 }
 .connect_menu img {
@@ -727,7 +738,7 @@ div.faq_modal {
 }
 .connect_map_page {
 	position: relative;
-	
+	margin: 0 0 0 -40px;
 }
 .map_labels a {
 	font: bold 10px/20px Arial, serif;
@@ -744,145 +755,167 @@ div.faq_modal {
 .map_labels .curr {
 	background-position: -27px 0;
 }
-#cm_0 {
-	top: 34px;
-	left: 176px;
-}
+
 #cm_1 {
-	top: 46px;
-	left: 216px;
+	top: 184px;
+	left: 267px;
 }
 #cm_2 {
-	top: 33px;
-	left: 235px;
+	top: 132px;
+	left: 314px;
 }
 #cm_3 {
-	top: 13px;
-	left: 269px;
+	top: 190px;
+	left: 310px;
 }
 #cm_4 {
-	top: 50px;
-	left: 109px;
+	top: 212px;
+	left: 250px;
 }
 #cm_5 {
-	top: 90px;
-	left: 196px;
+	top: 210px;
+	left: 380px;
 }
 #cm_6 {
-	top: 140px;
-	left: 174px;
+	top: 260px;
+	left: 274px;
 }
 #cm_7 {
-	top: 123px;
-	left: 82px;
+	top: 250px;
+	left: 350px;
 }
 #cm_8 {
-	top: 186px;
-	left: 178px;
+	top: 275px;
+	left: 395px;
 }
 #cm_9 {
-	top: 192px;
-	left: 152px;
+	top: 307px;
+	left: 296px;
 }
 #cm_10 {
-	top: 200px;
-	left: 210px;
+	top: 284px;
+	left: 240px;
 }
 #cm_11 {
-	top: 255px;
-	left: 228px;
+	top: 355px;
+	left: 230px;
 }
 #cm_12 {
-	top: 280px;
-	left: 194px;
+	top: 405px;
+	left: 296px;
 }
 #cm_13 {
-	top: 240px;
-	left: 156px;
+	top: 390px;
+	left: 330px;
 }
 #cm_14 {
-	top: 246px;
-	left: 280px;
+	top: 390px;
+	left: 380px;
 }
 #cm_15 {
-	top: 274px;
-	left: 253px;
+	top: 395px;
+	left: 240px;
 }
 #cm_16 {
-	top: 100px;
-	left: 290px;
+	top: 148px;
+	left: 288px;
 }
 #cm_17 {
-	top: 130px;
-	left: 374px;
+	top: 248px;
+	left: 254px;
 }
 #cm_18 {
-	top: 190px;
-	left: 315px;
+	top: 310px;
+	left: 260px;
 }
 #cm_19 {
-	top: 223px;
-	left: 390px;
+	top: 340px;
+	left: 300px;
 }
 #cm_20 {
-	top: 330px;
-	left: 130px;
+	top: 355px;
+	left: 265px;
 }
 #cm_21 {
-	top: 344px;
-	left: 193px;
+	top: 115px;
+	left: 270px;
 }
 #cm_22 {
-	top: 360px;
-	left: 236px;
+	top: 290px;
+	left: 286px;
 }
 #cm_23 {
-	top: 324px;
-	left: 315px;
+	top: 325px;
+	left: 385px;
 }
 #cm_24 {
-	top: 306px;
-	left: 371px;
+	top: 466px;
+	left: 429px;
 }
 #cm_25 {
-	top: 460px;
-	left: 418px;
+	top: 415px;
+	left: 100px;
 }
 #cm_26 {
-	top: 380px;
-	left: 291px;
-}
-#cm_27 {
 	top: 390px;
-	left: 91px;
+	left: 190px;
+}
+
+#cm_27 {
+	top: 340px;
+	left: 344px;
 }
 #cm_28 {
-	top: 425px;
-	left: 55px;
+	top: 435px;
+	left: 155px;
 }
 #cm_29 {
-	top: 405px;
-	left: 160px;
+	top: 480px;
+	left: 290px;
 }
 #cm_30 {
-	top: 486px;
-	left: 70px;
+	top: 500px;
+	left: 490px;
 }
 #cm_31 {
-	top: 440px;
-	left: 246px;
+	top: 288px;
+	left: 316px;
 }
 #cm_32 {
-	top: 480px;
-	left: 180px;
+	top: 246px;
+	left: 232px;
 }
 #cm_33 {
-	top: 490px;
-	left: 360px;
+	top: 455px;
+	left: 375px;
 }
 #cm_34 {
-	top: 496px;
-	left: 273px;
+	top: 190px;
+	left: 155px;
+}
+#cm_35 {
+	top: 90px;
+	left: 140px;
+}
+#cm_36 {
+	top: 158px;
+	left: 210px;
+}
+#cm_37 {
+	top: 135px;
+	left: 245px;
+}
+#cm_38 {
+	top: 35px;
+	left: 60px;
+}
+#cm_39 {
+	top: 580px;
+	left: 330px;
+}
+#cm_40 {
+	top: 240px;
+	left: 15px;
 }
 /*/connect_map*/
 
@@ -942,6 +975,9 @@ div.faq_modal {
 	color:#000;
 	text-align:center;
 }
+.text .noborder tr, .text .noborder td, .text .noborder th {
+	border: none;
+}
 .img_left {
 	float:left;
 	margin:0 18px 0 0; 
@@ -958,6 +994,7 @@ div.faq_modal {
 .modal {
 	background: #fff;
 	width: 800px;
+	overflow: hidden;
 }
 .modal_in {
 	padding: 30px 30px 30px 30px;
@@ -1059,10 +1096,20 @@ div.faq_modal {
 	left: 0;
 }
 
+.modal_block_short_1 {
+	width: 348px;
+}
+.modal_block_short_2 {
+	width: 228px;
+}
+.modal_block_short_1, .modal_block_short_2 {
+	display: inline-block;
+	vertical-align: top;
+}
 .modal_block .modal_block_short_1 input {
 	width: 123px;
 	background-position: -171px 0;
-	margin-right: 48px;
+	/*margin-right: 48px;*/
 }
 .modal_block .modal_block_short_2 input {
 	width: 153px;
@@ -1136,6 +1183,23 @@ div.faq_modal {
 .text_modal td {
 	
 	padding: 12px 8px 12px 8px;
+}
+
+.modal_block .check {
+	margin-bottom: 12px;
+}
+.modal_block .check input {
+	width: auto;
+	height: auto;
+}
+.modal_block .check label {
+	width: auto;
+}
+
+.neob {
+	/*display: block;
+	font: 11px/16px Arial, Helvetica, Geneva, sans-serif;*/
+	color: #aaa;
 }
 /*/modal*/
 /*-----------------PAGE-END-----------------*/
@@ -1255,7 +1319,19 @@ div.faq_modal {
 /*/btn*/
 
 
-
+.errorlist {
+	font-size: 12px;
+	color: #d00;
+}
+.modal_block .errorlist {
+	margin-left: 166px;
+}
+.modal_simple .errorlist {
+	margin-left: 168px;
+}
+.modal_block .modal_block_short_2 .errorlist {
+	margin-left: 66px;
+}
 
 
 .pl {
